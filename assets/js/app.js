@@ -190,7 +190,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     // console.log(`${scoreLine}`);
     if (Team == "Friendly") {
       $("#friendlyTeam").append(
-        `<li class='matchButton'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}${scoreLine}</a>`
+        `<li class='matchButton'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - ${scoreLine}</a>`
       );
     } if (Team == "Enemy") {
       $("#enemyTeam").append(
