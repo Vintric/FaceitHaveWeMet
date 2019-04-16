@@ -45,6 +45,11 @@ body {
     padding: 5px;
     border-radius: 2px;
     margin: 2px;
+  } input:focus {
+    background: #282828;
+  }
+  input:after {
+    background: #282828;
   }
   button {
     border: 1px solid #a0a0a0;
@@ -61,22 +66,37 @@ body {
     margin-top: 16vh;
     margin-right: 4%;
 
-      .matchButton {
+      .matchButtonFriendly {
         display: inline-block;
         padding: 10px;
         background: #181818;
-        margin: 2px;
-      }
-      .matchButtonEnemy {
-        display: inline-block;
-        padding: 5px;
-        background: #181818;
-        margin: 1px;
-        a {
-          color: #ff0000;
+        margin: 2px; 
+        a{
+          color:#4286f4;
         }
-      
-    }
+      }
+      .matchButtonEnemy{
+        display: inline-block;
+        padding: 10px;
+        background: #181818;
+        margin: 2px; 
+        a{
+          color:#d3f442;
+        }
+        .spanWin {
+          color:#008000;
+        }
+        .spanLose {
+          color:#ff0000;
+        }
+      }
+      .spanWin {
+        color:#008000;
+      }
+      .spanLose {
+        color:#ff0000;
+      }
+
     .profileBox {
       display: flex;
       flex-direction: row;

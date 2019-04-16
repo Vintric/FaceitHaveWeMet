@@ -12,6 +12,7 @@ let timesMet = 0;
 let timesInTeam = 0;
 let timesInEnemy = 0;
 let searchOffset = 0;
+
 $(function () {
   $("#searchButton").click(function (e) {
     if ((player_Nick_1 = $("#input1").val() != "")) {
@@ -187,28 +188,28 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
   }).done(function (data) {
     mapPlayed = data.rounds[0].round_stats.Map;
     scoreLine = data.rounds[0].round_stats.Score;
-    // console.log(`${scoreLine}`);
+    scoreCheck = scoreLine.substring(0, 2)
+    
     if (Team == "Friendly") {
       $("#friendlyTeam").append(
-        `<li class='matchButton'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - ${scoreLine}</a>`
-      );
-    } if (Team == "Enemy") {
+        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine}</span></a></li>`);
+    } 
+    if (Team == "Enemy") {
       $("#enemyTeam").append(
-        `<li class='matchButton'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - ${scoreLine}</a></li>`
-      );
+        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine}</span></a></li>`);
     }
   });
 };
 
 //Check teammates or not
-let getIfTeamOrEnemy = (param1, param2) => {
-  if (posiOne >= param1 && posiOne <= param2) {
+let getIfTeamOrEnemy = (position1, position2) => {
+  if (posiOne >= position1 && posiOne <= position2) {
     timesMet++;
-    if (posiTwo >= param1 && posiTwo <= param2) {
+    if (posiTwo >= position1 && posiTwo <= position2) {
       timesInTeam++;
       convertUrl(matches.faceit_url);
       getAllPlayerMatchesStats(urlsplit, "Friendly");
-
+      
     } else {
       timesInEnemy++;
       convertUrl(matches.faceit_url);

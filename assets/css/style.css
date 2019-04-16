@@ -55,6 +55,14 @@ body input {
   margin: 2px;
 }
 
+body input:focus {
+  background: #282828;
+}
+
+body input:after {
+  background: #282828;
+}
+
 body button {
   border: 1px solid #a0a0a0;
   background: #181818;
@@ -73,21 +81,41 @@ body .container {
   margin-right: 4%;
 }
 
-body .container .matchButton {
+body .container .matchButtonFriendly {
   display: inline-block;
   padding: 10px;
   background: #181818;
   margin: 2px;
 }
 
+body .container .matchButtonFriendly a {
+  color: #4286f4;
+}
+
 body .container .matchButtonEnemy {
   display: inline-block;
-  padding: 5px;
+  padding: 10px;
   background: #181818;
-  margin: 1px;
+  margin: 2px;
 }
 
 body .container .matchButtonEnemy a {
+  color: #d3f442;
+}
+
+body .container .matchButtonEnemy .spanWin {
+  color: #008000;
+}
+
+body .container .matchButtonEnemy .spanLose {
+  color: #ff0000;
+}
+
+body .container .spanWin {
+  color: #008000;
+}
+
+body .container .spanLose {
   color: #ff0000;
 }
 
