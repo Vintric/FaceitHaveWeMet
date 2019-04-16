@@ -7,13 +7,13 @@ let player_id_1;
 let output = $("#Profiles");
 let playerData;
 let urlsplit;
-let mapPlayed;
+
 let timesMet = 0;
 let timesInTeam = 0;
 let timesInEnemy = 0;
 let searchOffset = 0;
-$(function() {
-  $("#searchButton").click(function(e) {
+$(function () {
+  $("#searchButton").click(function (e) {
     if ((player_Nick_1 = $("#input1").val() != "")) {
       output.empty();
       $("#listMatches").empty();
@@ -22,8 +22,8 @@ $(function() {
         output.empty();
         $("#listMatches").empty();
         $("#textOutput").empty();
-        $("#friendlyTeam").empty().append('Friendly:')
-        $("#enemyTeam").empty().append('Enemy:')
+        $("#friendlyTeam").empty().append('Friendly:<br>')
+        $("#enemyTeam").empty().append('Enemy:<br>')
         if ((matches_Amount = $("#input3").val() != "")) {
           player_Nick_1 = $("#input1").val();
           player_Nick_2 = $("#input2").val();
@@ -37,10 +37,10 @@ $(function() {
           searchOffset = 0;
           handlePlayerNickToId1(player_Nick_1);
           handlePlayerNickToId2(player_Nick_2);
-          setTimeout(function() {
+          setTimeout(function () {
             getAllPlayerMatches(player_id_1, 0);
           }, 1000);
-          setTimeout(function() {
+          setTimeout(function () {
             $(
               "#textOutput"
             ).append(`<p><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</p>
@@ -72,7 +72,7 @@ let handlePlayerNickToId1 = nickname => {
     url: profileUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function(data) {
+  }).done(function (data) {
     player_id_1 = data.player_id;
     avatar_1 = data.avatar;
     steamid_1 = data.platforms.steam;
@@ -106,7 +106,7 @@ let handlePlayerNickToId2 = nickname => {
     url: profileUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function(data) {
+  }).done(function (data) {
     player_id_2 = data.player_id;
     avatar_2 = data.avatar;
     steamid_2 = data.platforms.steam;
@@ -139,7 +139,7 @@ let handlePlayerId = id => {
     url: handleUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function(data) {
+  }).done(function (data) {
     output.append(`${data.nickname}<br>`);
   });
 };
@@ -154,7 +154,7 @@ let getAllPlayerMatches = (player_id, offset) => {
     url: playerUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function(data) {
+  }).done(function (data) {
     for (let i = 0; i < data.items.length; i++) {
       matches = data.items[i];
       players = matches.playing_players;
@@ -166,7 +166,7 @@ let getAllPlayerMatches = (player_id, offset) => {
       if (posiTwo == -1) {
         continue;
       }
-      console.log(matches)
+      // console.log(matches)
       //Check if teammates or enemy
       getIfTeamOrEnemy(0, 4);
       getIfTeamOrEnemy(5, 9);
@@ -184,17 +184,17 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     url: playerUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function(data) {
+  }).done(function (data) {
     mapPlayed = data.rounds[0].round_stats.Map;
     scoreLine = data.rounds[0].round_stats.Score;
-    console.log(`${scoreLine}`);
+    // console.log(`${scoreLine}`);
     if (Team == "Friendly") {
       $("#friendlyTeam").append(
-        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - ${scoreLine}</a></li>`
+        `<li class='matchButton'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}${scoreLine}</a>`
       );
-    } if (Team == "Enemy"){
+    } if (Team == "Enemy") {
       $("#enemyTeam").append(
-        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - ${scoreLine}</a></li>`
+        `<li class='matchButton'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - ${scoreLine}</a></li>`
       );
     }
   });

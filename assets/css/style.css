@@ -73,16 +73,11 @@ body .container {
   margin-right: 4%;
 }
 
-body .container .matchButtonFriendly {
+body .container .matchButton {
   display: inline-block;
-  padding: 5px;
+  padding: 10px;
   background: #181818;
-  margin: 1px;
-  color: #008000;
-}
-
-body .container .matchButtonFriendly a {
-  color: #008000;
+  margin: 2px;
 }
 
 body .container .matchButtonEnemy {
