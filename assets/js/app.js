@@ -192,11 +192,11 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     
     if (Team == "Friendly") {
       $("#friendlyTeam").append(
-        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine}</span></a></li>`);
+        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span'>${scoreLine}</span></a></li>`);
     } 
     if (Team == "Enemy") {
       $("#enemyTeam").append(
-        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine}</span></a></li>`);
+        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span'>${scoreLine}</span></a></li>`);
     }
   });
 };
