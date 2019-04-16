@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css?family=Play");
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #1f1f1f;
+  color: #fff;
+  font-family: "Play", sans-serif;
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+  nav {
+    background: #181818;
+    position: fixed;
+    z-index: 0;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    padding: 1%;
+    font-size: 14px;
+    box-shadow: 0px 1px 4px #000000;
+    li {
+      list-style-type: none;
+      display: inline-block;
+      padding: 5px;
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
+    }
+    li:hover {
+      background: #0e0e0e;
+      cursor: pointer;
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
+    }
+  }
+  input {
+    background: #282828;
+    color: #fff;
+    border: 1px solid #a0a0a0;
+    padding: 5px;
+    border-radius: 2px;
+    margin: 2px;
+  }
+  button {
+    border: 1px solid #a0a0a0;
+    background: #181818;
+    border-radius: 2px;
+    width: 40px;
+    height: 27px;
+    i {
+      color: #fff;
+    }
+  }
+  .container {
+    margin-left: 4%;
+    margin-top: 16vh;
+    margin-right: 4%;
+    .listMatches {
+      margin: 10px 3%;
+      .matchButtonTeam {
+        display: inline-block;
+        padding: 5px;
+        background: #181818;
+        margin: 1px;
+        color: #008000;
+        a{
+            color: #008000;  
+        }
+      }
+      .matchButtonEnemy {
+        display: inline-block;
+        padding: 5px;
+        background: #181818;
+        margin: 1px;
+        a {
+          color: #ff0000;
+        }
+      }
+    }
+    .profileBox {
+      display: flex;
+      flex-direction: row;
+      border-radius: 2px;
+      margin: 3px;
+      background: #181818;
+      img {
+        width: 100px;
+        height: 100px;
+        padding: 5px;
+        margin: auto 0;
+      }
+      pre {
+        margin: -1px;
+      }
+      h3 {
+        margin: 1px auto;
+      }
+      .profileInfo {
+        margin: auto 0;
+      }
+    }
+    .textOutput {
+      p {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .faceitLogo {
+    position: fixed;
+    right: 15px;
+    top: 16px;
+  }
+}

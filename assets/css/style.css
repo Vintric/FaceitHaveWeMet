@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css?family=Play");
+body {
+  margin: 0;
+  padding: 0;
+  background: #1f1f1f;
+  color: #fff;
+  font-family: "Play", sans-serif;
+}
+
+body a {
+  text-decoration: none;
+  color: #fff;
+}
+
+body nav {
+  background: #181818;
+  position: fixed;
+  z-index: 0;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  padding: 1%;
+  font-size: 14px;
+  -webkit-box-shadow: 0px 1px 4px #000000;
+          box-shadow: 0px 1px 4px #000000;
+}
+
+body nav li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 5px;
+}
+
+body nav li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+body nav li:hover {
+  background: #0e0e0e;
+  cursor: pointer;
+}
+
+body nav li:hover a {
+  text-decoration: none;
+  color: #fff;
+}
+
+body input {
+  background: #282828;
+  color: #fff;
+  border: 1px solid #a0a0a0;
+  padding: 5px;
+  border-radius: 2px;
+  margin: 2px;
+}
+
+body button {
+  border: 1px solid #a0a0a0;
+  background: #181818;
+  border-radius: 2px;
+  width: 40px;
+  height: 27px;
+}
+
+body button i {
+  color: #fff;
+}
+
+body .container {
+  margin-left: 4%;
+  margin-top: 16vh;
+  margin-right: 4%;
+}
+
+body .container .listMatches {
+  margin: 10px 3%;
+}
+
+body .container .listMatches .matchButtonTeam {
+  display: inline-block;
+  padding: 5px;
+  background: #181818;
+  margin: 1px;
+  color: #008000;
+}
+
+body .container .listMatches .matchButtonTeam a {
+  color: #008000;
+}
+
+body .container .listMatches .matchButtonEnemy {
+  display: inline-block;
+  padding: 5px;
+  background: #181818;
+  margin: 1px;
+}
+
+body .container .listMatches .matchButtonEnemy a {
+  color: #ff0000;
+}
+
+body .container .profileBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border-radius: 2px;
+  margin: 3px;
+  background: #181818;
+}
+
+body .container .profileBox img {
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  margin: auto 0;
+}
+
+body .container .profileBox pre {
+  margin: -1px;
+}
+
+body .container .profileBox h3 {
+  margin: 1px auto;
+}
+
+body .container .profileBox .profileInfo {
+  margin: auto 0;
+}
+
+body .container .textOutput p {
+  margin: 0 auto;
+}
+
+body .faceitLogo {
+  position: fixed;
+  right: 15px;
+  top: 16px;
+}
+/*# sourceMappingURL=style.css.map */

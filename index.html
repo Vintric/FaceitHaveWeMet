@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href='./assets/css/style.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>Faceit: Have we met?</title>
+</head>
+
+<body>
+    
+    <nav>
+        <ul>
+            <li>Have We Met?</li>
+            <li><a href='https://www.paypal.me/anch126'>Donate?</a></li>
+            <li>About?</li>
+        </ul></nav>
+        
+    <div class='container'><pre>version. 0.0014</pre>
+        <form>
+            <h1>Faceit: Have we met?</h1>
+            <input id='input1' type="text" placeholder='Player 1'>
+            <input id='input2' type="text" placeholder='Player 2'>
+            <input id='input3' type='number'  placeholder='Search in x matches..' step="100" value="100" disabled>
+            <button id='searchButton'><i class="fas fa-search"></i></button>
+        </form>
+        
+        <div id='Profiles'></div>
+        <div class='listMatches' id='listMatches'></div>
+        <div class='textOutput' id='textOutput'></div>
+        <div class='faceitLogo'><img width='160px'' src='./assets/img/logo.png'><br></div>
+    </div>
+    
+    <script src='./node_modules/jquery/dist/jquery.js'></script>
+    <script src='./assets/js/app.js'></script>
+
+</body>
+
+</html>
