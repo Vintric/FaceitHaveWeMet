@@ -60,9 +60,8 @@ body {
     margin-left: 4%;
     margin-top: 16vh;
     margin-right: 4%;
-    .listMatches {
-      margin: 10px 3%;
-      .matchButtonTeam {
+
+      .matchButtonFriendly {
         display: inline-block;
         padding: 5px;
         background: #181818;
@@ -80,7 +79,7 @@ body {
         a {
           color: #ff0000;
         }
-      }
+      
     }
     .profileBox {
       display: flex;

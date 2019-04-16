@@ -22,6 +22,8 @@ $(function() {
         output.empty();
         $("#listMatches").empty();
         $("#textOutput").empty();
+        $("#friendlyTeam").empty().append('Friendly:')
+        $("#enemyTeam").empty().append('Enemy:')
         if ((matches_Amount = $("#input3").val() != "")) {
           player_Nick_1 = $("#input1").val();
           player_Nick_2 = $("#input2").val();
@@ -79,6 +81,7 @@ let handlePlayerNickToId1 = nickname => {
     steam_id_64_1 = data.steam_id_64;
     faceit_url = data.faceit_url;
     profileLink_1 = faceit_url.split("/").slice(-1)[0];
+    //Output text
     output.append(`<div class='profileBox'>
     <img src='${avatar_1}'>
     <div class='profileInfo'>
@@ -163,7 +166,7 @@ let getAllPlayerMatches = (player_id, offset) => {
       if (posiTwo == -1) {
         continue;
       }
-      console.log(data.items[0]);
+      console.log(matches)
       //Check if teammates or enemy
       getIfTeamOrEnemy(0, 4);
       getIfTeamOrEnemy(5, 9);
@@ -183,9 +186,17 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     error: handleAjaxError
   }).done(function(data) {
     mapPlayed = data.rounds[0].round_stats.Map;
-    $("#listMatches").append(
-      `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</a></li>`
-    );
+    scoreLine = data.rounds[0].round_stats.Score;
+    console.log(`${scoreLine}`);
+    if (Team == "Friendly") {
+      $("#friendlyTeam").append(
+        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - ${scoreLine}</a></li>`
+      );
+    } if (Team == "Enemy"){
+      $("#enemyTeam").append(
+        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - ${scoreLine}</a></li>`
+      );
+    }
   });
 };
 
@@ -196,7 +207,8 @@ let getIfTeamOrEnemy = (param1, param2) => {
     if (posiTwo >= param1 && posiTwo <= param2) {
       timesInTeam++;
       convertUrl(matches.faceit_url);
-      getAllPlayerMatchesStats(urlsplit, "Team");
+      getAllPlayerMatchesStats(urlsplit, "Friendly");
+
     } else {
       timesInEnemy++;
       convertUrl(matches.faceit_url);

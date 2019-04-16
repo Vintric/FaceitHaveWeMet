@@ -73,11 +73,7 @@ body .container {
   margin-right: 4%;
 }
 
-body .container .listMatches {
-  margin: 10px 3%;
-}
-
-body .container .listMatches .matchButtonTeam {
+body .container .matchButtonFriendly {
   display: inline-block;
   padding: 5px;
   background: #181818;
@@ -85,18 +81,18 @@ body .container .listMatches .matchButtonTeam {
   color: #008000;
 }
 
-body .container .listMatches .matchButtonTeam a {
+body .container .matchButtonFriendly a {
   color: #008000;
 }
 
-body .container .listMatches .matchButtonEnemy {
+body .container .matchButtonEnemy {
   display: inline-block;
   padding: 5px;
   background: #181818;
   margin: 1px;
 }
 
-body .container .listMatches .matchButtonEnemy a {
+body .container .matchButtonEnemy a {
   color: #ff0000;
 }
 
