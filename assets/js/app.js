@@ -7,12 +7,14 @@ let player_id_1;
 let output = $("#Profiles");
 let playerData;
 let urlsplit;
+let playerUrl;
 
 let timesMet = 0;
 let timesInTeam = 0;
 let timesInEnemy = 0;
 
-let searchOffset;
+let searchOffset = 0;
+let matchOutTimer = 0;
 
 
 $(function () {
@@ -31,10 +33,10 @@ $(function () {
           setTimers();
           handlePlayerNickToId1(player_Nick_1);
           handlePlayerNickToId2(player_Nick_2);
-          setParagraph();
+          setTimeout(function () {setParagraph()}, 5000);
           // repeat with the interval of 1 seconds
-          let matches_output = setInterval(() => timedEvents(), 1000);
-          setTimeout(() => { clearInterval(matches_output); }, 5000);} 
+          let matches_output = setInterval(() => timedEvents(), 100);
+          setTimeout(() => { clearInterval(matches_output); }, matches_Amount);} 
           else {output.empty().append(`Please fill in the amount of matches`);}
       } else { output.empty().append(`Please fill in player 2`);}
     } else {output.empty().append(`Please fill in player 1`);}
@@ -43,6 +45,25 @@ $(function () {
 });
 
 
+//* als searchOffset een waarde calcamount heeft bereikt dan eindigt interval. 
+//* searchOffset = val die ingegeven wordt -100
+let calcSearch = () => {
+  calcAmount = matches_Amount -100
+  while (searchOffset != calcAmount){
+    searchOffset = parseFloat(searchOffset + 100)
+    return searchOffset;
+  }
+  return searchOffset
+}
+
+
+//Timout events 
+let timedEvents = () => {
+  
+  setTimeout(function () {console.log(searchOffset)}, 1602);
+  setTimeout(function () {
+    getAllPlayerMatches(player_id_1, searchOffset)}, 1000);
+};
 //Paragraph output (HTML)
 let setParagraph = () => {
   $( "#textOutput").append(`<p><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</p>
@@ -54,6 +75,7 @@ let setTimers = () => {
   timesMet = 0;
   timesInEnemy = 0;
   timesInTeam = 0;
+  searchOffset = 0;
 };
 //Clear HTML
 let clearHtml = () => {
@@ -61,12 +83,7 @@ let clearHtml = () => {
   $("#listMatches").empty();
   $("#textOutput").empty();
 };
-//Timout events 
-let timedEvents = () => {
-  setTimeout(function () {calcSearch()}, 500);
-  setTimeout(function () {console.log(searchOffset)}, 600);
-  setTimeout(function () {getAllPlayerMatches(player_id_1, 0)}, 1000);
-};
+
 // Get Player Info 1
 let handlePlayerNickToId1 = nickname => {
   let profileUrl = `${baseUrl}players?nickname=${nickname}`;
@@ -148,7 +165,10 @@ let handlePlayerId = id => {
 };
 //Get all player matches played
 let getAllPlayerMatches = (player_id, offset) => {
-  let playerUrl = `${baseUrl}players/${player_id}/history?game=csgo&offset=${offset}&limit=200`;
+  offset = calcSearch() - 100;
+  // searchOffset = offset;
+  let playerUrl = `${baseUrl}players/${player_id}/history?game=csgo&from=1262304000&to=1555493746&offset=${offset}&limit=100`;
+  console.log(playerUrl)
   $.ajax({
     headers: {
       Authorization: "Bearer " + token
@@ -157,6 +177,7 @@ let getAllPlayerMatches = (player_id, offset) => {
     dataType: "json",
     error: handleAjaxError
   }).done(function (data) {
+console.log(data)
     for (let i = 0; i < data.items.length; i++) {
       matches = data.items[i];
       players = matches.playing_players;
@@ -164,6 +185,7 @@ let getAllPlayerMatches = (player_id, offset) => {
       posiOne = players.indexOf(player_id_1);
       //Get posi of player2
       posiTwo = players.indexOf(player_id_2);
+      
       //Check all games you played together
       if (posiTwo == -1) {
         continue;
@@ -174,6 +196,24 @@ let getAllPlayerMatches = (player_id, offset) => {
       getIfTeamOrEnemy(5, 9);
     }
   });
+};
+
+//Check teammates or not
+let getIfTeamOrEnemy = (position1, position2) => {
+  if (posiOne >= position1 && posiOne <= position2) {
+    timesMet++;
+    if (posiTwo >= position1 && posiTwo <= position2) {
+      timesInTeam++;
+      convertUrl(matches.faceit_url);
+      getAllPlayerMatchesStats(urlsplit, "Friendly");
+
+      
+    } else {
+      timesInEnemy++;
+      convertUrl(matches.faceit_url);
+      getAllPlayerMatchesStats(urlsplit, "Enemy");
+    }
+  }
 };
 // Get match statistics
 let getAllPlayerMatchesStats = (urlsplit, Team) => {
@@ -189,7 +229,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     mapPlayed = data.rounds[0].round_stats.Map;
     scoreLine = data.rounds[0].round_stats.Score;
     scoreCheck = scoreLine.substring(0, 2)
-    
+
     if (Team == "Friendly") {
       $("#friendlyTeam").append(
         `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span'>${scoreLine}</span></a></li>`);
@@ -200,28 +240,13 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     }
   });
 };
-//Check teammates or not
-let getIfTeamOrEnemy = (position1, position2) => {
-  if (posiOne >= position1 && posiOne <= position2) {
-    timesMet++;
-    if (posiTwo >= position1 && posiTwo <= position2) {
-      timesInTeam++;
-      convertUrl(matches.faceit_url);
-      getAllPlayerMatchesStats(urlsplit, "Friendly");
-      
-    } else {
-      timesInEnemy++;
-      convertUrl(matches.faceit_url);
-      getAllPlayerMatchesStats(urlsplit, "Enemy");
-    }
-  }
-};
 //Handle UrlSplitting
 let convertUrl = objecturl => {
   url = objecturl;
   urlsplit = url.split("/").slice(-1)[0];
   return urlsplit;
 };
+
 //Handle fail
 let handleAjaxError = () => {
   console.log("There was a problem proccesing your request");
