@@ -1,8 +1,12 @@
-const token = auth
+const token = "655d9216-acc1-4fe5-bf5d-6f424b0d62c6"; //
 const baseUrl = "https://open.faceit.com/data/v4/";
 let player_Nick_1;
 let player_Nick_2;
 let player_id_1;
+let player_id_2;
+
+let player_id_1_fetch;
+let player_id_2_fetch;
 
 let output = $("#Profiles");
 let playerData;
@@ -15,66 +19,88 @@ let timesInEnemy = 0;
 
 let searchOffset = 0;
 let matchOutTimer = 0;
+let condition;
+let clickCounter = 0;
 
-
-//TODO Show if you won or lost the game 
+//TODO Show if you won or lost the game
 //TODO Color games won green (score) & games lost red (score)
 //TODO Add Demo download capability
 
-const auth = "655d9216-acc1-4fe5-bf5d-6f424b0d62c6";
-$(function () {
-
-  $("#searchButton").click(function (e) {
+$(function() {
+  $("#searchButton").click(function(e) {
     clearVals();
+    clickCounter++;
     if ((player_Nick_1 = $("#input1").val() != "")) {
+      clearHtml();
       if ((player_Nick_2 = $("#input2").val() != "")) {
-        $("#friendlyTeam").empty().append('Friendly:<br>')
-        $("#enemyTeam").empty().append('Enemy:<br>')
+        clearHtml();
+        $("#friendlyTeam")
+          .empty()
+          .append("Friendly:<br>");
+        $("#enemyTeam")
+          .empty()
+          .append("Enemy:<br>");
         if ((matches_Amount = $("#input3").val() != "")) {
           player_Nick_1 = $("#input1").val();
           player_Nick_2 = $("#input2").val();
           matches_Amount = $("#input3").val();
-
+          clearHtml();
           setTimers();
-          getProfileBoxInfo()
-          setTimeout(function () {setParagraph()}, 6000);
+          handlePlayerNickToId1(player_Nick_1);
+          handlePlayerNickToId2(player_Nick_2);
+          setTimeout(function() {
+            setParagraph();
+          }, 6000);
           // repeat with the interval of 1 seconds
           let matches_output = setInterval(() => timedEvents(), 100);
-          setTimeout(() => { clearInterval(matches_output); }, matches_Amount);} 
-          else {output.empty().append(`Please fill in the amount of matches`);}
-      } else { output.empty().append(`Please fill in player 2`);}
-    } else {output.empty().append(`Please fill in player 1`);}
+          setTimeout(() => {
+            clearInterval(matches_output);
+          }, matches_Amount);
+        } else {
+          output.empty().append(`Please fill in the amount of matches`);
+        }
+      } else {
+        output.empty().append(`Please fill in player 2`);
+      }
+      if (clickCounter >= 5) {
+        output
+          .empty()
+          .append(
+            `Look, spamming search wont help. <br> Please behave and wait for your results`
+          );
+      }
+    } else {
+      output.empty().append(`Please fill in player 1`);
+    }
     e.preventDefault();
   });
 });
 
-
-
-//* als searchOffset een waarde calcamount heeft bereikt dan eindigt interval. 
+//* als searchOffset een waarde calcamount heeft bereikt dan eindigt interval.
 //* searchOffset = val die ingegeven wordt -100
 let calcSearch = () => {
-  calcAmount = matches_Amount -100
-  while (searchOffset != calcAmount){
-    searchOffset = parseFloat(searchOffset + 100)
+  calcAmount = matches_Amount - 100;
+  while (searchOffset != calcAmount) {
+    searchOffset = parseFloat(searchOffset + 100);
     return searchOffset;
   }
-  return searchOffset
-}
+  return searchOffset;
+};
 
-
-//Timout events 
+//Timout events
 let timedEvents = () => {
-  
-  setTimeout(function () {console.log(searchOffset)}, 1602);
-  setTimeout(function () {
-    getAllPlayerMatches(player_id_1, searchOffset)}, 1000);
+  setTimeout(function() {
+    console.log(searchOffset);
+  }, 1602);
+  setTimeout(function() {
+    getAllPlayerMatches(player_id_1, searchOffset);
+  }, 1000);
 };
 //Paragraph output (HTML)
 let setParagraph = () => {
-
-  $( "#textOutput").append(`<p><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</p>
+  $("#textOutput")
+    .append(`<p><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</p>
     <p><strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> where teammates in <strong>${timesInTeam}</strong> games and enemies in <strong>${timesInEnemy}</strong> games.</p>`);
-  ;
 };
 //Set timers to 0
 let setTimers = () => {
@@ -83,15 +109,18 @@ let setTimers = () => {
   timesInTeam = 0;
   searchOffset = 0;
 };
-//Making sure playerid is empty
+//Clear HTML
+let clearHtml = () => {
+  output.empty();
+  $("#listMatches").empty();
+  $("#textOutput").empty();
+};
 let clearVals = () => {
-  player_Nick_1 = '';
-  player_Nick_2 = '';
-}
-//
-let getProfileBoxInfo = () => {
-output.empty();
-  // Get Player Info 1
+  player_Nick_1 = "";
+  player_Nick_2 = "";
+};
+
+// Get Player Info 1
 let handlePlayerNickToId1 = nickname => {
   let profileUrl = `${baseUrl}players?nickname=${nickname}`;
   $.ajax({
@@ -101,7 +130,7 @@ let handlePlayerNickToId1 = nickname => {
     url: profileUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function (data) {
+  }).done(function(data) {
     player_id_1 = data.player_id;
     avatar_1 = data.avatar;
     steamid_1 = data.platforms.steam;
@@ -134,7 +163,7 @@ let handlePlayerNickToId2 = nickname => {
     url: profileUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function (data) {
+  }).done(function(data) {
     player_id_2 = data.player_id;
     avatar_2 = data.avatar;
     steamid_2 = data.platforms.steam;
@@ -156,9 +185,6 @@ let handlePlayerNickToId2 = nickname => {
      </div>`);
   });
 };
-}
-
-
 // General Player info handler
 let handlePlayerId = id => {
   let handleUrl = `${baseUrl}players/${id}`;
@@ -169,42 +195,8 @@ let handlePlayerId = id => {
     url: handleUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function (data) {
+  }).done(function(data) {
     output.append(`${data.nickname}<br>`);
-  });
-};
-//Get all player matches played
-let getAllPlayerMatches = (player_id, offset) => {
-  offset = calcSearch() - 100;
-  // searchOffset = offset;
-  let playerUrl = `${baseUrl}players/${player_id}/history?game=csgo&from=1262304000&to=1555493746&offset=${offset}&limit=100`;
-  console.log(playerUrl)
-  $.ajax({
-    headers: {
-      Authorization: "Bearer " + token
-    },
-    url: playerUrl,
-    dataType: "json",
-    error: handleAjaxError
-  }).done(function (data) {
-console.log(data)
-    for (let i = 0; i < data.items.length; i++) {
-      matches = data.items[i];
-      players = matches.playing_players;
-      //Get posi of player1
-      posiOne = players.indexOf(player_id_1);
-      //Get posi of player2
-      posiTwo = players.indexOf(player_id_2);
-      
-      //Check all games you played together
-      if (posiTwo == -1) {
-        continue;
-      }
-      // console.log(matches)
-      //Check if teammates or enemy
-      getIfTeamOrEnemy(0, 4);
-      getIfTeamOrEnemy(5, 9);
-    }
   });
 };
 
@@ -216,8 +208,6 @@ let getIfTeamOrEnemy = (position1, position2) => {
       timesInTeam++;
       convertUrl(matches.faceit_url);
       getAllPlayerMatchesStats(urlsplit, "Friendly");
-
-      
     } else {
       timesInEnemy++;
       convertUrl(matches.faceit_url);
@@ -225,6 +215,38 @@ let getIfTeamOrEnemy = (position1, position2) => {
     }
   }
 };
+
+//Get all player matches played
+let getAllPlayerMatches = (player_id, offset) => {
+  offset = calcSearch() - 100;
+  let playerUrl = `${baseUrl}players/${player_id}/history?game=csgo&from=1262304000&to=1555493746&offset=${offset}&limit=100`;
+  $.ajax({
+    headers: {
+      Authorization: "Bearer " + token
+    },
+    url: playerUrl,
+    dataType: "json",
+    error: handleAjaxError
+  }).done(function(data) {
+    for (let i = 0; i < data.items.length; i++) {
+      matches = data.items[i];
+      players = matches.playing_players;
+      //Get posi of player1
+      posiOne = players.indexOf(player_id_1);
+      //Get posi of player2
+      posiTwo = players.indexOf(player_id_2);
+
+      //Check all games you played together
+      if (posiTwo == -1) {
+        continue;
+      }
+      //Check if teammates or enemy
+      getIfTeamOrEnemy(0, 4);
+      getIfTeamOrEnemy(5, 9);
+    }
+  });
+};
+
 // Get match statistics
 let getAllPlayerMatchesStats = (urlsplit, Team) => {
   let playerUrl = `${baseUrl}matches/${urlsplit}/stats`;
@@ -235,18 +257,49 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     url: playerUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function (data) {
+  }).done(function(data) {
     mapPlayed = data.rounds[0].round_stats.Map;
     scoreLine = data.rounds[0].round_stats.Score;
-    scoreCheck = scoreLine.substring(0, 2)
-    console.log(scoreCheck)
+    gameWinner = data.rounds[0].round_stats.Winner;
+    // console.log(gameWinner);
+    teamId_1 = data.rounds[0].teams[0].team_id;
+    // console.log(teamId_1);
+    teamId_2 = data.rounds[0].teams[1].team_id;
+    // console.log(teamId_2);
+    // console.log(data.rounds[0])
+
+    for (let i = 0; i < 5; i++) {
+      player_id_1_fetch = data.rounds[0].teams[0].players[i].player_id;
+      player_id_2_fetch = data.rounds[0].teams[1].players[i].player_id;
+
+      if (gameWinner == teamId_1) {
+        console.log(player_id_1_fetch)
+        if (player_id_1_fetch == player_id_1) {
+          
+          condition = "W";
+        }
+        else {
+          condition = 'L'
+        }
+      }
+      if (gameWinner == teamId_2) {
+        if (player_id_2_fetch == player_id_1) {
+          condition = "W";
+        }
+        else {
+          condition = 'L'
+        }
+      }
+    }
     if (Team == "Friendly") {
       $("#friendlyTeam").append(
-        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span'>${scoreLine}</span></a></li>`);
-    } 
+        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
+      );
+    }
     if (Team == "Enemy") {
       $("#enemyTeam").append(
-        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span'>${scoreLine}</span></a></li>`);
+        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
+      );
     }
   });
 };

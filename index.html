@@ -39,14 +39,21 @@
           placeholder="Search in x matches.."
           step="100"
           max="5000"
+          value="100"
         />
         <button id="searchButton"><i class="fas fa-search"></i></button>
       </form>
 
       <div id="Profiles"></div>
 
-          <div id='friendlyTeam'></div>
-          <div id='enemyTeam'></div>
+          <div id='friendlyTeam'>
+              <div id='friendlyWins'></div>
+              <div id='friendlyLose'></div>
+          </div>
+          <div id='enemyTeam'>
+                <div id='enemyWins'></div>
+                <div id='enemyLose'></div>
+          </div>
 
       <div class="textOutput" id="textOutput"></div>
     
@@ -61,6 +68,6 @@
   src="https://code.jquery.com/jquery-3.4.0.min.js"
   integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
   crossorigin="anonymous"></script>
-    <script src="./assets/js/appminified.js"></script>
+    <script src="./assets/js/app.js"></script>
   </body>
 </html>
