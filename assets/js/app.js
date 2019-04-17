@@ -17,6 +17,7 @@ let searchOffset = 0;
 let matchOutTimer = 0;
 
 
+
 $(function () {
 
   $("#searchButton").click(function (e) {
@@ -35,7 +36,7 @@ $(function () {
           setTimers();
           handlePlayerNickToId1(player_Nick_1);
           handlePlayerNickToId2(player_Nick_2);
-          setTimeout(function () {setParagraph()}, 5000);
+          setTimeout(function () {setParagraph()}, 6000);
           // repeat with the interval of 1 seconds
           let matches_output = setInterval(() => timedEvents(), 100);
           setTimeout(() => { clearInterval(matches_output); }, matches_Amount);} 
@@ -45,6 +46,7 @@ $(function () {
     e.preventDefault();
   });
 });
+
 
 
 //* als searchOffset een waarde calcamount heeft bereikt dan eindigt interval. 
@@ -68,6 +70,7 @@ let timedEvents = () => {
 };
 //Paragraph output (HTML)
 let setParagraph = () => {
+
   $( "#textOutput").append(`<p><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</p>
     <p><strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> where teammates in <strong>${timesInTeam}</strong> games and enemies in <strong>${timesInEnemy}</strong> games.</p>`);
   ;
