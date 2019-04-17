@@ -5,8 +5,8 @@ let player_Nick_2;
 let player_id_1;
 let player_id_2;
 
-let player_id_1_fetch;
-let player_id_2_fetch;
+let team_id_1_fetch_players;
+let team_id_2_fetch_players;
 
 let output = $("#Profiles");
 let playerData;
@@ -26,8 +26,8 @@ let clickCounter = 0;
 //TODO Color games won green (score) & games lost red (score)
 //TODO Add Demo download capability
 
-$(function() {
-  $("#searchButton").click(function(e) {
+$(function () {
+  $("#searchButton").click(function (e) {
     clearVals();
     clickCounter++;
     if ((player_Nick_1 = $("#input1").val() != "")) {
@@ -48,7 +48,7 @@ $(function() {
           setTimers();
           handlePlayerNickToId1(player_Nick_1);
           handlePlayerNickToId2(player_Nick_2);
-          setTimeout(function() {
+          setTimeout(function () {
             setParagraph();
           }, 6000);
           // repeat with the interval of 1 seconds
@@ -74,6 +74,9 @@ $(function() {
     }
     e.preventDefault();
   });
+  $("#Changelog").click(function(e){
+    $("#changelogContainer").fadeToggle('hidden')
+  })
 });
 
 //* als searchOffset een waarde calcamount heeft bereikt dan eindigt interval.
@@ -89,10 +92,8 @@ let calcSearch = () => {
 
 //Timout events
 let timedEvents = () => {
-  setTimeout(function() {
-    console.log(searchOffset);
-  }, 1602);
-  setTimeout(function() {
+
+  setTimeout(function () {
     getAllPlayerMatches(player_id_1, searchOffset);
   }, 1000);
 };
@@ -130,7 +131,7 @@ let handlePlayerNickToId1 = nickname => {
     url: profileUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function(data) {
+  }).done(function (data) {
     player_id_1 = data.player_id;
     avatar_1 = data.avatar;
     steamid_1 = data.platforms.steam;
@@ -163,7 +164,7 @@ let handlePlayerNickToId2 = nickname => {
     url: profileUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function(data) {
+  }).done(function (data) {
     player_id_2 = data.player_id;
     avatar_2 = data.avatar;
     steamid_2 = data.platforms.steam;
@@ -195,7 +196,7 @@ let handlePlayerId = id => {
     url: handleUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function(data) {
+  }).done(function (data) {
     output.append(`${data.nickname}<br>`);
   });
 };
@@ -227,7 +228,7 @@ let getAllPlayerMatches = (player_id, offset) => {
     url: playerUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function(data) {
+  }).done(function (data) {
     for (let i = 0; i < data.items.length; i++) {
       matches = data.items[i];
       players = matches.playing_players;
@@ -257,7 +258,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     url: playerUrl,
     dataType: "json",
     error: handleAjaxError
-  }).done(function(data) {
+  }).done(function (data) {
     mapPlayed = data.rounds[0].round_stats.Map;
     scoreLine = data.rounds[0].round_stats.Score;
     gameWinner = data.rounds[0].round_stats.Winner;
@@ -268,37 +269,59 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     // console.log(teamId_2);
     // console.log(data.rounds[0])
 
-    for (let i = 0; i < 5; i++) {
-      player_id_1_fetch = data.rounds[0].teams[0].players[i].player_id;
-      player_id_2_fetch = data.rounds[0].teams[1].players[i].player_id;
+    //Get players from first team
+      let team_id_1_fetch_players_0 = data.rounds[0].teams[0].players[0].player_id
+      let team_id_1_fetch_players_1 = data.rounds[0].teams[0].players[1].player_id
+      let team_id_1_fetch_players_2 = data.rounds[0].teams[0].players[2].player_id
+      let team_id_1_fetch_players_3 = data.rounds[0].teams[0].players[3].player_id
+      let team_id_1_fetch_players_4 = data.rounds[0].teams[0].players[4].player_id
+    //Get players from second team
+      let team_id_2_fetch_players_0 = data.rounds[0].teams[1].players[0].player_id
+      let team_id_2_fetch_players_1 = data.rounds[0].teams[1].players[1].player_id
+      let team_id_2_fetch_players_2 = data.rounds[0].teams[1].players[2].player_id
+      let team_id_2_fetch_players_3 = data.rounds[0].teams[1].players[3].player_id
+      let team_id_2_fetch_players_4 = data.rounds[0].teams[1].players[4].player_id
 
-      if (gameWinner == teamId_1) {
-        console.log(player_id_1_fetch)
-        if (player_id_1_fetch == player_id_1) {
-          
-          condition = "W";
-        }
+      if (gameWinner === teamId_1) {
+        if (player_id_1 == team_id_1_fetch_players_0 || 
+          player_id_1 == team_id_1_fetch_players_1 || 
+          player_id_1 == team_id_1_fetch_players_2 ||
+          player_id_1 == team_id_1_fetch_players_3 ||
+          player_id_1 == team_id_1_fetch_players_4
+          )
+          {
+          condition = 'W'
+          }
         else {
           condition = 'L'
-        }
-      }
-      if (gameWinner == teamId_2) {
-        if (player_id_2_fetch == player_id_1) {
-          condition = "W";
-        }
-        else {
-          condition = 'L'
-        }
-      }
-    }
+          }
+        } 
+      if (gameWinner === teamId_2) {
+        if (player_id_1 == team_id_2_fetch_players_0 || 
+            player_id_1 == team_id_2_fetch_players_1 || 
+            player_id_1 == team_id_2_fetch_players_2 ||
+            player_id_1 == team_id_2_fetch_players_3 ||
+            player_id_1 == team_id_2_fetch_players_4
+            )
+            {
+            condition = 'W'
+            }
+          else {
+            condition = 'L'
+            }
+          } 
+
     if (Team == "Friendly") {
+
+
       $("#friendlyTeam").append(
-        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span'>${scoreLine}</span></a></li>`
+        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
       );
     }
     if (Team == "Enemy") {
+
       $("#enemyTeam").append(
-        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span'>${scoreLine}</span></a></li>`
+        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
       );
     }
   });

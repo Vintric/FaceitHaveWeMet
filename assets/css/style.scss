@@ -53,18 +53,30 @@ body {
   }
   button {
     border:0;
-    background: rgb(255, 187, 0);
+    background: #FF7D00;
     border-radius: 2px;
     width: 80px;
     height: 27px;
     i {
-      color: #282828;
+      color: #EBEFF3;
     }
+
   }
+    .changelogContainer{
+      position: absolute;
+      top:33vh;
+      left:33vw;
+      z-index: 2;
+      background: #181818;
+      padding:3%;
+    }
   .container {
     margin-left: 4%;
     margin-top: 16vh;
     margin-right: 4%;
+    .hidden{
+      position: absolute;
+    }
 
       .matchButtonFriendly {
         display: inline-block;

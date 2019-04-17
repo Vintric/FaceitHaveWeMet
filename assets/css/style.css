@@ -65,20 +65,33 @@ body input:after {
 
 body button {
   border: 0;
-  background: #ffbb00;
+  background: #FF7D00;
   border-radius: 2px;
   width: 80px;
   height: 27px;
 }
 
 body button i {
-  color: #282828;
+  color: #EBEFF3;
+}
+
+body .changelogContainer {
+  position: absolute;
+  top: 33vh;
+  left: 33vw;
+  z-index: 2;
+  background: #181818;
+  padding: 3%;
 }
 
 body .container {
   margin-left: 4%;
   margin-top: 16vh;
   margin-right: 4%;
+}
+
+body .container .hidden {
+  position: absolute;
 }
 
 body .container .matchButtonFriendly {
