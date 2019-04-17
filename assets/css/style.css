@@ -33,7 +33,7 @@ body nav li {
 
 body nav li a {
   text-decoration: none;
-  color: #fff;
+  color: #EBEFF3;
 }
 
 body nav li:hover {
@@ -43,13 +43,13 @@ body nav li:hover {
 
 body nav li:hover a {
   text-decoration: none;
-  color: #fff;
+  color: #EBEFF3;
 }
 
 body input {
   background: #282828;
-  color: #fff;
-  border: 1px solid #a0a0a0;
+  color: #EBEFF3;
+  border: 1px solid #EBEFF3;
   padding: 5px;
   border-radius: 2px;
   margin: 2px;
@@ -64,15 +64,15 @@ body input:after {
 }
 
 body button {
-  border: 1px solid #a0a0a0;
-  background: #181818;
+  border: 0;
+  background: #ffbb00;
   border-radius: 2px;
-  width: 40px;
+  width: 80px;
   height: 27px;
 }
 
 body button i {
-  color: #fff;
+  color: #282828;
 }
 
 body .container {

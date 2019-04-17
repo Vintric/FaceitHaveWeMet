@@ -1,4 +1,4 @@
-const token = "655d9216-acc1-4fe5-bf5d-6f424b0d62c6"; //
+const token = auth
 const baseUrl = "https://open.faceit.com/data/v4/";
 let player_Nick_1;
 let player_Nick_2;
@@ -17,25 +17,26 @@ let searchOffset = 0;
 let matchOutTimer = 0;
 
 
+//TODO Show if you won or lost the game 
+//TODO Color games won green (score) & games lost red (score)
+//TODO Add Demo download capability
 
+const auth = "655d9216-acc1-4fe5-bf5d-6f424b0d62c6";
 $(function () {
 
   $("#searchButton").click(function (e) {
     clearVals();
     if ((player_Nick_1 = $("#input1").val() != "")) {
-      clearHtml();
       if ((player_Nick_2 = $("#input2").val() != "")) {
-        clearHtml();
         $("#friendlyTeam").empty().append('Friendly:<br>')
         $("#enemyTeam").empty().append('Enemy:<br>')
         if ((matches_Amount = $("#input3").val() != "")) {
           player_Nick_1 = $("#input1").val();
           player_Nick_2 = $("#input2").val();
           matches_Amount = $("#input3").val();
-          clearHtml();
+
           setTimers();
-          handlePlayerNickToId1(player_Nick_1);
-          handlePlayerNickToId2(player_Nick_2);
+          getProfileBoxInfo()
           setTimeout(function () {setParagraph()}, 6000);
           // repeat with the interval of 1 seconds
           let matches_output = setInterval(() => timedEvents(), 100);
@@ -82,18 +83,15 @@ let setTimers = () => {
   timesInTeam = 0;
   searchOffset = 0;
 };
-//Clear HTML
-let clearHtml = () => {
-  output.empty();
-  $("#listMatches").empty();
-  $("#textOutput").empty();
-};
+//Making sure playerid is empty
 let clearVals = () => {
   player_Nick_1 = '';
   player_Nick_2 = '';
 }
-
-// Get Player Info 1
+//
+let getProfileBoxInfo = () => {
+output.empty();
+  // Get Player Info 1
 let handlePlayerNickToId1 = nickname => {
   let profileUrl = `${baseUrl}players?nickname=${nickname}`;
   $.ajax({
@@ -158,6 +156,9 @@ let handlePlayerNickToId2 = nickname => {
      </div>`);
   });
 };
+}
+
+
 // General Player info handler
 let handlePlayerId = id => {
   let handleUrl = `${baseUrl}players/${id}`;
@@ -238,7 +239,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     mapPlayed = data.rounds[0].round_stats.Map;
     scoreLine = data.rounds[0].round_stats.Score;
     scoreCheck = scoreLine.substring(0, 2)
-
+    console.log(scoreCheck)
     if (Team == "Friendly") {
       $("#friendlyTeam").append(
         `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span'>${scoreLine}</span></a></li>`);
