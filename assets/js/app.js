@@ -18,7 +18,9 @@ let matchOutTimer = 0;
 
 
 $(function () {
+
   $("#searchButton").click(function (e) {
+    clearVals();
     if ((player_Nick_1 = $("#input1").val() != "")) {
       clearHtml();
       if ((player_Nick_2 = $("#input2").val() != "")) {
@@ -83,6 +85,10 @@ let clearHtml = () => {
   $("#listMatches").empty();
   $("#textOutput").empty();
 };
+let clearVals = () => {
+  player_Nick_1 = '';
+  player_Nick_2 = '';
+}
 
 // Get Player Info 1
 let handlePlayerNickToId1 = nickname => {
