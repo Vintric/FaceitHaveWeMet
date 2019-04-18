@@ -17,16 +17,16 @@ body {
     width: 100vw;
     top: 0;
     left: 0;
-    padding: 1%;
     font-size: 14px;
     box-shadow: 0px 1px 4px #000000;
+    height:48px;
     li {
       list-style-type: none;
       display: inline-block;
-      padding: 5px;
+      padding: 3px;
       a {
         text-decoration: none;
-        color: #EBEFF3;
+        color: #ebeff3;
       }
     }
     li:hover {
@@ -34,78 +34,86 @@ body {
       cursor: pointer;
       a {
         text-decoration: none;
-        color: #EBEFF3;
+        color: #ebeff3;
       }
     }
   }
   input {
     background: #282828;
-    color: #EBEFF3;
-    border: 1px solid #EBEFF3;
+    color: #ebeff3;
+    border: 1px solid #ebeff3;
     padding: 5px;
     border-radius: 2px;
     margin: 2px;
-  } input:focus {
+  }
+  input:focus {
     background: #282828;
   }
   input:after {
     background: #282828;
   }
   button {
-    border:0;
-    background: #FF7D00;
+    border: 0;
+    background: #ff7d00;
     border-radius: 2px;
     width: 80px;
     height: 27px;
     i {
-      color: #EBEFF3;
+      color: #ebeff3;
     }
-
   }
-    .changelogContainer{
-      display:none;
-      z-index: 2;
-      background: #181818;
-      padding:3%;
+  .changelogContainer {
+    display: none;
+    z-index: 2;
+    background: #181818;
+    padding: 3%;
+  }
+  .logoFixed {
+    position: absolute;
+    left:9px;
+    top:12px;
+    img {
+      width:25px;
     }
+  }
   .container {
     margin-left: 4%;
-    margin-top: 16vh;
+    margin-top: 10vh;
     margin-right: 4%;
-    .hidden{
+    .hidden {
       position: absolute;
     }
 
-      .matchButtonFriendly {
-        display: inline-block;
-        padding: 10px;
-        background: #181818;
-        margin: 2px; 
-        a{
-          color:#4286f4;
-        }
+    .matchButtonFriendly {
+      display: inline-block;
+      padding: 10px;
+      background: #181818;
+      margin: 2px;
+      a {
+        color: #4286f4;
       }
-      .matchButtonEnemy{
-        display: inline-block;
-        padding: 10px;
-        background: #181818;
-        margin: 2px; 
-        a{
-          color:#d3f442;
-        }
-        .spanWin {
-          color:#008000;
-        }
-        .spanLose {
-          color:#ff0000;
-        }
+    }
+    .matchButtonEnemy {
+      display: inline-block;
+      padding: 10px;
+      background: #181818;
+      margin: 2px;
+      a {
+        color: #d3f442;
       }
-      .spanW {
-        color:#008000;
+      .spanWin {
+        color: #008000;
       }
-      .spanL {
-        color:#ff0000;
+      .spanLose {
+        color: #ff0000;
       }
+    }
+    .spanW {
+      color: #008000;
+    }
+    .spanL {
+      color: #ff0000;
+    }
 
     .profileBox {
       display: flex;
@@ -131,7 +139,7 @@ body {
     }
     .textOutput {
       p {
-        margin: 0 auto;
+        margin: 2px auto;
       }
     }
   }
@@ -139,6 +147,9 @@ body {
   .faceitLogo {
     position: fixed;
     right: 15px;
-    top: 16px;
+    top: 7px;
+    img {
+      width:140px;
+    }
   }
 }

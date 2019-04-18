@@ -16,15 +16,22 @@ let playerUrl;
 let timesMet = 0;
 let timesInTeam = 0;
 let timesInEnemy = 0;
+let timesWonInTeam = 0;
+let timesLostInTeam = 0;
+let timesWonVs = 0;
+let timesLostVs= 0;
 
 let searchOffset = 0;
 let matchOutTimer = 0;
 let condition;
 let clickCounter = 0;
 
-//TODO Show if you won or lost the game
-//TODO Color games won green (score) & games lost red (score)
 //TODO Add Demo download capability
+//TODO Add best map..
+//TODO Add Ajax search..
+//TODO Add taart diagram
+//TODO Add if solo or premade
+//TODO Add legenda
 
 $(function () {
   $("#searchButton").click(function (e) {
@@ -101,7 +108,9 @@ let timedEvents = () => {
 let setParagraph = () => {
   $("#textOutput")
     .append(`<p><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</p>
-    <p><strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> where teammates in <strong>${timesInTeam}</strong> games and enemies in <strong>${timesInEnemy}</strong> games.</p>`);
+    <p><strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> where teammates in <strong>${timesInTeam}</strong> games and enemies in <strong>${timesInEnemy}</strong> games.</p>
+    <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</p>
+    <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games against <strong>${player_Nick_2}</strong> and lost ${timesLostVs} games.</p>`);
 };
 //Set timers to 0
 let setTimers = () => {
@@ -109,6 +118,10 @@ let setTimers = () => {
   timesInEnemy = 0;
   timesInTeam = 0;
   searchOffset = 0;
+  timesWonInTeam = 0;
+  timesLostInTeam = 0;
+  timesWonVs = 0;
+  timesLostVs= 0;
 };
 //Clear HTML
 let clearHtml = () => {
@@ -206,11 +219,11 @@ let getIfTeamOrEnemy = (position1, position2) => {
   if (posiOne >= position1 && posiOne <= position2) {
     timesMet++;
     if (posiTwo >= position1 && posiTwo <= position2) {
-      timesInTeam++;
+      
       convertUrl(matches.faceit_url);
       getAllPlayerMatchesStats(urlsplit, "Friendly");
     } else {
-      timesInEnemy++;
+
       convertUrl(matches.faceit_url);
       getAllPlayerMatchesStats(urlsplit, "Enemy");
     }
@@ -282,6 +295,8 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
       let team_id_2_fetch_players_3 = data.rounds[0].teams[1].players[3].player_id
       let team_id_2_fetch_players_4 = data.rounds[0].teams[1].players[4].player_id
 
+
+      //* Adds win or loss to the games and colors them
       if (gameWinner === teamId_1) {
         if (player_id_1 == team_id_1_fetch_players_0 || 
           player_id_1 == team_id_1_fetch_players_1 || 
@@ -290,9 +305,11 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
           player_id_1 == team_id_1_fetch_players_4
           )
           {
+          
           condition = 'W'
           }
         else {
+          
           condition = 'L'
           }
         } 
@@ -304,22 +321,34 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
             player_id_1 == team_id_2_fetch_players_4
             )
             {
+            
             condition = 'W'
             }
           else {
             condition = 'L'
             }
-          } 
+        } 
 
     if (Team == "Friendly") {
-
-
+      timesInTeam++;
+      if (condition == 'W') {
+        timesWonInTeam++
+      }
+      if (condition == 'L') {
+        timesLostInTeam++
+      }
       $("#friendlyTeam").append(
-        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
+    `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
       );
     }
     if (Team == "Enemy") {
-
+      timesInEnemy++;
+      if (condition == 'W') {
+        timesWonVs++
+      }
+      if (condition == 'L') {
+        timesLostVs++
+      }
       $("#enemyTeam").append(
         `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
       );
