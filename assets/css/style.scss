@@ -18,7 +18,6 @@ body {
     top: 0;
     left: 0;
     font-size: 14px;
-    box-shadow: 0px 1px 4px #000000;
     height:48px;
     li {
       list-style-type: none;
@@ -62,6 +61,20 @@ body {
       color: #ebeff3;
     }
   }
+  .noticebar {
+    position: fixed;
+    width:100vw;
+    height:5vh;
+    left:0;
+    top:48px;
+    background: #ff7d00;
+    text-align: center;
+    box-shadow: 0px 1px 2px #000000;
+    font-size: 13px;
+    p{
+      margin-top:1.2vh;
+    }
+  }
   .changelogContainer {
     display: none;
     z-index: 2;
@@ -69,7 +82,7 @@ body {
     padding: 3%;
   }
   .logoFixed {
-    position: absolute;
+    position: fixed;
     left:9px;
     top:12px;
     img {
@@ -78,7 +91,7 @@ body {
   }
   .container {
     margin-left: 4%;
-    margin-top: 10vh;
+    margin-top: 15vh;
     margin-right: 4%;
     .hidden {
       position: absolute;

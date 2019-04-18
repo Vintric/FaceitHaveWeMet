@@ -24,22 +24,29 @@
         <li id='Changelog'>Changelog</li>
       </ul>
     </nav>
+    <div class='noticebar'><p>Please note that searching in more than 1500 matches can cause some issues.</div>
     <div class='logoFixed'><a href='./index.html'><img src='./assets/img/logohwm.png'></a></div>
+    
     <div class="container">
-      <div class='changelogContainer' id='changelogContainer'>
+    <div class='changelogContainer' id='changelogContainer'>
         <pre><h3>Changelog:</h3></pre>
+          <pre>version. 0.025</pre>
+          <pre>&#8226 Added notice bar.</pre>
+          <pre>&#8226 Added dynamic facts box.</pre>
+          <pre>&#8226 Fixed bugs that would output incorrect data.</pre>
           <pre>version. 0.024</pre>
-          <pre>&#8226 Added count comparison & stat on win / lose..</pre>
+          <pre>&#8226 Added count comparison/stat on win and losses.</pre>
           <pre>version. 0.023</pre>
           <pre>&#8226 Added Wins & Losses.</pre>
           <pre>&#8226 Added Colors if game was won or lost.</pre>
           <pre>version. 0.022</pre>
           <pre>&#8226 Added Functionality for more than 100 matches.</pre>
-      </div>
-      <div class="faceitLogo">
-        <img src='./assets/img/logo.png'><br />
-      </div>
-      <form>
+    </div>
+    <div class="faceitLogo">
+      <img src='./assets/img/logo.png'><br />
+    </div>
+   
+    <form>
         <h1>Faceit: Have we met?</h1>
         <input id="input1" type="text" placeholder="Player 1" />
         <input id="input2" type="text" placeholder="Player 2" />
@@ -51,21 +58,21 @@
           max="5000"
         />
         <button id="searchButton"><i class="fas fa-search"></i></button>
-      </form>
+        
+    </form>
 
       <div id="Profiles"></div>
-
-          <div id='friendlyTeam'>
-              <div id='friendlyWins'></div>
-              <div id='friendlyLose'></div>
-          </div>
-          <div id='enemyTeam'>
-                <div id='enemyWins'></div>
-                <div id='enemyLose'></div>
-          </div>
+          <!-- Grouped Matches -->
+          <div id='friendlyTeam'></div>
+          <div id='friendlyW'></div>
+          <div id='friendlyL'></div>
+          <div id='enemyTeam'></div>
+          <div id='enemyW'></div>
+          <div id='enemyL'></div>
+          
 
       <div class="textOutput" id="textOutput"></div>
-      <pre>current-version. 0.024</pre>
+      <pre>current-version. 0.025</pre>
     </div>
     <script
   src="https://code.jquery.com/jquery-3.4.0.min.js"

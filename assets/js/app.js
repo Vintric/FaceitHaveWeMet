@@ -24,19 +24,24 @@ let timesLostVs= 0;
 let searchOffset = 0;
 let matchOutTimer = 0;
 let condition;
-let clickCounter = 0;
 
+let impactScore =0;
+let impactScoreEnemy=0;
+
+
+//TODO Add Corresponding URL's
+//TODO Add Google analytics
+//TODO Add Google adsense
 //TODO Add Demo download capability
 //TODO Add best map..
 //TODO Add Ajax search..
-//TODO Add taart diagram
+//TODO Add taart diagram -- chartJS
 //TODO Add if solo or premade
 //TODO Add legenda
 
 $(function () {
   $("#searchButton").click(function (e) {
     clearVals();
-    clickCounter++;
     if ((player_Nick_1 = $("#input1").val() != "")) {
       clearHtml();
       if ((player_Nick_2 = $("#input2").val() != "")) {
@@ -47,17 +52,19 @@ $(function () {
         $("#enemyTeam")
           .empty()
           .append("Enemy:<br>");
+        $("#textOutput").append('Facts:')
         if ((matches_Amount = $("#input3").val() != "")) {
           player_Nick_1 = $("#input1").val();
           player_Nick_2 = $("#input2").val();
           matches_Amount = $("#input3").val();
-          clearHtml();
+          let pOutTimer = parseInt(matches_Amount) + 6000;
+          console.log(pOutTimer);
           setTimers();
           handlePlayerNickToId1(player_Nick_1);
           handlePlayerNickToId2(player_Nick_2);
           setTimeout(function () {
             setParagraph();
-          }, 6000);
+          }, pOutTimer);
           // repeat with the interval of 1 seconds
           let matches_output = setInterval(() => timedEvents(), 100);
           setTimeout(() => {
@@ -68,13 +75,6 @@ $(function () {
         }
       } else {
         output.empty().append(`Please fill in player 2`);
-      }
-      if (clickCounter >= 5) {
-        output
-          .empty()
-          .append(
-            `Look, spamming search wont help. <br> Please behave and wait for your results`
-          );
       }
     } else {
       output.empty().append(`Please fill in player 1`);
@@ -96,21 +96,11 @@ let calcSearch = () => {
   }
   return searchOffset;
 };
-
 //Timout events
 let timedEvents = () => {
-
   setTimeout(function () {
     getAllPlayerMatches(player_id_1, searchOffset);
   }, 1000);
-};
-//Paragraph output (HTML)
-let setParagraph = () => {
-  $("#textOutput")
-    .append(`<p><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</p>
-    <p><strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> where teammates in <strong>${timesInTeam}</strong> games and enemies in <strong>${timesInEnemy}</strong> games.</p>
-    <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</p>
-    <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games against <strong>${player_Nick_2}</strong> and lost ${timesLostVs} games.</p>`);
 };
 //Set timers to 0
 let setTimers = () => {
@@ -126,7 +116,12 @@ let setTimers = () => {
 //Clear HTML
 let clearHtml = () => {
   output.empty();
-  $("#listMatches").empty();
+  $("#friendlyTeam").empty();
+  $("#friendlyW").empty();
+  $("#friendlyL").empty();
+  $("#enemyTeam").empty();
+  $("#enemyW").empty();
+  $("#enemyL").empty();
   $("#textOutput").empty();
 };
 let clearVals = () => {
@@ -217,13 +212,10 @@ let handlePlayerId = id => {
 //Check teammates or not
 let getIfTeamOrEnemy = (position1, position2) => {
   if (posiOne >= position1 && posiOne <= position2) {
-    timesMet++;
     if (posiTwo >= position1 && posiTwo <= position2) {
-      
       convertUrl(matches.faceit_url);
       getAllPlayerMatchesStats(urlsplit, "Friendly");
     } else {
-
       convertUrl(matches.faceit_url);
       getAllPlayerMatchesStats(urlsplit, "Enemy");
     }
@@ -329,31 +321,54 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
             }
         } 
 
-    if (Team == "Friendly") {
-      timesInTeam++;
+    if (Team == "Friendly") { 
       if (condition == 'W') {
         timesWonInTeam++
-      }
+        $("#friendlyW").append(
+          `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
+            );
+      };
       if (condition == 'L') {
         timesLostInTeam++
-      }
-      $("#friendlyTeam").append(
-    `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
-      );
+        $("#friendlyL").append(
+          `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
+            );
+      };
+      $("#friendlyTeam").empty().append(`Friendly: (${timesInTeam})`); 
     }
+
     if (Team == "Enemy") {
-      timesInEnemy++;
       if (condition == 'W') {
         timesWonVs++
+        $("#enemyW").append(
+          `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
+        );
       }
       if (condition == 'L') {
         timesLostVs++
+        $("#enemyL").append(
+          `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
+        );
       }
-      $("#enemyTeam").append(
-        `<li class='matchButton${Team}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a></li>`
-      );
+      $("#enemyTeam").empty().append(`Enemy: (${timesInEnemy})`);   
     }
+    impactScoreFriendly = Math.round(timesWonInTeam / timesInTeam * 100);
+    impactScoreEnemy = Math.round(timesWonVs / timesInEnemy * 100);
+    timesMet = timesInTeam + timesInEnemy;
+    timesInTeam = timesWonInTeam + timesLostInTeam;
+    timesInEnemy = timesWonVs + timesLostVs;
+    $("#textOutput").empty()
+    .append(`<p><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</p>
+    <p><strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> where teammates in <strong>${timesInTeam}</strong> games and enemies in <strong>${timesInEnemy}</strong> games.</p>
+    <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</p>
+    <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</p>
+    <p>${impactScoreFriendly}% is the overal winrate when playing together.</p>
+    <p>${impactScoreEnemy}% is your overal winrate when playing against <strong>${player_Nick_2}</strong> .</p>`);
   });
+  // console.log(typeof timesWonInTeam);
+  // console.log(typeof timesInEnemy);
+
+  // console.log(typeof impactScore );
 };
 //Handle UrlSplitting
 let convertUrl = objecturl => {
