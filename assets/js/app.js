@@ -158,7 +158,6 @@ let handlePlayerNickToId1 = nickname => {
     <h3><a href='https://www.faceit.com/en/players/${profileLink_1}'>${nickname}</a></h3>
     <pre>Elo:${faceit_elo_1}</pre>
     <pre>Country:${country_1}</pre>
-    <pre>Faceit-id:<strong>${player_id_1}</strong></pre>
     <pre>Steam-id:${steamid_1}</pre>
     <pre><a href='https://steamcommunity.com/profiles/${steam_id_64_1}'>Steam-profile</a></pre>
      </div>
@@ -190,7 +189,6 @@ let handlePlayerNickToId2 = nickname => {
     <h3><a href='https://www.faceit.com/en/players/${profileLink_2}'>${nickname}</a></h3>
     <pre>Elo:${faceit_elo_2}</pre>
     <pre>Country:${country_2}</pre>
-    <pre>Faceit-id:<strong>${player_id_2}</strong></pre>
     <pre>Steam-id:${steamid_2}</pre>
     <pre><a href='https://steamcommunity.com/profiles/${steam_id_64_2}'>Steam-profile</a></pre>
      </div>
