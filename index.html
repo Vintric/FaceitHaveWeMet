@@ -1,83 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link href="./assets/css/style.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-    <title>Faceit: Have we met?</title>
-  </head>
 
-  <body>
-    
-    <nav>
-      <ul>
-        <li><a href="https://www.paypal.me/anch126">Donate?</a></li>
-        <li id='About'>About</li>
-        <li id='Changelog'>Changelog</li>
-      </ul>
-    </nav>
-    <div class='noticebar'><p>Please note that searching in more than 1500 matches can cause some issues.</div>
-    <div class='logoFixed'><a href='./index.html'><img src='./assets/img/logohwm.png'></a></div>
-    
-    <div class="container">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link href="./assets/css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <title>Faceit: Have we met?</title>
+</head>
+
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="https://www.paypal.me/anch126">Donate?</a></li>
+      <li id='About'>About</li>
+      <li id='Changelog'>Changelog</li>
+    </ul>
+  </nav>
+  <div class='noticebar'>
+    <p>Please note that searching in more than 1500 matches can cause some issues.
+  </div>
+  <div class='logoFixed'><a href='./index.html'><img src='./assets/img/logohwm.png'></a></div>
+
+  <div class="container">
     <div class='changelogContainer' id='changelogContainer'>
-        <pre><h3>Changelog:</h3></pre>
-          <pre>version. 0.025</pre>
-          <pre>&#8226 Added notice bar.</pre>
-          <pre>&#8226 Added dynamic facts box.</pre>
-          <pre>&#8226 Fixed bugs that would output incorrect data.</pre>
-          <pre>version. 0.024</pre>
-          <pre>&#8226 Added count comparison/stat on win and losses.</pre>
-          <pre>version. 0.023</pre>
-          <pre>&#8226 Added Wins & Losses.</pre>
-          <pre>&#8226 Added Colors if game was won or lost.</pre>
-          <pre>version. 0.022</pre>
-          <pre>&#8226 Added Functionality for more than 100 matches.</pre>
+      <pre><h3>Changelog:</h3></pre>
+      <pre>version. 0.025</pre>
+      <pre>&#8226 Added notice bar.</pre>
+      <pre>&#8226 Added dynamic facts box.</pre>
+      <pre>&#8226 Fixed bugs that would output incorrect data.</pre>
+      <pre>version. 0.024</pre>
+      <pre>&#8226 Added count comparison/stat on win and losses.</pre>
+      <pre>version. 0.023</pre>
+      <pre>&#8226 Added Wins & Losses.</pre>
+      <pre>&#8226 Added Colors if game was won or lost.</pre>
+      <pre>version. 0.022</pre>
+      <pre>&#8226 Added Functionality for more than 100 matches.</pre>
     </div>
     <div class="faceitLogo">
       <img src='./assets/img/logo.png'><br />
     </div>
-   
+
     <form>
-        <h1>Faceit: Have we met?</h1>
-        <input id="input1" type="text" placeholder="Player 1" />
-        <input id="input2" type="text" placeholder="Player 2" />
-        <input
-          id="input3"
-          type="number"
-          placeholder="Search in x matches.."
-          step="100"
-          max="5000"
-        />
-        <button id="searchButton"><i class="fas fa-search"></i></button>
-        
+      <h1>Faceit: Have we met?</h1>
+      <input id="input1" type="text" placeholder="Player 1" />
+      <input id="input2" type="text" placeholder="Player 2" />
+      <input id="input3" type="number" placeholder="Search in x matches.." step="100" max="5000" />
+      <button id="searchButton"><i class="fas fa-search"></i></button>
+
     </form>
 
-      <div id="Profiles"></div>
-          <!-- Grouped Matches -->
-          <div id='friendlyTeam'></div>
-          <div id='friendlyW'></div>
-          <div id='friendlyL'></div>
-          <div id='enemyTeam'></div>
-          <div id='enemyW'></div>
-          <div id='enemyL'></div>
-          
+    <div id="Profiles"></div>
+    <!-- Grouped Matches -->
+    <div id='friendlyTeam'></div>
+    <div id='friendlyW'></div>
+    <div id='friendlyL'></div>
+    <div id='enemyTeam'></div>
+    <div id='enemyW'></div>
+    <div id='enemyL'></div>
 
-      <div class="textOutput" id="textOutput"></div>
-      <pre>current-version. 0.025</pre>
-    </div>
-    <script
-  src="https://code.jquery.com/jquery-3.4.0.min.js"
-  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
-  crossorigin="anonymous"></script>
-    <script src="./assets/js/app.js"></script>
-  </body>
+
+    <div class="textOutput" id="textOutput"></div>
+    <pre>current-version. 0.025</pre>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+    integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+  <script src="./assets/js/app.js"></script>
+</body>
+
 </html>

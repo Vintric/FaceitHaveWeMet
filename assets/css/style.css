@@ -5,6 +5,10 @@ body {
   background: #1f1f1f;
   color: #fff;
   font-family: "Play", sans-serif;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 body a {
@@ -47,10 +51,14 @@ body nav li:hover a {
 body input {
   background: #282828;
   color: #ebeff3;
-  border: 1px solid #ebeff3;
+  border: 1px solid #7e7e7e;
   padding: 5px;
   border-radius: 2px;
   margin: 2px;
+}
+
+body input:hover {
+  border: 1px solid #c2c2c2;
 }
 
 body input:focus {
@@ -67,9 +75,20 @@ body button {
   border-radius: 2px;
   width: 80px;
   height: 27px;
+  -webkit-box-shadow: 0px 1px 1px #000000;
+          box-shadow: 0px 1px 1px #000000;
 }
 
 body button i {
+  color: #ebeff3;
+}
+
+body button:hover {
+  background: #ff9028;
+  cursor: pointer;
+}
+
+body button:hover i {
   color: #ebeff3;
 }
 

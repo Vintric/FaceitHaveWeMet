@@ -6,10 +6,13 @@ body {
   background: #1f1f1f;
   color: #fff;
   font-family: "Play", sans-serif;
+  user-select: none;
+
   a {
     text-decoration: none;
     color: #fff;
   }
+
   nav {
     background: #181818;
     position: fixed;
@@ -18,81 +21,106 @@ body {
     top: 0;
     left: 0;
     font-size: 14px;
-    height:48px;
+    height: 48px;
+
     li {
       list-style-type: none;
       display: inline-block;
       padding: 3px;
+
       a {
         text-decoration: none;
         color: #ebeff3;
       }
     }
+
     li:hover {
       background: #0e0e0e;
       cursor: pointer;
+
       a {
         text-decoration: none;
         color: #ebeff3;
       }
     }
   }
+
   input {
     background: #282828;
     color: #ebeff3;
-    border: 1px solid #ebeff3;
+    border: 1px solid #7e7e7e;
     padding: 5px;
     border-radius: 2px;
     margin: 2px;
   }
+  input:hover {
+    border: 1px solid #c2c2c2;
+  }
   input:focus {
     background: #282828;
   }
+
   input:after {
     background: #282828;
   }
+
   button {
     border: 0;
     background: #ff7d00;
     border-radius: 2px;
     width: 80px;
     height: 27px;
+    box-shadow: 0px 1px 1px #000000;
+    i {
+      color: #ebeff3;
+    }
+    }button:hover {
+      background: #ff9028;
+      cursor: pointer;
+
     i {
       color: #ebeff3;
     }
   }
+
   .noticebar {
     position: fixed;
-    width:100vw;
-    height:5vh;
-    left:0;
-    top:48px;
+    width: 100vw;
+    height: 5vh;
+    left: 0;
+    top: 48px;
     background: #ff7d00;
     text-align: center;
     box-shadow: 0px 1px 2px #000000;
     font-size: 13px;
-    p{
-      margin-top:1.2vh;
+
+    p {
+      margin-top: 1.2vh;
     }
   }
+
   .changelogContainer {
     display: none;
     z-index: 2;
     background: #181818;
     padding: 3%;
   }
+
   .logoFixed {
     position: fixed;
-    left:9px;
-    top:12px;
+    left: 9px;
+    top: 12px;
+
     img {
-      width:25px;
+      width: 25px;
     }
   }
+
   .container {
     margin-left: 4%;
     margin-top: 15vh;
     margin-right: 4%;
+
     .hidden {
       position: absolute;
     }
@@ -102,28 +130,35 @@ body {
       padding: 10px;
       background: #181818;
       margin: 2px;
+
       a {
         color: #4286f4;
       }
     }
+
     .matchButtonEnemy {
       display: inline-block;
       padding: 10px;
       background: #181818;
       margin: 2px;
+
       a {
         color: #d3f442;
       }
+
       .spanWin {
         color: #008000;
       }
+
       .spanLose {
         color: #ff0000;
       }
     }
+
     .spanW {
       color: #008000;
     }
+
     .spanL {
       color: #ff0000;
     }
@@ -134,22 +169,27 @@ body {
       border-radius: 2px;
       margin: 3px;
       background: #181818;
+
       img {
         width: 100px;
         height: 100px;
         padding: 5px;
         margin: auto 0;
       }
+
       pre {
         margin: -1px;
       }
+
       h3 {
         margin: 1px auto;
       }
+
       .profileInfo {
         margin: auto 0;
       }
     }
+
     .textOutput {
       p {
         margin: 2px auto;
@@ -161,8 +201,9 @@ body {
     position: fixed;
     right: 15px;
     top: 7px;
+
     img {
-      width:140px;
+      width: 140px;
     }
   }
 }
