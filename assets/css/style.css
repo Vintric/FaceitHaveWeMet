@@ -30,7 +30,8 @@ body nav {
 body nav li {
   list-style-type: none;
   display: inline-block;
-  padding: 3px;
+  padding: 5px;
+  margin-left: 10px;
 }
 
 body nav li a {
@@ -106,6 +107,15 @@ body .noticebar p {
 }
 
 body .changelogContainer {
+  margin: 2% auto;
+  display: none;
+  z-index: 2;
+  background: #181818;
+  padding: 3%;
+}
+
+body .faqContainer {
+  margin: 2% auto;
   display: none;
   z-index: 2;
   background: #181818;
@@ -114,12 +124,12 @@ body .changelogContainer {
 
 body .logoFixed {
   position: fixed;
-  left: 9px;
-  top: 12px;
+  left: 12px;
+  top: 8px;
 }
 
 body .logoFixed img {
-  width: 25px;
+  width: 35px;
 }
 
 body .container {

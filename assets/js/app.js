@@ -86,6 +86,11 @@ $(function () {
   });
   $("#Changelog").click(function (e) {
     $("#changelogContainer").fadeToggle("hidden");
+    $("#faqContainer").removeClass("hidden");
+  });
+  $("#faq").click(function (e) {
+    $("#faqContainer").fadeToggle("hidden");
+    $("#changelogContainer").removeClass("hidden");
   });
 });
 
@@ -370,7 +375,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</p>
     <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</p>
     <p>${impactScoreFriendly}% is the overal winrate when playing together.</p>
-    <p>${impactScoreEnemy}% is your overal winrate when playing against <strong>${player_Nick_2}</strong> .</p>`);
+    <p>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong> .</p>`);
   });
   // console.log(typeof timesWonInTeam);
   // console.log(typeof timesInEnemy);
