@@ -57,12 +57,9 @@ body {
     border: 1px solid #c2c2c2;
   }
   input:focus {
-    background: #282828;
+    border: 1px solid #69acf8;
   }
 
-  input:after {
-    background: #282828;
-  }
 
   button {
     border: 0;

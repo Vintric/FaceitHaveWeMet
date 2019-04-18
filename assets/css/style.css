@@ -62,11 +62,7 @@ body input:hover {
 }
 
 body input:focus {
-  background: #282828;
-}
-
-body input:after {
-  background: #282828;
+  border: 1px solid #69acf8;
 }
 
 body button {
