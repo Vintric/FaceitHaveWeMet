@@ -343,7 +343,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
       }
       $("#friendlyTeam")
         .empty()
-        .append(`Friendly: (${timesInTeam})`);
+        .append(`Friendly: (${timesWonInTeam + timesLostInTeam})`);
     }
 
     if (Team == "Enemy") {
@@ -361,17 +361,14 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
       }
       $("#enemyTeam")
         .empty()
-        .append(`Enemy: (${timesInEnemy})`);
+        .append(`Enemy: (${timesWonVs + timesLostVs})`);
     }
-    impactScoreFriendly = Math.round((timesWonInTeam / timesInTeam) * 100);
-    impactScoreEnemy = Math.round((timesWonVs / timesInEnemy) * 100);
-    timesMet = timesInTeam + timesInEnemy;
-    timesInTeam = timesWonInTeam + timesLostInTeam;
-    timesInEnemy = timesWonVs + timesLostVs;
+    impactScoreFriendly = Math.round((timesWonInTeam / (timesWonInTeam + timesLostInTeam)) * 100);
+    impactScoreEnemy = Math.round((timesWonVs / (timesLostVs + timesWonVs)) * 100);
+    timesMet = (timesLostVs + timesWonVs) + (timesWonInTeam + timesLostInTeam);
     $(
       "#textOutput"
     ).empty().append(`<p><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</p>
-    <p><strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> where teammates in <strong>${timesInTeam}</strong> games and enemies in <strong>${timesInEnemy}</strong> games.</p>
     <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</p>
     <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</p>
     <p>${impactScoreFriendly}% is the overal winrate when playing together.</p>
