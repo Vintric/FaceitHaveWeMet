@@ -82,22 +82,22 @@
 
     <form autocomplete="off"">
       <h1>Faceit: Have we met?</h1>
-      <input autocomplete="off" id="input1" type="text" placeholder="Player 1"/>
-      <input autocomplete="off" id="input2" type="text" placeholder="Player 2"/>
-      <input autocomplete="off" id="input3" type="number" placeholder="Search in x matches.." step="100" max="5000"/>
+      <input autocomplete="off" id="input1" type="text" placeholder="Player 1" value="methoDs"/>
+      <input autocomplete="off" id="input2" type="text" placeholder="Player 2" value="luosrevo"/>
+      <input autocomplete="off" id="input3" type="number" placeholder="Search in x matches.." step="100" max="5000" value="100"/>
       <button id="searchButton"><i class="fas fa-search"></i></button>
-
     </form>
-
+    <div class='' id='errorbox'></div>
     <div class='profiles' id="Profiles"></div>
     <!-- Grouped Matches -->
-    <div id='friendlyTeam'></div>
+    <div id='friendlyTeam'>
+    </div>
     <div id='friendlyW'></div>
     <div id='friendlyL'></div>
     <div id='enemyTeam'></div>
     <div id='enemyW'></div>
     <div id='enemyL'></div>
-    <div class="textOutput" id="textOutput"></div>
+    <div id="facts" class="textOutput"></div>
     <pre>current-version. 0.034</pre>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"

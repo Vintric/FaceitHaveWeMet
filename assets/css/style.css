@@ -151,6 +151,25 @@ body .container .hidden {
   position: absolute;
 }
 
+body .container .tableHeader {
+  border-right: 1px solid #ff7d00;
+  border-left: 1px solid #ff7d00;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  background: #181818;
+  margin: 2px 5%;
+  font-size: 13px;
+  width: 80vw;
+  height: 30px;
+}
+
 body .container .matchButton {
   border-right: 1px solid #ff7d00;
   border-left: 1px solid #ff7d00;
@@ -170,8 +189,18 @@ body .container .matchButton {
   height: 30px;
 }
 
-body .container .matchButton span {
-  text-align: right;
+body .container .matchButton div {
+  text-align: left;
+}
+
+body .container .matchButton .time {
+  width: 130px;
+}
+
+body .container .matchButton .scoreline {
+  width: 6vw;
+  justify-items: flex-start;
+  margin-right: 10%;
 }
 
 body .container .matchButton:hover {

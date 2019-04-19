@@ -32,7 +32,6 @@ let impactScoreEnemy = 0;
 
 //TODO Add Corresponding URL's
 //TODO Add Google adsense
-//TODO Add Demo download capability
 //TODO Add best map..
 //TODO Add Ajax search..
 //TODO Add taart diagram -- chartJS
@@ -60,40 +59,76 @@ $(function() {
       if ((player_Nick_2 = $("#input2").val() != "")) {
         clearHtml();
         $("#friendlyTeam").empty()
-          .append(`<li class='matchButton'>Friendly:</li>
-          <li class='matchButton'><span>TIME</span><span>SCORE</span><span>RESULT</span><span>MAP</span><span>DEMO</span><span></span></li>`);
-        $("#enemyTeam").empty().append(`<li class='matchButton'>Enemy: </li>
-        <li class='matchButton'><span>TIME</span><span>SCORE</span><span>RESULT</span><span>MAP</span><span>DEMO</span><span></span></li>`);
-        $("#textOutput").append("Facts:");
+          .append(`
+          <li class='matchButton'>Friendly:</li>
+          <li class='matchButton'>
+          <span>TIME</span>
+          <span></span>
+          <span>SCORE</span>
+          <span>RESULT</span>
+          <span>MAP</span>
+          <span>DEMO</span>
+          <span></span>
+          </li>`);
+        $("#enemyTeam").empty().append(`
+          <li class='matchButton'>Enemy: </li>
+          <li class='matchButton'>
+          <span>TIME</span>
+          <span>SCORE</span>
+          <span>RESULT</span>
+          <span>MAP</span>
+          <span>DEMO</span>
+          <span></span>
+          </li>`);
+        $("#textOutput").append("<li class='matchButton'>Facts:</li>");
+
         if ((matches_Amount = $("#input3").val() != "")) {
+
           if ($("#input1").val() !== $("#input2").val()) {
+
             player_Nick_1 = $("#input1").val();
             player_Nick_2 = $("#input2").val();
             matches_Amount = $("#input3").val();
+
             setTimers();
+
             handlePlayerNickToId1(player_Nick_1);
             handlePlayerNickToId2(player_Nick_2);
-            // repeat with the interval of 1 seconds
+
+            // repeat with the interval of .1 seconds
             let matches_output = setInterval(() => timedEvents(), 100);
-            setTimeout(() => {
-              clearInterval(matches_output);
-            }, matches_Amount);
+            setTimeout(() => {clearInterval(matches_output);}, matches_Amount);
           } else {
-            output
+
+            $("#errorbox")
               .empty()
               .append(`Make sure you have entered 2 unique nicknames! `);
+
           }
         } else {
-          output.empty().append(`Please fill in the amount of matches`);
+
+          $("#errorbox")
+          .empty()
+          .append(`Please fill in the amount of matches`);
+
         }
       } else {
-        output.empty().append(`Please fill in player 2`);
+
+        $("#errorbox")
+        .empty()
+        .append(`Please fill in player 2`);
+
       }
     } else {
-      output.empty().append(`Please fill in player 1`);
+
+      $("#errorbox")
+      .empty()
+      .append(`Please fill in player 1`);
+
     }
     e.preventDefault();
   });
+  
   $("#Changelog").click(function(e) {
     $("#changelogContainer").fadeToggle("hidden");
     $("#faqContainer").removeClass("hidden");

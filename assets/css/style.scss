@@ -135,7 +135,20 @@ body {
     .hidden {
       position: absolute;
     }
+    .tableHeader {
+      border-right:1px solid #ff7d00;
+      border-left:1px solid #ff7d00;
+      display:flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px;
+      background: #181818;
+      margin: 2px 5%;
+      font-size: 13px;
+      width:80vw;
+      height:30px;
 
+    }
     .matchButton {
       border-right:1px solid #ff7d00;
       border-left:1px solid #ff7d00;
@@ -148,8 +161,16 @@ body {
       font-size: 13px;
       width:80vw;
       height:30px;
-      span {
-        text-align: right;
+      div {
+        text-align: left;
+      }
+      .time{
+      width:130px;
+      }
+      .scoreline{
+        width:6vw;
+        justify-items: flex-start;
+        margin-right:10%;
       }
 
     }
