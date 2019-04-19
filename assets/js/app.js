@@ -212,13 +212,15 @@ let handlePlayerNickToId2 = nickname => {
 //Check teammates or not
 let getIfTeamOrEnemy = (position1, position2) => {
   if (posiOne >= position1 && posiOne <= position2) {
+    convertUrl(matches.faceit_url);
+    getDetailedMatchInfo(urlsplit);
     if (posiTwo >= position1 && posiTwo <= position2) {
-      convertUrl(matches.faceit_url);
-      getDetailedMatchInfo(urlsplit);
+      // convertUrl(matches.faceit_url);
+      // getDetailedMatchInfo(urlsplit);
       getAllPlayerMatchesStats(urlsplit, "Friendly");
     } else {
-      convertUrl(matches.faceit_url);
-      getDetailedMatchInfo(urlsplit);
+      // convertUrl(matches.faceit_url);
+      // getDetailedMatchInfo(urlsplit);
       getAllPlayerMatchesStats(urlsplit, "Enemy");
     }
   }
