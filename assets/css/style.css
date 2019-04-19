@@ -228,4 +228,9 @@ body .faceitLogo {
 body .faceitLogo img {
   width: 140px;
 }
+
+.flag-icon {
+  z-index: 0;
+  position: unset;
+}
 /*# sourceMappingURL=style.css.map */
