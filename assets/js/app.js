@@ -62,9 +62,6 @@ $(function () {
             setTimers();
             handlePlayerNickToId1(player_Nick_1);
             handlePlayerNickToId2(player_Nick_2);
-            setTimeout(function () {
-              setParagraph();
-            }, pOutTimer);
             // repeat with the interval of 1 seconds
             let matches_output = setInterval(() => timedEvents(), 100);
             setTimeout(() => {
@@ -162,7 +159,7 @@ let handlePlayerNickToId1 = nickname => {
     <div class='profileInfo'>
     <h3><a href='https://www.faceit.com/en/players/${profileLink_1}'>${nickname}</a></h3>
     <pre>Elo:${faceit_elo_1}</pre>
-    <pre>Country:${country_1}</pre>
+    <pre>Country:<span class="flag-icon flag-icon-${country_1}"></span></pre>
     <pre>Steam-id:${steamid_1}</pre>
     <pre><a href='https://steamcommunity.com/profiles/${steam_id_64_1}'>Steam-profile</a></pre>
      </div>
@@ -193,7 +190,7 @@ let handlePlayerNickToId2 = nickname => {
     <div class='profileInfo'>
     <h3><a href='https://www.faceit.com/en/players/${profileLink_2}'>${nickname}</a></h3>
     <pre>Elo:${faceit_elo_2}</pre>
-    <pre>Country:${country_2}</pre>
+    <pre>Country:<span class="flag-icon flag-icon-${country_2}"></span></pre>
     <pre>Steam-id:${steamid_2}</pre>
     <pre><a href='https://steamcommunity.com/profiles/${steam_id_64_2}'>Steam-profile</a></pre>
      </div>
@@ -349,6 +346,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         .append(`Friendly: (${timesWonInTeam + timesLostInTeam})`);
     }
 
+
     if (Team == "Enemy") {
       if (condition == "W") {
         timesWonVs++;
@@ -366,6 +364,13 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         .empty()
         .append(`Enemy: (${timesWonVs + timesLostVs})`);
     }
+    
+
+
+
+
+
+
     impactScoreFriendly = Math.round((timesWonInTeam / (timesWonInTeam + timesLostInTeam)) * 100);
     impactScoreEnemy = Math.round((timesWonVs / (timesLostVs + timesWonVs)) * 100);
     timesMet = (timesLostVs + timesWonVs) + (timesWonInTeam + timesLostInTeam);
@@ -382,6 +387,8 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
 
   // console.log(typeof impactScore );
 };
+
+
 //Handle UrlSplitting
 let convertUrl = objecturl => {
   url = objecturl;
