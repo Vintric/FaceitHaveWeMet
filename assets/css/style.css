@@ -147,6 +147,7 @@ body .container .matchButtonFriendly {
   padding: 10px;
   background: #181818;
   margin: 2px;
+  font-size: 13px;
 }
 
 body .container .matchButtonFriendly a {
@@ -158,6 +159,7 @@ body .container .matchButtonEnemy {
   padding: 10px;
   background: #181818;
   margin: 2px;
+  font-size: 13px;
 }
 
 body .container .matchButtonEnemy a {
@@ -200,8 +202,9 @@ body .container .profileBox img {
   margin: auto 0;
 }
 
-body .container .profileBox pre {
+body .container .profileBox p {
   margin: -1px;
+  font-size: 13px;
 }
 
 body .container .profileBox h3 {

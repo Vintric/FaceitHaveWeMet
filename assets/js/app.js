@@ -158,10 +158,10 @@ let handlePlayerNickToId1 = nickname => {
     <img src='${avatar_1}'>
     <div class='profileInfo'>
     <h3><a href='https://www.faceit.com/en/players/${profileLink_1}'>${nickname}</a></h3>
-    <pre>Elo:${faceit_elo_1}</pre>
-    <pre>Country:<span class="flag-icon flag-icon-${country_1}"></span></pre>
-    <pre>Steam-id:${steamid_1}</pre>
-    <pre><a href='https://steamcommunity.com/profiles/${steam_id_64_1}'>Steam-profile</a></pre>
+    <p>Elo:${faceit_elo_1}</p>
+    <p>Country: <span class="flag-icon flag-icon-${country_1}"></span></p>
+    <p>Steam-id:${steamid_1}</p>
+    <p><a href='https://steamcommunity.com/profiles/${steam_id_64_1}'>Steam-profile</a></p>
      </div>
      </div>`);
   });
@@ -189,10 +189,10 @@ let handlePlayerNickToId2 = nickname => {
     <img src='${avatar_2}'>
     <div class='profileInfo'>
     <h3><a href='https://www.faceit.com/en/players/${profileLink_2}'>${nickname}</a></h3>
-    <pre>Elo:${faceit_elo_2}</pre>
-    <pre>Country:<span class="flag-icon flag-icon-${country_2}"></span></pre>
-    <pre>Steam-id:${steamid_2}</pre>
-    <pre><a href='https://steamcommunity.com/profiles/${steam_id_64_2}'>Steam-profile</a></pre>
+    <p>Elo:${faceit_elo_2}</p>
+    <p>Country: <span class="flag-icon flag-icon-${country_2}"></span></p>
+    <p>Steam-id:${steamid_2}</p>
+    <p><a href='https://steamcommunity.com/profiles/${steam_id_64_2}'>Steam-profile</a></p>
      </div>
      </div>`);
   });
