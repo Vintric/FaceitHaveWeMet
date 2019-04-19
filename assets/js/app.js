@@ -29,7 +29,6 @@ let impactScore = 0;
 let impactScoreEnemy = 0;
 
 //TODO Add Corresponding URL's
-//TODO Add Google analytics
 //TODO Add Google adsense
 //TODO Add Demo download capability
 //TODO Add best map..
@@ -37,6 +36,7 @@ let impactScoreEnemy = 0;
 //TODO Add taart diagram -- chartJS
 //TODO Add if solo or premade
 //TODO Add legenda
+//TODO Add footer & copyright shizzle
 
 $(function () {
   $("#searchButton").click(function (e) {
