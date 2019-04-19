@@ -281,7 +281,10 @@ let getDetailedMatchInfo = (urlsplit) => {
             year +
             " " +
             hours +
-            "h"
+            ":" +
+            minutes.substr(-2) +
+            ":" +
+            seconds.substr(-2);
             getGameTime = convdataTime
         };
     convertUnixTime(endData)
