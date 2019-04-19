@@ -26,7 +26,7 @@ let matchOutTimer = 0;
 let condition;
 let demoUrl;
 let getGameTime;
-let endData
+let endData;
 let impactScore = 0;
 let impactScoreEnemy = 0;
 
@@ -41,18 +41,29 @@ let impactScoreEnemy = 0;
 //TODO Add footer & copyright shizzle
 
 $(function() {
+  $("#friendlyTeam")
+    .empty()
+    .append(`<li class='matchButton'><h3>Friendly:</h3></li>`);
+  $("#enemyTeam")
+    .empty()
+    .append(`<li class='matchButton'><h3>Enemy:</h3></li>`);
+  $("#textOutput")
+    .empty()
+    .append(`<li class='listitem'><h3>Facts:</h3></li>`);
+  $("#Profiles").append(
+    `<div class='profileBox'></div><div class='profileBox'></div>`
+  );
   $("#searchButton").click(function(e) {
     clearVals();
     if ((player_Nick_1 = $("#input1").val() != "")) {
       clearHtml();
       if ((player_Nick_2 = $("#input2").val() != "")) {
         clearHtml();
-        $("#friendlyTeam")
-          .empty()
-          .append("Friendly:<br>");
-        $("#enemyTeam")
-          .empty()
-          .append("Enemy:<br>");
+        $("#friendlyTeam").empty()
+          .append(`<li class='matchButton'>Friendly:</li>
+          <li class='matchButton'><span>TIME</span><span>SCORE</span><span>RESULT</span><span>MAP</span><span>DEMO</span><span></span></li>`);
+        $("#enemyTeam").empty().append(`<li class='matchButton'>Enemy: </li>
+        <li class='matchButton'><span>TIME</span><span>SCORE</span><span>RESULT</span><span>MAP</span><span>DEMO</span><span></span></li>`);
         $("#textOutput").append("Facts:");
         if ((matches_Amount = $("#input3").val() != "")) {
           if ($("#input1").val() !== $("#input2").val()) {
@@ -93,10 +104,8 @@ $(function() {
   });
 });
 
-
-
 //* TIMINGS MARKED WITH [i]
-// Get Player Info 1 
+// Get Player Info 1
 //* TIMING: [1]
 let handlePlayerNickToId1 = nickname => {
   let profileUrl = `${baseUrl}players?nickname=${nickname}`;
@@ -131,8 +140,6 @@ let handlePlayerNickToId1 = nickname => {
   });
 };
 
-
-
 //* TIMING: [2]
 // Get Player Info 2
 let handlePlayerNickToId2 = nickname => {
@@ -166,27 +173,21 @@ let handlePlayerNickToId2 = nickname => {
   });
 };
 
-
-
 //* TIMING: [4]
 //Check teammates or not
 let getIfTeamOrEnemy = (position1, position2) => {
   if (posiOne >= position1 && posiOne <= position2) {
     if (posiTwo >= position1 && posiTwo <= position2) {
       convertUrl(matches.faceit_url);
-      getDetailedMatchInfo(urlsplit)
+      getDetailedMatchInfo(urlsplit);
       getAllPlayerMatchesStats(urlsplit, "Friendly");
-      
     } else {
       convertUrl(matches.faceit_url);
-      getDetailedMatchInfo(urlsplit)
+      getDetailedMatchInfo(urlsplit);
       getAllPlayerMatchesStats(urlsplit, "Enemy");
-      
     }
   }
 };
-
-
 
 //* TIMING: [3]
 //Get all player matches played
@@ -220,78 +221,72 @@ let getAllPlayerMatches = (player_id, offset) => {
   });
 };
 
-
-
 //* TIMING: [5]
 //Get matches played
-let getDetailedMatchInfo = (urlsplit) => {
-      let Url = `${baseUrl}matches/${urlsplit}`;
-      $.ajax({
-        headers: {
-          Authorization: "Bearer " + token
-        },
-        url: Url,
-        dataType: "json",
-        error: handleAjaxError
-      }).done(function(data) {
-        demoUrl = data.demo_url;
-        startDate = data.started_at;
-        endData = data.finished_at;
-        console.log(endData);
+let getDetailedMatchInfo = urlsplit => {
+  let Url = `${baseUrl}matches/${urlsplit}`;
+  $.ajax({
+    headers: {
+      Authorization: "Bearer " + token
+    },
+    url: Url,
+    dataType: "json",
+    error: handleAjaxError
+  }).done(function(data) {
+    demoUrl = data.demo_url;
+    startDate = data.started_at;
+    endData = data.finished_at;
+    console.log(endData);
     getDetailedMatchInfo();
-    let convertUnixTime = (unixtime) => {
-          // Unixtimestamp
-          let unixtimestamp = unixtime
-          // Months array
-          let months_arr = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-          ];
+    let convertUnixTime = unixtime => {
+      // Unixtimestamp
+      let unixtimestamp = unixtime;
+      // Months array
+      let months_arr = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ];
 
-          // Convert timestamp to milliseconds
-          let date = new Date(unixtimestamp * 1000);
-          // Year
-          let year = date.getFullYear();
-          // Month
-          let month = months_arr[date.getMonth()];
-          // Day
-          let day = date.getDate();
-          // Hours
-          let hours = date.getHours();
-          // Minutes
-          let minutes = "0" + date.getMinutes();
-          // Seconds
-          let seconds = "0" + date.getSeconds();
-          // Display date time in MM-dd-yyyy h:m:s format
-          let convdataTime =
-            month +
-            "-" +
-            day +
-            "-" +
-            year +
-            " " +
-            hours +
-            ":" +
-            minutes.substr(-2) +
-            ":" +
-            seconds.substr(-2);
-            getGameTime = convdataTime
-        };
-    convertUnixTime(endData)
-      });
+      // Convert timestamp to milliseconds
+      let date = new Date(unixtimestamp * 1000);
+      // Year
+      let year = date.getFullYear();
+      // Month
+      let month = months_arr[date.getMonth()];
+      // Day
+      let day = date.getDate();
+      // Hours
+      let hours = date.getHours();
+      // Minutes
+      let minutes = "0" + date.getMinutes();
+      // Seconds
+      let seconds = "0" + date.getSeconds();
+      // Display date time in MM-dd-yyyy h:m:s format
+      let convdataTime =
+        day +
+        " " +
+        month +
+        " " +
+        year +
+        " - " +
+        hours +
+        ":" +
+        minutes.substr(-2);
+      getGameTime = convdataTime;
+    };
+    convertUnixTime(endData);
+  });
 };
-
-
 
 //* TIMING: [6]
 // Get match statistics
@@ -350,9 +345,9 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         player_id_1 == team_id_1_fetch_players_3 ||
         player_id_1 == team_id_1_fetch_players_4
       ) {
-        condition = "W";
+        condition = "WIN";
       } else {
-        condition = "L";
+        condition = "LOSE";
       }
     }
     if (gameWinner === teamId_2) {
@@ -363,46 +358,48 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         player_id_1 == team_id_2_fetch_players_3 ||
         player_id_1 == team_id_2_fetch_players_4
       ) {
-        condition = "W";
+        condition = "WIN";
       } else {
-        condition = "L";
+        condition = "LOSE";
       }
     }
 
     //* Append the buttons
     if (Team == "Friendly") {
-      if (condition == "W") {
+      if (condition == "WIN") {
         timesWonInTeam++;
         $("#friendlyW").append(
-      `<li class='matchButton${Team}'>${getGameTime} - <a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a> - <a href='${demoUrl}'><i class="fas fa-download"></i></a></li>`
+          `<li class='matchButton'><span>${getGameTime}</span><span>${scoreLine}</span><span class='span${condition}'> <strong>${condition}</strong></span><span><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</span></a><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'><i class="fas fa-chevron-right"></i></a></li>`
         );
       }
-      if (condition == "L") {
+      if (condition == "LOSE") {
         timesLostInTeam++;
         $("#friendlyL").append(
-          `<li class='matchButton${Team}'>${getGameTime} - <a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a> - <a href='${demoUrl}'><i class="fas fa-download"></i></a></li>`
+          `<li class='matchButton'><span>${getGameTime}</span><span>${scoreLine}</span><span class='span${condition}'> <strong>${condition}</strong></span><span><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</span></a><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'><i class="fas fa-chevron-right"></i></a></li>`
         );
       }
-      $("#friendlyTeam")
-        .empty()
-        .append(`Friendly: (${timesWonInTeam + timesLostInTeam})`);
+      $("#friendlyTeam").empty()
+        .append(`<li class='matchButton'><h3>Friendly: (${timesWonInTeam +
+        timesLostInTeam})</h3></li>
+        <li class='matchButton'><span>TIME</span><span>SCORE</span><span>RESULT</span><span>MAP</span><span>DEMO</span><span></span></li>`);
     }
     if (Team == "Enemy") {
-      if (condition == "W") {
+      if (condition == "WIN") {
         timesWonVs++;
         $("#enemyW").append(
-          `<li class='matchButton${Team}'>${getGameTime} - <a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a> - <a href='${demoUrl}'><i class="fas fa-download"></i></a></li>`
+          `<li class='matchButton'><span>${getGameTime}</span><span>${scoreLine}</span><span class='span${condition}'> <strong>${condition}</strong></span><span><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</span></a><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'><i class="fas fa-chevron-right"></i></a></li>`
         );
       }
-      if (condition == "L") {
+      if (condition == "LOSE") {
         timesLostVs++;
         $("#enemyL").append(
-          `<li class='matchButton${Team}'>${getGameTime} - <a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed} - <span class='span${condition}'>${scoreLine} - ${condition}</span></a> - <a href='${demoUrl}'><i class="fas fa-download"></i></a></li>`
+          `<li class='matchButton'><span>${getGameTime}</span><span>${scoreLine}</span><span class='span${condition}'> <strong>${condition}</strong></span><span><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</span></a><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'><i class="fas fa-chevron-right"></i></a></li>`
         );
       }
-      $("#enemyTeam")
-        .empty()
-        .append(`Enemy: (${timesWonVs + timesLostVs})`);
+      $("#enemyTeam").empty()
+        .append(`<li class='matchButton'><h3>Enemy: (${timesWonVs +
+        timesLostVs})</h3></li>
+        <li class='matchButton'><span>TIME</span><span>SCORE</span><span>RESULT</span><span>MAP</span><span>DEMO</span></li>`);
     }
 
     //Calculate winrates
@@ -415,28 +412,18 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     timesMet = timesLostVs + timesWonVs + (timesWonInTeam + timesLostInTeam);
     $(
       "#textOutput"
-    ).empty().append(`<p><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</p>
-    <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</p>
-    <p>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</p>
-    <p>${impactScoreFriendly}% is the overal winrate when playing together.</p>
-    <p>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong> .</p>`);
+    ).empty().append(`<li class='listitem'><h3>Facts:</h3></li>
+    <li class='listitem'><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</li>
+    <li class='listitem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</li>
+    <li class='listitem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</li>
+    <li class='listitem'>${impactScoreFriendly}% is the overal winrate when playing together.</li>
+    <li class='listitem'>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong> .</li>`);
   });
   // console.log(typeof timesWonInTeam);
   // console.log(typeof timesInEnemy);
 
   // console.log(typeof impactScore );
 };
-
-
-
-
-
-
-
-
-
-
-
 
 //* Standalone functions
 //Handle UrlSplitting

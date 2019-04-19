@@ -5,10 +5,14 @@ body {
   background: #1f1f1f;
   color: #fff;
   font-family: "Play", sans-serif;
+}
+
+body h1, body h2, body h3, body h4 {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  margin: 0 auto;
 }
 
 body a {
@@ -47,6 +51,11 @@ body nav li:hover {
 body nav li:hover a {
   text-decoration: none;
   color: #ebeff3;
+}
+
+body form {
+  text-align: center;
+  margin: 3% auto;
 }
 
 body input {
@@ -142,47 +151,73 @@ body .container .hidden {
   position: absolute;
 }
 
-body .container .matchButtonFriendly {
-  display: inline-block;
+body .container .matchButton {
+  border-right: 1px solid #ff7d00;
+  border-left: 1px solid #ff7d00;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 10px;
   background: #181818;
-  margin: 2px;
+  margin: 2px 5%;
   font-size: 13px;
+  width: 80vw;
+  height: 30px;
 }
 
-body .container .matchButtonFriendly a {
-  color: #4286f4;
+body .container .matchButton span {
+  text-align: right;
 }
 
-body .container .matchButtonEnemy {
-  display: inline-block;
+body .container .matchButton:hover {
+  background: #1a1a1a;
+}
+
+body .container .listitem {
+  border-right: 1px solid #ff7d00;
+  border-left: 1px solid #ff7d00;
+  text-align: center;
+  list-style-type: none;
   padding: 10px;
   background: #181818;
-  margin: 2px;
+  margin: 2px 5%;
   font-size: 13px;
+  width: 80vw;
+  height: 30px;
+  letter-spacing: 1px;
 }
 
-body .container .matchButtonEnemy a {
-  color: #d3f442;
+body .container .listitem:hover {
+  background: #1a1a1a;
 }
 
-body .container .matchButtonEnemy .spanWin {
+body .container .spanWIN {
   color: #008000;
 }
 
-body .container .matchButtonEnemy .spanLose {
+body .container .spanLOSE {
   color: #ff0000;
 }
 
-body .container .spanW {
-  color: #008000;
+body .container .profiles {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
-body .container .spanL {
-  color: #ff0000;
-}
-
-body .container .profileBox {
+body .container .profiles .profileBox {
+  border-right: 2px solid #ff7d00;
+  border-left: 2px solid #ff7d00;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -190,28 +225,33 @@ body .container .profileBox {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   border-radius: 2px;
   margin: 3px;
   background: #181818;
+  width: 43vw;
+  height: 120Px;
 }
 
-body .container .profileBox img {
+body .container .profiles .profileBox img {
   width: 100px;
   height: 100px;
   padding: 5px;
   margin: auto 0;
 }
 
-body .container .profileBox p {
+body .container .profiles .profileBox p {
   margin: -1px;
   font-size: 13px;
 }
 
-body .container .profileBox h3 {
+body .container .profiles .profileBox h3 {
   margin: 1px auto;
 }
 
-body .container .profileBox .profileInfo {
+body .container .profiles .profileBox .profileInfo {
   margin: auto 0;
 }
 

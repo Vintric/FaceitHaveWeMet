@@ -6,8 +6,10 @@ body {
   background: #1f1f1f;
   color: #fff;
   font-family: "Play", sans-serif;
-  user-select: none;
-
+  h1,h2,h3,h4{
+    user-select: none;
+    margin:0 auto;
+  }
   a {
     text-decoration: none;
     color: #fff;
@@ -45,7 +47,10 @@ body {
       }
     }
   }
-
+  form {
+    text-align: center;
+    margin:3% auto;
+  }
   input {
     background: #282828;
     color: #ebeff3;
@@ -131,52 +136,65 @@ body {
       position: absolute;
     }
 
-    .matchButtonFriendly {
-      display: inline-block;
+    .matchButton {
+      border-right:1px solid #ff7d00;
+      border-left:1px solid #ff7d00;
+      display:flex;
+      justify-content: space-around;
+      align-items: center;
       padding: 10px;
       background: #181818;
-      margin: 2px;
+      margin: 2px 5%;
       font-size: 13px;
-
-      a {
-        color: #4286f4;
+      width:80vw;
+      height:30px;
+      span {
+        text-align: right;
       }
-    }
 
-    .matchButtonEnemy {
-      display: inline-block;
+    }.matchButton:hover{
+        background: #1a1a1a;
+      }
+    .listitem {
+      border-right:1px solid #ff7d00;
+      border-left:1px solid #ff7d00;
+      text-align: center;
+      list-style-type: none;
       padding: 10px;
       background: #181818;
-      margin: 2px;
+      margin: 2px 5%;
       font-size: 13px;
-      a {
-        color: #d3f442;
-      }
-
-      .spanWin {
-        color: #008000;
-      }
-
-      .spanLose {
-        color: #ff0000;
-      }
+      width:80vw;
+      height:30px;
+      letter-spacing:1px;
     }
-
-    .spanW {
+    .listitem:hover{
+      background: #1a1a1a;
+    }
+    .spanWIN {
       color: #008000;
     }
 
-    .spanL {
+    .spanLOSE {
       color: #ff0000;
     }
-
+    .profiles{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      
     .profileBox {
+      border-right:2px solid #ff7d00;
+      border-left:2px solid #ff7d00;
       display: flex;
       flex-direction: row;
+      justify-content: center;
       border-radius: 2px;
       margin: 3px;
       background: #181818;
-
+      width:43vw;
+      height:120Px;
+      
       img {
         width: 100px;
         height: 100px;
@@ -197,7 +215,7 @@ body {
         margin: auto 0;
       }
     }
-
+  }
     .textOutput {
       p {
         margin: 2px auto;
