@@ -269,7 +269,7 @@ let getDetailedMatchInfo = urlsplit => {
     demoUrl = data.demo_url;
     startDate = data.started_at;
     endData = data.finished_at;
-    console.log(enData)
+    console.log(endData)
     let convertUnixTime = unixtime => {
       // Unixtimestamp
       let unixtimestamp = unixtime;
