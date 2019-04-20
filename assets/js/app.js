@@ -9,7 +9,7 @@ let output = $("#Profiles");
 let playerData;
 let urlsplit;
 let playerUrl;
-let convdataTime;
+
 // let timesMet = 0;
 // let timesInTeam = 0;
 // let timesInEnemy = 0;
