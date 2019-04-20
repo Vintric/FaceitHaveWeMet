@@ -367,7 +367,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         timesWonInTeam++;
         $("#friendlyW").append(
           `<div class='matchButton'>
-            <div id='gameTime'>${convdataTime }</div>
+            <div id='gameTime'>${convdataTime}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
@@ -381,7 +381,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         timesLostInTeam++;
         $("#friendlyL").append(
           `<div class='matchButton'>
-            <div id='gameTime'>time placeholder</div>
+            <div id='gameTime'>${convdataTime}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
@@ -408,7 +408,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         timesWonVs++;
         $("#enemyW").append(
           `<div class='matchButton'>
-            <div id='gameTime'>time placeholder</div>
+            <div id='gameTime'>${convdataTime}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
@@ -422,7 +422,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         timesLostVs++;
         $("#enemyL").append(
           `<div class='matchButton'>
-            <div id='gameTime'>time placeholder</div>
+            <div id='gameTime'>${convdataTime}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
