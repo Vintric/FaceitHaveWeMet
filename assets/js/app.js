@@ -5,30 +5,28 @@ let player_Nick_2;
 let player_id_1;
 let player_id_2;
 
-let team_id_1_fetch_players;
-let team_id_2_fetch_players;
-
 let output = $("#Profiles");
 let playerData;
 let urlsplit;
 let playerUrl;
-
-let timesMet = 0;
-let timesInTeam = 0;
-let timesInEnemy = 0;
-let timesWonInTeam = 0;
-let timesLostInTeam = 0;
-let timesWonVs = 0;
-let timesLostVs = 0;
+let convdataTime;
+// let timesMet = 0;
+// let timesInTeam = 0;
+// let timesInEnemy = 0;
+// let timesWonInTeam = 0;
+// let timesLostInTeam = 0;
+// let timesWonVs = 0;
+// let timesLostVs = 0;
 
 let searchOffset = 0;
 let matchOutTimer = 0;
 let condition;
 let demoUrl;
-let getGameTime;
 let endData;
 let impactScore = 0;
 let impactScoreEnemy = 0;
+
+const currentVersion= "0.34";
 
 //TODO Add Corresponding URL's
 //TODO Add Google adsense
@@ -42,50 +40,47 @@ let impactScoreEnemy = 0;
 $(function() {
   $("#friendlyTeam")
     .empty()
-    .append(`<li class='matchButton'><h3>Friendly:</h3></li>`);
+    .append(`<div class='buttonHead'><h3>Friendly:</h3></div>`);
   $("#enemyTeam")
     .empty()
-    .append(`<li class='matchButton'><h3>Enemy:</h3></li>`);
-  $("#textOutput")
+    .append(`<div class='buttonHead'><h3>Enemy:</h3></div>`);
+  $("#facts")
     .empty()
-    .append(`<li class='listitem'><h3>Facts:</h3></li>`);
+    .append(`<div class='buttonHead'><h3>Info:</h3></div>`);
+  $("#version")
+    .empty()
+    .append(`<div class='buttonHead'><h3>current-version. ${currentVersion}</h3></div>`);
   $("#Profiles").append(
-    `<div class='profileBox'></div><div class='profileBox'></div>`
+    `<div class='profileBox'></div>
+    <div class='profileBox'></div>`
   );
   $("#searchButton").click(function(e) {
     clearVals();
     if ((player_Nick_1 = $("#input1").val() != "")) {
-      clearHtml();
       if ((player_Nick_2 = $("#input2").val() != "")) {
         clearHtml();
-        $("#friendlyTeam").empty()
-          .append(`
-          <li class='matchButton'>Friendly:</li>
-          <li class='matchButton'>
-          <span>TIME</span>
-          <span></span>
-          <span>SCORE</span>
-          <span>RESULT</span>
-          <span>MAP</span>
-          <span>DEMO</span>
-          <span></span>
-          </li>`);
+        $("#friendlyTeam").empty().append(`
+        <div class='buttonHead'><h3>Friendly:</h3></div>
+          <div class='matchButton'>
+          <div class='gameTime'>Time</div>
+          <div class='scoreLine'>Score</div>
+          <div class='result'>Result</div>
+          <div class='map'>Map</div>
+          <div class='demo'>Demo</div>
+          <div></div>`);
         $("#enemyTeam").empty().append(`
-          <li class='matchButton'>Enemy: </li>
-          <li class='matchButton'>
-          <span>TIME</span>
-          <span>SCORE</span>
-          <span>RESULT</span>
-          <span>MAP</span>
-          <span>DEMO</span>
-          <span></span>
-          </li>`);
-        $("#textOutput").append("<li class='matchButton'>Facts:</li>");
+        <div class='buttonHead'><h3>Enemy:</h3></div>
+        <div class='matchButton'>
+        <div class='gameTime'>Time</div>
+        <div class='scoreLine'>Score</div>
+        <div class='result'>Result</div>
+        <div class='map'>Map</div>
+        <div class='demo'>Demo</div>
+        <div></div>`);
+        $("#facts").append("<div class='buttonHead'><h3>Info:</h3></div>");
 
         if ((matches_Amount = $("#input3").val() != "")) {
-
           if ($("#input1").val() !== $("#input2").val()) {
-
             player_Nick_1 = $("#input1").val();
             player_Nick_2 = $("#input2").val();
             matches_Amount = $("#input3").val();
@@ -97,38 +92,32 @@ $(function() {
 
             // repeat with the interval of .1 seconds
             let matches_output = setInterval(() => timedEvents(), 100);
-            setTimeout(() => {clearInterval(matches_output);}, matches_Amount);
+            setTimeout(() => {
+              clearInterval(matches_output);
+            }, matches_Amount);
           } else {
-
             $("#errorbox")
               .empty()
               .append(`Make sure you have entered 2 unique nicknames! `);
-
           }
         } else {
-
           $("#errorbox")
-          .empty()
-          .append(`Please fill in the amount of matches`);
-
+            .empty()
+            .append(`Please fill in the amount of matches`);
         }
       } else {
-
         $("#errorbox")
-        .empty()
-        .append(`Please fill in player 2`);
-
+          .empty()
+          .append(`Please fill in player 2`);
       }
     } else {
-
       $("#errorbox")
-      .empty()
-      .append(`Please fill in player 1`);
-
+        .empty()
+        .append(`Please fill in player 1`);
     }
     e.preventDefault();
   });
-  
+
   $("#Changelog").click(function(e) {
     $("#changelogContainer").fadeToggle("hidden");
     $("#faqContainer").removeClass("hidden");
@@ -210,21 +199,7 @@ let handlePlayerNickToId2 = nickname => {
 
 //* TIMING: [4]
 //Check teammates or not
-let getIfTeamOrEnemy = (position1, position2) => {
-  if (posiOne >= position1 && posiOne <= position2) {
-    convertUrl(matches.faceit_url);
-    getDetailedMatchInfo(urlsplit);
-    if (posiTwo >= position1 && posiTwo <= position2) {
-      // convertUrl(matches.faceit_url);
-      // getDetailedMatchInfo(urlsplit);
-      getAllPlayerMatchesStats(urlsplit, "Friendly");
-    } else {
-      // convertUrl(matches.faceit_url);
-      // getDetailedMatchInfo(urlsplit);
-      getAllPlayerMatchesStats(urlsplit, "Enemy");
-    }
-  }
-};
+
 
 //* TIMING: [3]
 //Get all player matches played
@@ -246,14 +221,35 @@ let getAllPlayerMatches = (player_id, offset) => {
       posiOne = players.indexOf(player_id_1);
       //Get posi of player2
       posiTwo = players.indexOf(player_id_2);
-
+      convertUrl(matches.faceit_url);
       //Check all games you played together
       if (posiTwo == -1) {
         continue;
       }
       //Check if teammates or enemy
-      getIfTeamOrEnemy(0, 4);
-      getIfTeamOrEnemy(5, 9);
+
+      if (posiOne >= 0 && posiOne <= 4) {
+        
+        getDetailedMatchInfo(urlsplit);
+       
+        if (posiTwo >= 0 && posiTwo <= 4) {
+          getAllPlayerMatchesStats(urlsplit, "Friendly");
+        } else {
+          getAllPlayerMatchesStats(urlsplit, "Enemy");
+        }
+      }
+      if (posiOne >= 5 && posiOne <= 9) {
+        convertUrl(matches.faceit_url);
+        getDetailedMatchInfo(urlsplit);
+        if (posiTwo >= 5 && posiTwo <= 9) {
+
+          getAllPlayerMatchesStats(urlsplit, "Friendly");
+        } else {
+
+          getAllPlayerMatchesStats(urlsplit, "Enemy");
+        }
+      }
+
     }
   });
 };
@@ -273,8 +269,6 @@ let getDetailedMatchInfo = urlsplit => {
     demoUrl = data.demo_url;
     startDate = data.started_at;
     endData = data.finished_at;
-    console.log(endData);
-    getDetailedMatchInfo();
     let convertUnixTime = unixtime => {
       // Unixtimestamp
       let unixtimestamp = unixtime;
@@ -306,10 +300,8 @@ let getDetailedMatchInfo = urlsplit => {
       let hours = date.getHours();
       // Minutes
       let minutes = "0" + date.getMinutes();
-      // Seconds
-      let seconds = "0" + date.getSeconds();
-      // Display date time in MM-dd-yyyy h:m:s format
-      let convdataTime =
+
+      convdataTime =
         day +
         " " +
         month +
@@ -319,7 +311,6 @@ let getDetailedMatchInfo = urlsplit => {
         hours +
         ":" +
         minutes.substr(-2);
-      getGameTime = convdataTime;
     };
     convertUnixTime(endData);
   });
@@ -335,65 +326,34 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     },
     url: playerUrl,
     dataType: "json",
-    error: handleAjaxError
+    error: "problem get All Player Matches Stats"
   }).done(function(data) {
     //* The map played
     mapPlayed = data.rounds[0].round_stats.Map;
     //* The score of the game
     scoreLine = data.rounds[0].round_stats.Score;
-    //* the winner of the game
-    gameWinner = data.rounds[0].round_stats.Winner;
-    //* the id of the right left side team.
-    teamId_1 = data.rounds[0].teams[0].team_id;
-    //* the id of the right hand side team.
-    teamId_2 = data.rounds[0].teams[1].team_id;
-    // console.log(teamId_2);
-    // console.log(data.rounds[0])
-
-    //Get players from first team
-    let team_id_1_fetch_players_0 =
-      data.rounds[0].teams[0].players[0].player_id;
-    let team_id_1_fetch_players_1 =
-      data.rounds[0].teams[0].players[1].player_id;
-    let team_id_1_fetch_players_2 =
-      data.rounds[0].teams[0].players[2].player_id;
-    let team_id_1_fetch_players_3 =
-      data.rounds[0].teams[0].players[3].player_id;
-    let team_id_1_fetch_players_4 =
-      data.rounds[0].teams[0].players[4].player_id;
-    //Get players from second team
-    let team_id_2_fetch_players_0 =
-      data.rounds[0].teams[1].players[0].player_id;
-    let team_id_2_fetch_players_1 =
-      data.rounds[0].teams[1].players[1].player_id;
-    let team_id_2_fetch_players_2 =
-      data.rounds[0].teams[1].players[2].player_id;
-    let team_id_2_fetch_players_3 =
-      data.rounds[0].teams[1].players[3].player_id;
-    let team_id_2_fetch_players_4 =
-      data.rounds[0].teams[1].players[4].player_id;
 
     //* Adds win or loss to the games and colors them
-    if (gameWinner === teamId_1) {
+    if (data.rounds[0].round_stats.Winner == data.rounds[0].teams[0].team_id) {
       if (
-        player_id_1 == team_id_1_fetch_players_0 ||
-        player_id_1 == team_id_1_fetch_players_1 ||
-        player_id_1 == team_id_1_fetch_players_2 ||
-        player_id_1 == team_id_1_fetch_players_3 ||
-        player_id_1 == team_id_1_fetch_players_4
+        player_id_1 == data.rounds[0].teams[0].players[0].player_id||
+        player_id_1 == data.rounds[0].teams[0].players[1].player_id ||
+        player_id_1 == data.rounds[0].teams[0].players[2].player_id ||
+        player_id_1 == data.rounds[0].teams[0].players[3].player_id ||
+        player_id_1 == data.rounds[0].teams[0].players[4].player_id
       ) {
         condition = "WIN";
       } else {
         condition = "LOSE";
       }
     }
-    if (gameWinner === teamId_2) {
+    if (data.rounds[0].round_stats.Winner == data.rounds[0].teams[1].team_id) {
       if (
-        player_id_1 == team_id_2_fetch_players_0 ||
-        player_id_1 == team_id_2_fetch_players_1 ||
-        player_id_1 == team_id_2_fetch_players_2 ||
-        player_id_1 == team_id_2_fetch_players_3 ||
-        player_id_1 == team_id_2_fetch_players_4
+        player_id_1 == data.rounds[0].teams[1].players[0].player_id ||
+        player_id_1 == data.rounds[0].teams[1].players[1].player_id ||
+        player_id_1 == data.rounds[0].teams[1].players[2].player_id ||
+        player_id_1 == data.rounds[0].teams[1].players[3].player_id ||
+        player_id_1 == data.rounds[0].teams[1].players[4].player_id
       ) {
         condition = "WIN";
       } else {
@@ -406,37 +366,83 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
       if (condition == "WIN") {
         timesWonInTeam++;
         $("#friendlyW").append(
-          `<li class='matchButton'><span>${getGameTime}</span><span>${scoreLine}</span><span class='span${condition}'> <strong>${condition}</strong></span><span><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</span></a><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'><i class="fas fa-chevron-right"></i></a></li>`
+          `<div class='matchButton'>
+            <div id='gameTime'>${convdataTime }</div>
+            <div id='scoreLine'>${scoreLine}</div>
+            <div class='span${condition}'><strong>${condition}</strong></div>
+            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
+            <div><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a></div>
+            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
+            <i class="fas fa-chevron-right"></i></a>
+            </div>`
         );
       }
       if (condition == "LOSE") {
         timesLostInTeam++;
         $("#friendlyL").append(
-          `<li class='matchButton'><span>${getGameTime}</span><span>${scoreLine}</span><span class='span${condition}'> <strong>${condition}</strong></span><span><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</span></a><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'><i class="fas fa-chevron-right"></i></a></li>`
+          `<div class='matchButton'>
+            <div id='gameTime'>time placeholder</div>
+            <div id='scoreLine'>${scoreLine}</div>
+            <div class='span${condition}'><strong>${condition}</strong></div>
+            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
+            <div><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a></div>
+            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
+            <i class="fas fa-chevron-right"></i></a>
+            </div>`
         );
       }
-      $("#friendlyTeam").empty()
-        .append(`<li class='matchButton'><h3>Friendly: (${timesWonInTeam +
-        timesLostInTeam})</h3></li>
-        <li class='matchButton'><span>TIME</span><span>SCORE</span><span>RESULT</span><span>MAP</span><span>DEMO</span><span></span></li>`);
+      $("#friendlyTeam").empty().append(`
+          <div class='buttonHead'><h3>Friendly: (${timesWonInTeam +
+            timesLostInTeam})</h3></div>
+          <div class='matchButton'>
+          <div class='gameTime'>Time</div>
+          <div class='scoreLine'>Score</div>
+          <div class='result'>Result</div>
+          <div class='map'>Map</div>
+          <div class='demo'>Demo</div>
+          <div></div>
+       `);
     }
     if (Team == "Enemy") {
       if (condition == "WIN") {
         timesWonVs++;
         $("#enemyW").append(
-          `<li class='matchButton'><span>${getGameTime}</span><span>${scoreLine}</span><span class='span${condition}'> <strong>${condition}</strong></span><span><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</span></a><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'><i class="fas fa-chevron-right"></i></a></li>`
+          `<div class='matchButton'>
+            <div id='gameTime'>time placeholder</div>
+            <div id='scoreLine'>${scoreLine}</div>
+            <div class='span${condition}'><strong>${condition}</strong></div>
+            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
+            <div><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a></div>
+            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
+            <i class="fas fa-chevron-right"></i></a>
+            </div>`
         );
       }
       if (condition == "LOSE") {
         timesLostVs++;
         $("#enemyL").append(
-          `<li class='matchButton'><span>${getGameTime}</span><span>${scoreLine}</span><span class='span${condition}'> <strong>${condition}</strong></span><span><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</span></a><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'><i class="fas fa-chevron-right"></i></a></li>`
+          `<div class='matchButton'>
+            <div id='gameTime'>time placeholder</div>
+            <div id='scoreLine'>${scoreLine}</div>
+            <div class='span${condition}'><strong>${condition}</strong></div>
+            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
+            <div><a href='${demoUrl}'>Watch Demo <i class="fas fa-download"></i></a></div>
+            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
+            <i class="fas fa-chevron-right"></i></a>
+            </div>`
         );
       }
-      $("#enemyTeam").empty()
-        .append(`<li class='matchButton'><h3>Enemy: (${timesWonVs +
-        timesLostVs})</h3></li>
-        <li class='matchButton'><span>TIME</span><span>SCORE</span><span>RESULT</span><span>MAP</span><span>DEMO</span></li>`);
+      $("#enemyTeam").empty().append(`
+          <div class='buttonHead'><h3>Enemy: (${timesWonVs +
+            timesLostVs})</h3></div>
+          <div class='matchButton'>
+          <div class='gameTime'>Time</div>
+          <div class='scoreLine'>Score</div>
+          <div class='result'>Result</div>
+          <div class='map'>Map</div>
+          <div class='demo'>Demo</div>
+          <div></div>
+       `);
     }
 
     //Calculate winrates
@@ -447,19 +453,13 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
       (timesWonVs / (timesLostVs + timesWonVs)) * 100
     );
     timesMet = timesLostVs + timesWonVs + (timesWonInTeam + timesLostInTeam);
-    $(
-      "#textOutput"
-    ).empty().append(`<li class='listitem'><h3>Facts:</h3></li>
-    <li class='listitem'><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</li>
-    <li class='listitem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</li>
-    <li class='listitem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</li>
-    <li class='listitem'>${impactScoreFriendly}% is the overal winrate when playing together.</li>
-    <li class='listitem'>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong> .</li>`);
+    $("#facts").empty().append(`<li class='buttonHead'><h3>Facts:</h3></li>
+    <li class='listItem'><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</li>
+    <li class='listItem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</li>
+    <li class='listItem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</li>
+    <li class='listItem'>${impactScoreFriendly}% is the overal winrate when playing together.</li>
+    <li class='listItem'>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong> .</li>`);
   });
-  // console.log(typeof timesWonInTeam);
-  // console.log(typeof timesInEnemy);
-
-  // console.log(typeof impactScore );
 };
 
 //* Standalone functions
@@ -482,7 +482,7 @@ let calcSearch = () => {
 let timedEvents = () => {
   setTimeout(function() {
     getAllPlayerMatches(player_id_1, searchOffset);
-  }, 1000);
+  }, 1100);
 };
 //Set timers to 0
 let setTimers = () => {

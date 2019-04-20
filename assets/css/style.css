@@ -176,8 +176,9 @@ body .container .matchButton {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -190,24 +191,40 @@ body .container .matchButton {
 }
 
 body .container .matchButton div {
-  text-align: left;
-}
-
-body .container .matchButton .time {
-  width: 130px;
-}
-
-body .container .matchButton .scoreline {
-  width: 6vw;
-  justify-items: flex-start;
-  margin-right: 10%;
+  text-align: right;
+  width: 20vw;
 }
 
 body .container .matchButton:hover {
   background: #1a1a1a;
 }
 
-body .container .listitem {
+body .container .buttonHead {
+  border-right: 1px solid #ff7d00;
+  border-left: 1px solid #ff7d00;
+  -webkit-box-pack: safe;
+      -ms-flex-pack: safe;
+          justify-content: safe;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px;
+  background: #181818;
+  margin: 5px 5%;
+  font-size: 13px;
+  width: 80vw;
+  height: 30px;
+  margin-top: 10px;
+}
+
+body .container .buttonHead:hover {
+  background: #1a1a1a;
+}
+
+body .container .listItem {
   border-right: 1px solid #ff7d00;
   border-left: 1px solid #ff7d00;
   text-align: center;
@@ -221,7 +238,7 @@ body .container .listitem {
   letter-spacing: 1px;
 }
 
-body .container .listitem:hover {
+body .container .listItem:hover {
   background: #1a1a1a;
 }
 
@@ -261,7 +278,9 @@ body .container .profiles .profileBox {
   margin: 3px;
   background: #181818;
   width: 43vw;
-  height: 120Px;
+  height: 20vh;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 body .container .profiles .profileBox img {

@@ -153,7 +153,7 @@ body {
       border-right:1px solid #ff7d00;
       border-left:1px solid #ff7d00;
       display:flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       padding: 10px;
       background: #181818;
@@ -162,22 +162,32 @@ body {
       width:80vw;
       height:30px;
       div {
-        text-align: left;
-      }
-      .time{
-      width:130px;
-      }
-      .scoreline{
-        width:6vw;
-        justify-items: flex-start;
-        margin-right:10%;
+        text-align: right;
+        width:20vw;
       }
 
     }
     .matchButton:hover{
         background: #1a1a1a;
       }
-    .listitem {
+    .buttonHead{
+      border-right:1px solid #ff7d00;
+      border-left:1px solid #ff7d00;
+      justify-content:safe;
+      align-items: center;
+      display:flex;
+      padding: 10px;
+      background: #181818;
+      margin: 5px 5%;
+      font-size: 13px;
+      width:80vw;
+      height:30px;
+      margin-top:10px;
+    }
+    .buttonHead:hover{
+      background: #1a1a1a;
+    }
+    .listItem{
       border-right:1px solid #ff7d00;
       border-left:1px solid #ff7d00;
       text-align: center;
@@ -189,8 +199,9 @@ body {
       width:80vw;
       height:30px;
       letter-spacing:1px;
+
     }
-    .listitem:hover{
+    .listItem:hover{
       background: #1a1a1a;
     }
     .spanWIN {
@@ -215,8 +226,8 @@ body {
       margin: 3px;
       background: #181818;
       width:43vw;
-      height:120Px;
-      
+      height:20vh;
+      flex-wrap: wrap;
       img {
         width: 100px;
         height: 100px;
