@@ -66,7 +66,7 @@ body input {
   border: 1px solid #7e7e7e;
   padding: 5px;
   border-radius: 2px;
-  margin: 2px;
+  margin-top: 15px;
 }
 
 body input:hover {
@@ -183,28 +183,15 @@ body .container .absolute {
   position: absolute;
 }
 
-body .container .tableHeader {
-  border-right: 1px solid #ff7d00;
+body .container .tableHeader, body .container .matchButton, body .container .buttonHead, body .container .listItem {
+  border-top: 1px solid #ff7d00;
   border-left: 1px solid #ff7d00;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 10px;
-  background: #181818;
-  margin: 2px 5%;
-  font-size: 13px;
-  width: 80vw;
-  height: 30px;
+  border-right: 1px solid #ff7d00;
+  border-bottom: 1px solid #ff7d00;
 }
 
-body .container .matchButton {
-  border-right: 1px solid #ff7d00;
-  border-left: 1px solid #ff7d00;
+body .container .tableHeader {
+  border-bottom: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -216,10 +203,34 @@ body .container .matchButton {
           align-items: center;
   padding: 10px;
   background: #181818;
-  margin: 2px 5%;
   font-size: 13px;
   width: 80vw;
   height: 30px;
+  margin: 0 5%;
+}
+
+body .container .tableHeader div {
+  margin: 0 auto;
+  text-align: center;
+  width: 20vw;
+}
+
+body .container .matchButton {
+  border-top: 0;
+  border-bottom: 0;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  background: #181818;
+  margin: 0 5%;
+  font-size: 13px;
+  width: 80vw;
+  height: 30px;
+  margin-bottom: 1px;
 }
 
 body .container .matchButton div {
@@ -233,11 +244,6 @@ body .container .matchButton:hover {
 }
 
 body .container .buttonHead {
-  border-right: 1px solid #ff7d00;
-  border-left: 1px solid #ff7d00;
-  -webkit-box-pack: safe;
-      -ms-flex-pack: safe;
-          justify-content: safe;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -246,20 +252,20 @@ body .container .buttonHead {
   display: flex;
   padding: 10px;
   background: #181818;
-  margin: 5px 5%;
+  margin: 1px 5%;
   font-size: 13px;
   width: 80vw;
   height: 30px;
-  margin-top: 10px;
 }
 
 body .container .buttonHead:hover {
   background: #1a1a1a;
+  cursor: pointer;
 }
 
 body .container .listItem {
-  border-right: 1px solid #ff7d00;
-  border-left: 1px solid #ff7d00;
+  border-top: 0;
+  border-bottom: 0;
   text-align: center;
   list-style-type: none;
   padding: 10px;
@@ -357,6 +363,12 @@ body .faceitLogo img {
 
 .none {
   display: none;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .loaderWrapper {

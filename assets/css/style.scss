@@ -59,7 +59,7 @@ body {
     border: 1px solid #7e7e7e;
     padding: 5px;
     border-radius: 2px;
-    margin: 2px;
+    margin-top: 15px;
   }
   input:hover {
     border: 1px solid #c2c2c2;
@@ -159,35 +159,47 @@ body {
 .none {
   display:none;
 }
-    .absolute {
-      position: absolute;
-    }
+.absolute {
+  position: absolute;
+}
+%boxborders{
+  border-top:1px solid #ff7d00;
+  border-left:1px solid #ff7d00;
+  border-right:1px solid #ff7d00;
+  border-bottom:1px solid #ff7d00;
+}
     .tableHeader {
-      border-right:1px solid #ff7d00;
-      border-left:1px solid #ff7d00;
-      display:flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 10px;
-      background: #181818;
-      margin: 2px 5%;
-      font-size: 13px;
-      width:80vw;
-      height:30px;
-
-    }
-    .matchButton {
-      border-right:1px solid #ff7d00;
-      border-left:1px solid #ff7d00;
+      @extend %boxborders;
+      border-bottom:0;
       display:flex;
       justify-content: space-between;
       align-items: center;
       padding: 10px;
       background: #181818;
-      margin: 2px 5%;
       font-size: 13px;
       width:80vw;
       height:30px;
+      margin: 0 5%;
+      div {
+        margin:0 auto;
+        text-align: center;
+        width:20vw;
+      }
+
+    }
+    .matchButton {
+      @extend %boxborders;
+      border-top:0;
+      border-bottom:0;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: #181818;
+      margin: 0 5%;
+      font-size: 13px;
+      width:80vw;
+      height:30px;
+      margin-bottom: 1px;
       div {
         margin:0 auto;
         text-align: center;
@@ -199,25 +211,24 @@ body {
         background: #1a1a1a;
       }
     .buttonHead{
-      border-right:1px solid #ff7d00;
-      border-left:1px solid #ff7d00;
-      justify-content:safe;
+      @extend %boxborders;
       align-items: center;
       display:flex;
       padding: 10px;
       background: #181818;
-      margin: 5px 5%;
+      margin: 1px 5%;
       font-size: 13px;
       width:80vw;
       height:30px;
-      margin-top:10px;
     }
     .buttonHead:hover{
       background: #1a1a1a;
+      cursor:pointer;
     }
     .listItem{
-      border-right:1px solid #ff7d00;
-      border-left:1px solid #ff7d00;
+      @extend %boxborders;
+      border-top:0;
+      border-bottom:0;
       text-align: center;
       list-style-type: none;
       padding: 10px;
@@ -307,7 +318,9 @@ body {
 .none {
   display:none;
 }
-
+.flex {
+  display:flex;
+}
 //loader
 .loaderWrapper {
   position: absolute;
