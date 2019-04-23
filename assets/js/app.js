@@ -27,6 +27,10 @@ const currentVersion= "0.35";
 
 let matchesStorage = []
 let count = -1;
+
+
+var activeAjaxConnections = 0;
+
 //TODO Add Corresponding URL's
 //TODO Add Google adsense
 //TODO Add best map..
@@ -85,17 +89,16 @@ $(function() {
             player_Nick_1 = $("#input1").val();
             player_Nick_2 = $("#input2").val();
             matches_Amount = $("#input3").val();
-
+            
             setTimers();
             handlePlayerNickToId1(player_Nick_1);
             handlePlayerNickToId2(player_Nick_2);
             
             // repeat with the interval of .1 seconds
             let matches_output = setInterval(() => timedEvents(), 100);
-            setTimeout(() => {
-              clearInterval(matches_output);
-            }, matches_Amount);
-            
+            setTimeout(() => {clearInterval(matches_output);}, matches_Amount);
+
+  
           } else {
             $("#errorbox")
               .empty()
@@ -138,10 +141,9 @@ $(function() {
   //   $("#searchBox2").empty().append(`<li onclick='setValue'>${$("#input2").val()}</li>`)
   // });
 });
-//*SETVALFUNCT
-let setValue = () => {
-
-}
+$( document ).ajaxStart(function() {
+  $("#loaderWrapper").removeClass("none");
+});
 
 //* TIMINGS MARKED WITH [i]
 // Get Player Info 1
@@ -281,7 +283,7 @@ let getDetailedMatchInfo = urlsplit => {
     endData = data.finished_at;
     getTime = convertUnixTime(endData);
     matchesStorage.push(getTime)
-    console.log(matchesStorage)
+    // console.log(matchesStorage)
 
     
   });
@@ -342,6 +344,8 @@ if (getTime == undefined){
 }
 else {
   count++
+
+  
     if (Team == "Friendly") {
       if (condition == "WIN") {
         timesWonInTeam++;
@@ -445,6 +449,9 @@ else {
     <li class='listItem'>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong> .</li>`);
   });
 };
+$(document).ajaxStop(function() {
+  $("#loaderWrapper").addClass("none")
+})
 
 //* Standalone functions
 //Handle UrlSplitting
