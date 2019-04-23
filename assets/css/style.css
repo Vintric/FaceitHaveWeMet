@@ -59,6 +59,7 @@ body form {
 }
 
 body input {
+  width: 150px;
   background: #282828;
   color: #ebeff3;
   border: 1px solid #7e7e7e;
@@ -147,7 +148,37 @@ body .container {
   margin-right: 4%;
 }
 
-body .container .hidden {
+body .container .searchBox {
+  z-index: 1;
+  background: #4b4b4bcb;
+  list-style-type: none;
+  width: 160px;
+  left: 28.5vw;
+}
+
+body .container .searchBox li:hover {
+  background: #1a1a1a;
+  cursor: pointer;
+}
+
+body .container .searchBox2 {
+  z-index: 1;
+  background: #4b4b4bcb;
+  list-style-type: none;
+  width: 160px;
+  left: 41vw;
+}
+
+body .container .searchBox2 li:hover {
+  background: #1a1a1a;
+  cursor: pointer;
+}
+
+body .container .none {
+  display: none;
+}
+
+body .container .absolute {
   position: absolute;
 }
 

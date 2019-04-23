@@ -118,7 +118,6 @@ $(function() {
     }
     e.preventDefault();
   });
-
   $("#Changelog").click(function(e) {
     $("#changelogContainer").fadeToggle("hidden");
     $("#faqContainer").removeClass("hidden");
@@ -127,7 +126,22 @@ $(function() {
     $("#faqContainer").fadeToggle("hidden");
     $("#changelogContainer").removeClass("hidden");
   });
+  //*LIVE SEARCH PROGRESSION
+  // $( "#input1" ).keyup(function() {
+  //   $("#searchBox").removeClass("none")
+  //   $("#searchBox").addClass("absolute")
+  //   $("#searchBox").empty().append(`<li onclick='setValue'>${$("#input1").val()}</li>`)
+  // });
+  // $( "#input2" ).keyup(function() {
+  //   $("#searchBox2").removeClass("none")
+  //   $("#searchBox2").addClass("absolute")
+  //   $("#searchBox2").empty().append(`<li onclick='setValue'>${$("#input2").val()}</li>`)
+  // });
 });
+//*SETVALFUNCT
+let setValue = () => {
+
+}
 
 //* TIMINGS MARKED WITH [i]
 // Get Player Info 1

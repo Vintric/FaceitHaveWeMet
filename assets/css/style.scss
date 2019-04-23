@@ -52,6 +52,7 @@ body {
     margin:3% auto;
   }
   input {
+    width:150px;
     background: #282828;
     color: #ebeff3;
     border: 1px solid #7e7e7e;
@@ -131,8 +132,33 @@ body {
     margin-left: 4%;
     margin-top: 15vh;
     margin-right: 4%;
+.searchBox {
+  z-index: 1;
+  background:#4b4b4bcb;
+  list-style-type: none;
+  width:160px;
+  left:28.5vw;
+  li:hover {
+    background: #1a1a1a;
+    cursor:pointer;
+  } 
 
-    .hidden {
+}
+.searchBox2 {
+    z-index: 1;
+    background:#4b4b4bcb;
+    list-style-type: none;
+    width:160px;
+    left:41vw;
+    li:hover {
+      background: #1a1a1a;
+      cursor:pointer;
+    } 
+  }
+.none {
+  display:none;
+}
+    .absolute {
       position: absolute;
     }
     .tableHeader {
@@ -268,6 +294,9 @@ body {
     }
   }
 }
+
+
+
 
 .flag-icon{
   z-index: 0;
