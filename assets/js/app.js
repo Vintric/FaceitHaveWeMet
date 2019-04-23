@@ -65,8 +65,6 @@ $(function() {
     if ((player_Nick_1 = $("#input1").val() != "")) {
       if ((player_Nick_2 = $("#input2").val() != "")) {
         clearHtml();
-        matchesStorage=[];
-        demoStorage=[];
         $("#friendlyTeam").empty().append(`
         <div class='buttonHead'><h3>Friendly:</h3></div>
           <div class='tableHeader'>
