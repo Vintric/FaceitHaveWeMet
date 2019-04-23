@@ -191,7 +191,8 @@ body .container .matchButton {
 }
 
 body .container .matchButton div {
-  text-align: right;
+  margin: 0 auto;
+  text-align: center;
   width: 20vw;
 }
 

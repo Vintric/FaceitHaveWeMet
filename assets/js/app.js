@@ -10,24 +10,23 @@ let playerData;
 let urlsplit;
 let playerUrl;
 
-// let timesMet = 0;
-// let timesInTeam = 0;
-// let timesInEnemy = 0;
-// let timesWonInTeam = 0;
-// let timesLostInTeam = 0;
-// let timesWonVs = 0;
-// let timesLostVs = 0;
-
 let searchOffset = 0;
 let matchOutTimer = 0;
 let condition;
 let demoUrl;
-let endData;
+
 let impactScore = 0;
 let impactScoreEnemy = 0;
 
-const currentVersion= "0.34";
+let endData = 0;
+let endDataPrev = 0;
+let setDate = false;
+let getTime;
+let faceiturl;
+const currentVersion= "0.35";
 
+let matchesStorage = []
+let count = -1;
 //TODO Add Corresponding URL's
 //TODO Add Google adsense
 //TODO Add best map..
@@ -49,16 +48,18 @@ $(function() {
     .append(`<div class='buttonHead'><h3>Info:</h3></div>`);
   $("#version")
     .empty()
-    .append(`<div class='buttonHead'><h3>current-version. ${currentVersion}</h3></div>`);
+    .append(`<div class='buttonHead'><h5>current-version. ${currentVersion}</h5></div>`);
   $("#Profiles").append(
     `<div class='profileBox'></div>
     <div class='profileBox'></div>`
   );
   $("#searchButton").click(function(e) {
+
     clearVals();
     if ((player_Nick_1 = $("#input1").val() != "")) {
       if ((player_Nick_2 = $("#input2").val() != "")) {
         clearHtml();
+        matchesStorage=[]
         $("#friendlyTeam").empty().append(`
         <div class='buttonHead'><h3>Friendly:</h3></div>
           <div class='matchButton'>
@@ -86,15 +87,15 @@ $(function() {
             matches_Amount = $("#input3").val();
 
             setTimers();
-
             handlePlayerNickToId1(player_Nick_1);
             handlePlayerNickToId2(player_Nick_2);
-
+            
             // repeat with the interval of .1 seconds
             let matches_output = setInterval(() => timedEvents(), 100);
             setTimeout(() => {
               clearInterval(matches_output);
             }, matches_Amount);
+            
           } else {
             $("#errorbox")
               .empty()
@@ -216,37 +217,32 @@ let getAllPlayerMatches = (player_id, offset) => {
   }).done(function(data) {
     for (let i = 0; i < data.items.length; i++) {
       matches = data.items[i];
+      faceiturl = convertUrl(matches.faceit_url);
+      
       players = matches.playing_players;
       //Get posi of player1
       posiOne = players.indexOf(player_id_1);
       //Get posi of player2
       posiTwo = players.indexOf(player_id_2);
-      convertUrl(matches.faceit_url);
+      
       //Check all games you played together
       if (posiTwo == -1) {
         continue;
       }
+      getDetailedMatchInfo(faceiturl)
       //Check if teammates or enemy
-
       if (posiOne >= 0 && posiOne <= 4) {
-        
-        getDetailedMatchInfo(urlsplit);
-       
         if (posiTwo >= 0 && posiTwo <= 4) {
-          getAllPlayerMatchesStats(urlsplit, "Friendly");
+          getAllPlayerMatchesStats(faceiturl, "Friendly");
         } else {
-          getAllPlayerMatchesStats(urlsplit, "Enemy");
+          getAllPlayerMatchesStats(faceiturl, "Enemy");
         }
       }
       if (posiOne >= 5 && posiOne <= 9) {
-        convertUrl(matches.faceit_url);
-        getDetailedMatchInfo(urlsplit);
         if (posiTwo >= 5 && posiTwo <= 9) {
-
-          getAllPlayerMatchesStats(urlsplit, "Friendly");
+          getAllPlayerMatchesStats(faceiturl, "Friendly");
         } else {
-
-          getAllPlayerMatchesStats(urlsplit, "Enemy");
+          getAllPlayerMatchesStats(faceiturl, "Enemy");
         }
       }
 
@@ -264,63 +260,24 @@ let getDetailedMatchInfo = urlsplit => {
     },
     url: Url,
     dataType: "json",
-    error: handleAjaxError
+    error: handleAjaxError,
+    async: false
   }).done(function(data) {
     demoUrl = data.demo_url;
-    startDate = data.started_at;
     endData = data.finished_at;
-    console.log(endData)
-    let convertUnixTime = unixtime => {
-      // Unixtimestamp
-      let unixtimestamp = unixtime;
-      // Months array
-      let months_arr = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec"
-      ];
+    getTime = convertUnixTime(endData);
+    matchesStorage.push(getTime)
+    console.log(matchesStorage)
 
-      // Convert timestamp to milliseconds
-      let date = new Date(unixtimestamp * 1000);
-      // Year
-      let year = date.getFullYear();
-      // Month
-      let month = months_arr[date.getMonth()];
-      // Day
-      let day = date.getDate();
-      // Hours
-      let hours = date.getHours();
-      // Minutes
-      let minutes = "0" + date.getMinutes();
-
-      convdataTime =
-        day +
-        " " +
-        month +
-        " " +
-        year +
-        " - " +
-        hours +
-        ":" +
-        minutes.substr(-2);
-        console.log(convdataTime)
-    };
-    convertUnixTime(endData);
+    
   });
 };
 
 //* TIMING: [6]
 // Get match statistics
 let getAllPlayerMatchesStats = (urlsplit, Team) => {
+  
+
   let playerUrl = `${baseUrl}matches/${urlsplit}/stats`;
   $.ajax({
     headers: {
@@ -349,6 +306,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         condition = "LOSE";
       }
     }
+    
     if (data.rounds[0].round_stats.Winner == data.rounds[0].teams[1].team_id) {
       if (
         player_id_1 == data.rounds[0].teams[1].players[0].player_id ||
@@ -364,12 +322,19 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     }
 
     //* Append the buttons
+    
+if (getTime == undefined){
+
+}
+else {
+  count++
     if (Team == "Friendly") {
       if (condition == "WIN") {
         timesWonInTeam++;
+
         $("#friendlyW").append(
           `<div class='matchButton'>
-            <div id='gameTime'>${convdataTime}</div>
+            <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
@@ -383,7 +348,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         timesLostInTeam++;
         $("#friendlyL").append(
           `<div class='matchButton'>
-            <div id='gameTime'>${convdataTime}</div>
+            <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
@@ -405,12 +370,13 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
           <div></div>
        `);
     }
+  
     if (Team == "Enemy") {
       if (condition == "WIN") {
         timesWonVs++;
         $("#enemyW").append(
           `<div class='matchButton'>
-            <div id='gameTime'>${convdataTime}</div>
+            <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
@@ -424,7 +390,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         timesLostVs++;
         $("#enemyL").append(
           `<div class='matchButton'>
-            <div id='gameTime'>${convdataTime}</div>
+            <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
@@ -445,8 +411,10 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
           <div class='demo'>Demo</div>
           <div></div>
        `);
-    }
-
+    
+  
+}
+}
     //Calculate winrates
     impactScoreFriendly = Math.round(
       (timesWonInTeam / (timesWonInTeam + timesLostInTeam)) * 100
@@ -515,4 +483,50 @@ let clearVals = () => {
 //Handle fail
 let handleAjaxError = () => {
   console.log("There was a problem proccesing your request");
+};
+//Convert Timestamp to date
+let convertUnixTime = unixtime => {
+      // Unixtimestamp
+      let unixtimestamp = unixtime;
+      // Months array
+      let months_arr = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ];
+
+      // Convert timestamp to milliseconds
+      let date = new Date(unixtimestamp * 1000);
+      // Year
+      let year = date.getFullYear();
+      // Month
+      let month = months_arr[date.getMonth()];
+      // Day
+      let day = date.getDate();
+      // Hours
+      let hours = date.getHours();
+      // Minutes
+      let minutes = "0" + date.getMinutes();
+
+      let convdataTime =
+        day +
+        " " +
+        month +
+        " " +
+        year +
+        " - " +
+        hours +
+        ":" +
+        minutes.substr(-2);
+        // console.log(convdataTime)
+        return convdataTime
 };

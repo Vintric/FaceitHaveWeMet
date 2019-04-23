@@ -31,8 +31,8 @@
   <nav>
     <ul>
       <li><a href="https://www.paypal.me/anch126">Donate?</a></li>
-      <li id='faq'>FAQ</li>
-      <li id='Changelog'>Changelog</li>
+      <li id='faq'><a href="#faqContainer">FAQ</a></li>
+      <li id='Changelog'><a href="#changelogContainer">Changelog</a></li>
     </ul>
   </nav>
   <div class='noticebar'>
@@ -43,6 +43,8 @@
   <div class="container">
     <div class='changelogContainer' id='changelogContainer'>
       <pre><h3>Changelog:</h3></pre>
+      <pre>version. 0.035</pre>
+      <pre>&#8226 Fixed a major problem with time & date outputs</pre>
       <pre>version. 0.034</pre>
       <pre>&#8226 cleaned up code</pre>
       <pre>&#8226 added new layout to buttons that resembled more to faceit look & feel</pre>
@@ -83,8 +85,8 @@
     <form autocomplete="off"">
       <h1>Faceit: Have we met?</h1>
       <input autocomplete="off" id="input1" type="text" placeholder="Player 1" value="methoDs"/>
-      <input autocomplete="off" id="input2" type="text" placeholder="Player 2" value="azakwOw"/>
-      <input autocomplete="off" id="input3" type="number" placeholder="Search in x matches.." step="100" max="5000" value="100"/>
+      <input autocomplete="off" id="input2" type="text" placeholder="Player 2"/>
+      <input autocomplete="off" id="input3" type="number" placeholder="Search in x matches.." step="100" max="5000"/>
       <button id="searchButton"><i class="fas fa-search"></i></button>
     </form>
     <div class='' id='errorbox'></div>
@@ -98,8 +100,8 @@
     <div id='enemyW'></div>
     <div id='enemyL'></div>
     <div id="facts" class="textOutput"></div>
-    <div id='#version' class='listitem'>current-version. 0.034</div>
-    <footer></footer>
+    
+    <footer><div id='version' class='listitem'></div></footer>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"
     integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
