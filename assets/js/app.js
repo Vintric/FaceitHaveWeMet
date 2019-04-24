@@ -23,7 +23,7 @@ let endDataPrev = 0;
 let setDate = false;
 let getTime;
 let faceiturl;
-const currentVersion= "0.40";
+const currentVersion= "0.41";
 
 let demoStorage = []
 let matchesStorage = []
