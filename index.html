@@ -39,10 +39,15 @@
     <p>Whats next? Currently working on a live search! </p>
   </div>
   <div class='logoFixed'><a href='./index.html'><img src='./assets/img/logohwm.png'></a></div>
-
+  <div class='loaderWrapper none' id='loaderWrapper'>
+    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+  </div>
   <div class="container">
+
     <div class='changelogContainer' id='changelogContainer'>
       <pre><h3>Changelog:</h3></pre>
+      <pre>version. 0.036</pre>
+      <pre>&#8226 Added collapse functions & numerous other tweaks</pre>
       <pre>version. 0.035</pre>
       <pre>&#8226 Fixed a major problem with time & date outputs</pre>
       <pre>version. 0.034</pre>
@@ -102,7 +107,7 @@
     <div id='enemyL'></div>
     <div id="facts" class="textOutput"></div>
     
-    <footer><div id='version' class='listitem'></div></footer>
+    <footer><div id='version' class='listitem' href='#changelogContainer'></div></footer>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"
     integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
