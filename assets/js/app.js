@@ -190,6 +190,14 @@ $(function() {
     $("#searchBox2").removeClass("absolute")
     
   });
+  $("#input1").click(function () { 
+    searchStorage = []
+    $("#searchBox").removeClass("none")
+    $("#searchBox").addClass("absolute")
+    $("#searchBox2").addClass("none")
+    $("#searchBox2").removeClass("absolute")
+    $(`#searchBox`).empty()
+  });
 
   $( "#input2" ).keyup(function() {
     $("#searchBox").addClass("none")
@@ -241,7 +249,15 @@ $(function() {
     $("#searchBox2").addClass("absolute")
     $("#searchBox").addClass("none")
     $("#searchBox").removeClass("absolute")
-    
+    $(`#searchBox2`).empty()
+  });
+  $("#input2").click(function () { 
+    searchStorage = []
+    $("#searchBox2").removeClass("none")
+    $("#searchBox2").addClass("absolute")
+    $("#searchBox").addClass("none")
+    $("#searchBox").removeClass("absolute")
+    $(`#searchBox2`).empty()
   });
 
 
@@ -294,14 +310,15 @@ let handleAjaxSearch = (searchParam, boxid) => {
       // binding click event to li
       $("#searchBox li").bind("click", function() {
         let text = $(this).text()
-        
         $("#input1").val(text);
         searchStorage.length === 0;
+        $(`#searchBox2`).empty()
       });
       $("#searchBox2 li").bind("click", function() {
         let text = $(this).text()
         $("#input2").val(text);
         searchStorage.length === 0;
+        $(`#searchBox`).empty()
       });
     }
   });
