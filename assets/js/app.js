@@ -23,7 +23,7 @@ let endDataPrev = 0;
 let setDate = false;
 let getTime;
 let faceiturl;
-const currentVersion= "0.41";
+const currentVersion= "0.43";
 
 let demoStorage = []
 let matchesStorage = []
@@ -46,6 +46,79 @@ let nicknameLooped;
 
 
 $(function() {
+  let regExSearch = (param) => {
+    trueTyped = param
+    //* Original name with minor differators
+    handleAjaxSearch(trueTyped);
+    handleAjaxSearch("-" + trueTyped);
+    // //*remove first letter
+    let searchNoFirstLetter = trueTyped.slice(1);
+    handleAjaxSearch(searchNoFirstLetter);
+
+    //!SEARCH IN LEET 
+    //*change o to 0 as some people have o changed to 0 & viceversa
+    let replaceOwitho01 = trueTyped.replace(/o/g, '0')
+    let replaceOnewith02 = trueTyped.replace(/0/g, 'o')
+    handleAjaxSearch(replaceOwitho01);
+    handleAjaxSearch(replaceOnewith02);
+
+    //*change i to 1 
+    let replace1with1 = trueTyped.replace(/i/g, '1')
+    let replace1with2 = trueTyped.replace(/1/g, 'i')
+    handleAjaxSearch(replace1with1);
+    handleAjaxSearch(replace1with2);
+
+    //*change z to 2 
+    let replace2with1 = trueTyped.replace(/z/g, '2')
+    let replace2with2 = trueTyped.replace(/2/g, 'z')
+    handleAjaxSearch(replace2with1);
+    handleAjaxSearch(replace2with2);
+
+    //*change e to 3 
+    let replace3with1 = trueTyped.replace(/e/g, '3')
+    let replace3with2 = trueTyped.replace(/3/g, 'e')
+    handleAjaxSearch(replace3with1);
+    handleAjaxSearch(replace3with2);
+
+    //*change a to 4 
+    let replace4with1 = trueTyped.replace(/a/g, '4')
+    let replace4with2 = trueTyped.replace(/a/g, '4')
+    handleAjaxSearch(replace4with1);
+    handleAjaxSearch(replace4with2);
+
+    //*change s to 5
+    let replace5with1 = trueTyped.replace(/s/g, '5')
+    let replace5with2 = trueTyped.replace(/5/g, 's')
+    handleAjaxSearch(replace5with1);
+    handleAjaxSearch(replace5with2);
+    //*change g to 6
+    let replace6with1 = trueTyped.replace(/g/g, '6')
+    let replace6with2 = trueTyped.replace(/6/g, 'g')
+    handleAjaxSearch(replace6with1);
+    handleAjaxSearch(replace6with2);
+    //*change t to 7
+    let replace7with1 = trueTyped.replace(/t/g, '7')
+    let replace7with2 = trueTyped.replace(/7/g, 't')
+    handleAjaxSearch(replace7with1);
+    handleAjaxSearch(replace7with2);
+    //*change b to 8
+    let replace8with1 = trueTyped.replace(/b/g, '8')
+    let replace8with2 = trueTyped.replace(/8/g, 'b')
+    handleAjaxSearch(replace8with1);
+    handleAjaxSearch(replace8with2);
+
+
+
+
+    
+    // //* The Name typed with uppercase start
+    let searchFirstCapped = trueTyped.charAt(0).toUpperCase() + trueTyped.slice(1);
+    handleAjaxSearch(searchFirstCapped);
+    
+    // //* Uppercase all
+    let searchUpperCase = trueTyped.toUpperCase();
+    handleAjaxSearch(searchUpperCase);
+  }
   $("#friendlyTeam")
     .empty()
     .append(`<div class='buttonHead'><h3>Friendly:</h3></div>`);
@@ -163,44 +236,8 @@ $(function() {
     $("#searchBox2").removeClass("absolute")
     $("#searchBox").empty();
     let trueTyped = $("#input1").val();
- 
-    //* Original name with minor differators
-    handleAjaxSearch(trueTyped);
-    handleAjaxSearch("-" + trueTyped);
-    // //*remove first letter
-    let searchNoFirstLetter = trueTyped.slice(1);
-    handleAjaxSearch(searchNoFirstLetter);
-
-    //*change i to 1 as some people have i changed to 1 & viceversa
-    let replaceiwithone1 = trueTyped.replace(/i/g, '1')
-    let replaceonewithi2 = trueTyped.replace(/1/g, 'i')
-    handleAjaxSearch(replaceiwithone1);
-    handleAjaxSearch(replaceonewithi2);
-
-
-    //*change e to 3 as some people have e changed to E
-    let replaceewiththree1 = trueTyped.replace(/e/g, '3')
-    let replaceewiththree2 = trueTyped.replace(/3/g, 'e')
-    handleAjaxSearch(replaceewiththree1);
-    handleAjaxSearch(replaceewiththree2);
-
-    //*change a to 4 as some people have a changed to 4
-    let replaceiwithfour1 = trueTyped.replace(/a/g, '4')
-    let replaceiwithfour2 = trueTyped.replace(/a/g, '4')
-    handleAjaxSearch(replaceiwithfour1);
-    handleAjaxSearch(replaceiwithfour2);
-
-
+    regExSearch(trueTyped);
     
-    // //* The Name typed with uppercase start
-    let searchFirstCapped = trueTyped.charAt(0).toUpperCase() + trueTyped.slice(1);
-    handleAjaxSearch(searchFirstCapped);
-    
-    // //* Uppercase all
-    let searchUpperCase = trueTyped.toUpperCase();
-    handleAjaxSearch(searchUpperCase);
-
-
 
   });
  
@@ -219,41 +256,7 @@ $ ("#input2").keyup(function() {
     $("#searchBox2").addClass("absolute")
     $("#searchBox2").empty();
     let trueTyped = $("#input2").val();
- 
-    //* Original name with minor differators
-    handleAjaxSearch(trueTyped);
-    handleAjaxSearch("-" + trueTyped);
-    // //*remove first letter
-    let searchNoFirstLetter = trueTyped.slice(1);
-    handleAjaxSearch(searchNoFirstLetter);
-
-    //*change i to 1 as some people have i changed to 1 & viceversa
-    let replaceiwithone = trueTyped.replace(/i/g, '1')
-    let replaceonewithi = trueTyped.replace(/1/g, 'i')
-    handleAjaxSearch(replaceiwithone);
-    handleAjaxSearch(replaceonewithi);
-
-
-    //*change e to 3 as some people have e changed to E
-    let replaceiwiththree = trueTyped.replace(/e/g, '3')
-    handleAjaxSearch(replaceiwiththree);
-
-    //*change a to 4 as some people have a changed to 4
-    let replaceiwithfour = trueTyped.replace(/a/g, '4')
-    handleAjaxSearch(replaceiwithfour);
-
-
-    
-    // //* The Name typed with uppercase start
-    let searchFirstCapped = trueTyped.charAt(0).toUpperCase() + trueTyped.slice(1);
-    handleAjaxSearch(searchFirstCapped);
-    
-    // //* Uppercase all
-    let searchUpperCase = trueTyped.toUpperCase();
-    handleAjaxSearch(searchUpperCase);
-
-
-
+    regExSearch(trueTyped);
   });
   $("#input2").click(function () { 
     searchStorage = []
