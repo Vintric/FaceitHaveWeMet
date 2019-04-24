@@ -138,8 +138,25 @@ $(function() {
     $("#changelogContainer").fadeToggle("hidden");
     $("#faqContainer").removeClass("hidden");
   })
-  //*LIVE SEARCH PROGRESSION
-  $( "#input1" ).keyup(function() {
+  //*LIVE SEARCH PROGRESSION 
+  
+  $("#input1").click(function () { 
+    searchStorage = []
+    $("#searchBox").removeClass("none")
+    $("#searchBox").addClass("absolute")
+    $("#searchBox2").addClass("none")
+    $("#searchBox2").removeClass("absolute")
+    $(`#searchBox`).empty()
+  }); 
+  $("#input1").focus(function () { 
+    searchStorage = []
+    $("#searchBox").removeClass("none")
+    $("#searchBox").addClass("absolute")
+    $("#searchBox2").addClass("none")
+    $("#searchBox2").removeClass("absolute")
+    
+  });
+  $("#input1").keyup(function() {
     $("#searchBox").removeClass("none")
     $("#searchBox").addClass("absolute")
     $("#searchBox2").addClass("none")
@@ -155,19 +172,23 @@ $(function() {
     handleAjaxSearch(searchNoFirstLetter);
 
     //*change i to 1 as some people have i changed to 1 & viceversa
-    let replaceiwithone = trueTyped.replace(/i/g, '1')
-    let replaceonewithi = trueTyped.replace(/1/g, 'i')
-    handleAjaxSearch(replaceiwithone);
-    handleAjaxSearch(replaceonewithi);
+    let replaceiwithone1 = trueTyped.replace(/i/g, '1')
+    let replaceonewithi2 = trueTyped.replace(/1/g, 'i')
+    handleAjaxSearch(replaceiwithone1);
+    handleAjaxSearch(replaceonewithi2);
 
 
     //*change e to 3 as some people have e changed to E
-    let replaceiwiththree = trueTyped.replace(/e/g, '3')
-    handleAjaxSearch(replaceiwiththree);
+    let replaceewiththree1 = trueTyped.replace(/e/g, '3')
+    let replaceewiththree2 = trueTyped.replace(/3/g, 'e')
+    handleAjaxSearch(replaceewiththree1);
+    handleAjaxSearch(replaceewiththree2);
 
     //*change a to 4 as some people have a changed to 4
-    let replaceiwithfour = trueTyped.replace(/a/g, '4')
-    handleAjaxSearch(replaceiwithfour);
+    let replaceiwithfour1 = trueTyped.replace(/a/g, '4')
+    let replaceiwithfour2 = trueTyped.replace(/a/g, '4')
+    handleAjaxSearch(replaceiwithfour1);
+    handleAjaxSearch(replaceiwithfour2);
 
 
     
@@ -182,24 +203,16 @@ $(function() {
 
 
   });
-  $("#input1").focus(function () { 
+ 
+  $("#input2").focus(function () { 
     searchStorage = []
-    $("#searchBox").removeClass("none")
-    $("#searchBox").addClass("absolute")
-    $("#searchBox2").addClass("none")
-    $("#searchBox2").removeClass("absolute")
-    
+    $("#searchBox2").removeClass("none")
+    $("#searchBox2").addClass("absolute")
+    $("#searchBox").addClass("none")
+    $("#searchBox").removeClass("absolute")
+    $(`#searchBox2`).empty()
   });
-  $("#input1").click(function () { 
-    searchStorage = []
-    $("#searchBox").removeClass("none")
-    $("#searchBox").addClass("absolute")
-    $("#searchBox2").addClass("none")
-    $("#searchBox2").removeClass("absolute")
-    $(`#searchBox`).empty()
-  });
-
-  $( "#input2" ).keyup(function() {
+$ ("#input2").keyup(function() {
     $("#searchBox").addClass("none")
     $("#searchBox").removeClass("absolute")
     $("#searchBox2").removeClass("none")
@@ -242,15 +255,6 @@ $(function() {
 
 
   });
-
-  $("#input2").focus(function () { 
-    searchStorage = []
-    $("#searchBox2").removeClass("none")
-    $("#searchBox2").addClass("absolute")
-    $("#searchBox").addClass("none")
-    $("#searchBox").removeClass("absolute")
-    $(`#searchBox2`).empty()
-  });
   $("#input2").click(function () { 
     searchStorage = []
     $("#searchBox2").removeClass("none")
@@ -260,13 +264,14 @@ $(function() {
     $(`#searchBox2`).empty()
   });
 
-
   $("#input3").focus(function () { 
     searchStorage = []
     $("#searchBox").addClass("none")
     $("#searchBox").removeClass("absolute")
     $("#searchBox2").addClass("none")
     $("#searchBox2").removeClass("absolute")
+    $(`#searchBox2`).empty()
+    $(`#searchBox1`).empty()
   });
   
 

@@ -19,7 +19,7 @@ body {
   nav {
     background: #181818;
     position: fixed;
-    z-index: 0;
+    z-index: 3;
     width: 100vw;
     top: 0;
     left: 0;
@@ -90,6 +90,7 @@ body {
 
   .noticebar {
     position: fixed;
+    z-index:3;
     width: 100vw;
     height: 5vh;
     left: 0;
@@ -123,6 +124,7 @@ body {
     position: fixed;
     left: 12px;
     top: 8px;
+    z-index: 4;
 
     img {
       width: 35px;
@@ -363,7 +365,7 @@ body {
     position: fixed;
     right: 15px;
     top: 7px;
-
+    z-index: 4;
     img {
       width: 140px;
     }
