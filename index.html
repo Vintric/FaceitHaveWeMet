@@ -36,16 +36,18 @@
     </ul>
   </nav>
   <div class='noticebar'>
-    <p>Whats next? Currently working on a live search! </p>
+    <p>Ajax live search functionality added. Still buggy but works.</p>
   </div>
   <div class='logoFixed'><a href='./index.html'><img src='./assets/img/logohwm.png'></a></div>
   <div class='loaderWrapper none' id='loaderWrapper'>
-    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+      <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
   </div>
   <div class="container">
 
     <div class='changelogContainer' id='changelogContainer'>
       <pre><h3>Changelog:</h3></pre>
+      <pre>version. 0.040</pre>
+      <pre>&#8226 Added live search, still buggy but works.</pre>
       <pre>version. 0.036</pre>
       <pre>&#8226 Added collapse functions & numerous other tweaks</pre>
       <pre>version. 0.035</pre>
@@ -89,8 +91,18 @@
 
     <form autocomplete="off"">
       <h1>Faceit: Have we met?</h1>
-      <input autocomplete="off" id="input1" type="text" placeholder="Player 1"/><div class='searchBox none' id='searchBox'></div>
-      <input autocomplete="off" id="input2" type="text" placeholder="Player 2"/><div class='searchBox2 none' id='searchBox2'></div>
+      
+      <div class='inputfieldwrapper' id='inputfieldwrapper'>
+      <input autocomplete="off" class='inputField' id="input1" type="text" placeholder="Player 1"/>
+      <div class='searchBox none' id='searchBox'></div>
+      </div>
+
+
+      <div class='inputfieldwrapper' id='inputfieldwrapper'>
+      <input autocomplete="off" id="input2" type="text" placeholder="Player 2"/>
+      <div class='searchBox2 none' id='searchBox2'></div>
+      </div>
+      
       <input autocomplete="off" id="input3" type="number" placeholder="Search in x matches.." step="100" max="5000"/>
       <button id="searchButton"><i class="fas fa-search"></i></button>
       
@@ -105,10 +117,11 @@
     <div id='enemyTeam'></div>
     <div id='enemyW'></div>
     <div id='enemyL'></div>
-    <div id="facts" class="textOutput"></div>
+    <div id="facts"></div>
     
-    <footer><div id='version' class='listitem' href='#changelogContainer'></div></footer>
-  </div>
+
+  </div>    
+  <footer></footer>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"
     integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
   <script src="./assets/js/app.js"></script>

@@ -23,24 +23,27 @@ let endDataPrev = 0;
 let setDate = false;
 let getTime;
 let faceiturl;
-const currentVersion= "0.36";
+const currentVersion= "0.40";
 
 let demoStorage = []
 let matchesStorage = []
 let count = -1;
 
+let now = new Date();
 
 
-var activeAjaxConnections = 0;
+let searchCounter = -1;
+let searchStorage = [];
+let nicknameLooped;
 
 //TODO Add Corresponding URL's
 //TODO Add Google adsense
 //TODO Add best map..
-//TODO Add Ajax search..
-//TODO Add taart diagram -- chartJS
+
+
 //TODO Add if solo or premade
-//TODO Add legenda
-//TODO Add footer & copyright shizzle
+
+
 
 $(function() {
   $("#friendlyTeam")
@@ -52,9 +55,11 @@ $(function() {
   $("#facts")
     .empty()
     .append(`<div class='buttonHead'><h3>Facts:</h3></div>`);
-  $("#version")
+  $("footer")
     .empty()
-    .append(`<div class='buttonHead'><h5>current-version. ${currentVersion}</h5></div>`);
+    .append(`
+    <div id='version' href='#changelogContainer'><small>current-version: ${currentVersion}</small></div>
+    <div id='CC><a href='https://www.github.com/AngeloAlfanoc'><small>Copyright &#169; ${now.getFullYear()} &#8226; Alfano Angelo</a>  &#8226; Some Rights Reserved.</small></div>`);
   $("#Profiles").append(
     `<div class='profileBox'></div>
     <div class='profileBox'></div>`
@@ -134,25 +139,211 @@ $(function() {
     $("#faqContainer").removeClass("hidden");
   })
   //*LIVE SEARCH PROGRESSION
-  // $( "#input1" ).keyup(function() {
-  //   $("#searchBox").removeClass("none")
-  //   $("#searchBox").addClass("absolute")
-  //   $("#searchBox").empty().append(`<li onclick='setValue'>${$("#input1").val()}</li>`)
-  // });
-  // $( "#input2" ).keyup(function() {
-  //   $("#searchBox2").removeClass("none")
-  //   $("#searchBox2").addClass("absolute")
-  //   $("#searchBox2").empty().append(`<li onclick='setValue'>${$("#input2").val()}</li>`)
-  // });
-});
-$( document ).ajaxStart(function() {
-  $("#loaderWrapper").removeClass("none");
+  $( "#input1" ).keyup(function() {
+    $("#searchBox").removeClass("none")
+    $("#searchBox").addClass("absolute")
+    $("#searchBox2").addClass("none")
+    $("#searchBox2").removeClass("absolute")
+    $("#searchBox").empty();
+    let trueTyped = $("#input1").val();
+ 
+    //* Original name with minor differators
+    handleAjaxSearch(trueTyped);
+    handleAjaxSearch("-" + trueTyped);
+    // //*remove first letter
+    let searchNoFirstLetter = trueTyped.slice(1);
+    handleAjaxSearch(searchNoFirstLetter);
+
+    //*change i to 1 as some people have i changed to 1 & viceversa
+    let replaceiwithone = trueTyped.replace(/i/g, '1')
+    let replaceonewithi = trueTyped.replace(/1/g, 'i')
+    handleAjaxSearch(replaceiwithone);
+    handleAjaxSearch(replaceonewithi);
+
+
+    //*change e to 3 as some people have e changed to E
+    let replaceiwiththree = trueTyped.replace(/e/g, '3')
+    handleAjaxSearch(replaceiwiththree);
+
+    //*change a to 4 as some people have a changed to 4
+    let replaceiwithfour = trueTyped.replace(/a/g, '4')
+    handleAjaxSearch(replaceiwithfour);
+
+
+    
+    // //* The Name typed with uppercase start
+    let searchFirstCapped = trueTyped.charAt(0).toUpperCase() + trueTyped.slice(1);
+    handleAjaxSearch(searchFirstCapped);
+    
+    // //* Uppercase all
+    let searchUpperCase = trueTyped.toUpperCase();
+    handleAjaxSearch(searchUpperCase);
+
+
+
+  });
+  $("#input1").focus(function () { 
+    searchStorage = []
+    $("#searchBox").removeClass("none")
+    $("#searchBox").addClass("absolute")
+    $("#searchBox2").addClass("none")
+    $("#searchBox2").removeClass("absolute")
+    
+  });
+
+  $( "#input2" ).keyup(function() {
+    $("#searchBox").addClass("none")
+    $("#searchBox").removeClass("absolute")
+    $("#searchBox2").removeClass("none")
+    $("#searchBox2").addClass("absolute")
+    $("#searchBox2").empty();
+    let trueTyped = $("#input2").val();
+ 
+    //* Original name with minor differators
+    handleAjaxSearch(trueTyped);
+    handleAjaxSearch("-" + trueTyped);
+    // //*remove first letter
+    let searchNoFirstLetter = trueTyped.slice(1);
+    handleAjaxSearch(searchNoFirstLetter);
+
+    //*change i to 1 as some people have i changed to 1 & viceversa
+    let replaceiwithone = trueTyped.replace(/i/g, '1')
+    let replaceonewithi = trueTyped.replace(/1/g, 'i')
+    handleAjaxSearch(replaceiwithone);
+    handleAjaxSearch(replaceonewithi);
+
+
+    //*change e to 3 as some people have e changed to E
+    let replaceiwiththree = trueTyped.replace(/e/g, '3')
+    handleAjaxSearch(replaceiwiththree);
+
+    //*change a to 4 as some people have a changed to 4
+    let replaceiwithfour = trueTyped.replace(/a/g, '4')
+    handleAjaxSearch(replaceiwithfour);
+
+
+    
+    // //* The Name typed with uppercase start
+    let searchFirstCapped = trueTyped.charAt(0).toUpperCase() + trueTyped.slice(1);
+    handleAjaxSearch(searchFirstCapped);
+    
+    // //* Uppercase all
+    let searchUpperCase = trueTyped.toUpperCase();
+    handleAjaxSearch(searchUpperCase);
+
+
+
+  });
+
+  $("#input2").focus(function () { 
+    searchStorage = []
+    $("#searchBox2").removeClass("none")
+    $("#searchBox2").addClass("absolute")
+    $("#searchBox").addClass("none")
+    $("#searchBox").removeClass("absolute")
+    
+  });
+
+
+  $("#input3").focus(function () { 
+    searchStorage = []
+    $("#searchBox").addClass("none")
+    $("#searchBox").removeClass("absolute")
+    $("#searchBox2").addClass("none")
+    $("#searchBox2").removeClass("absolute")
+  });
+  
+
 });
 
-//* TIMINGS MARKED WITH [i]
-// Get Player Info 1
-//* TIMING: [1]
-let handlePlayerNickToId1 = nickname => {
+
+let handleAjaxSearch = (searchParam, boxid) => {
+  $.ajax({
+    headers: {
+      Authorization: "Bearer " + token
+    },
+
+    url: `https://open.faceit.com/data/v4/players?nickname=${searchParam}&game=csgo`,
+    dataType: "json",
+    success: function(data) {
+
+      let nickname = data.nickname;
+      let avatar = data.avatar;
+      let country = data.country;
+      
+      searchCounter++
+      
+
+      getExists = searchStorage.indexOf(nickname)
+      console.log(searchStorage)
+      if (getExists === -1) {
+        searchStorage.push(nickname)
+        console.log(searchStorage)
+        for(i = 0; i < searchStorage.length; i++) {
+          nicknameLooped = searchStorage[i]
+        }
+        
+       $(`#searchBox`).append(
+       `<li><span><img src='${avatar}'><span><span>${nicknameLooped}</span><span class="flag-icon flag-icon-${country}"><span></li> `
+      );
+      $("#searchBox2").append(
+        `<li><span><img src='${avatar}'><span><span>${nicknameLooped}</span><span class="flag-icon flag-icon-${country}"><span></li> `
+       );
+      }
+
+      // binding click event to li
+      $("#searchBox li").bind("click", function() {
+        let text = $(this).text()
+        
+        $("#input1").val(text);
+        searchStorage.length === 0;
+      });
+      $("#searchBox2 li").bind("click", function() {
+        let text = $(this).text()
+        $("#input2").val(text);
+        searchStorage.length === 0;
+      });
+    }
+  });
+}
+
+
+//*-------AJAX OBJECT---------*//
+  // On ajax start do the following
+  $( document ).ajaxStart(function() {
+    $("#loaderWrapper").removeClass("none");
+  });
+// On error start do the following
+  $( document ).ajaxError(function() {
+    
+  });
+  // As soon as all ajax loading stops end do the following 
+  $(document).ajaxStop(function() {
+  $("#loaderWrapper").addClass("none")
+  $("#friendlyButton").click(function(e) {
+    $("#friendlyW").children().toggleClass("none");
+    $("#friendlyW").children().toggleClass("flex");
+    $("#friendlyL").children().toggleClass("none");
+    $("#friendlyL").children().toggleClass("flex");
+  })
+  $("#enemyButton").click(function(e) {
+    $("#enemyW").children().toggleClass("none");
+    $("#enemyW").children().toggleClass("flex");
+    $("#enemyL").children().toggleClass("none");
+    $("#enemyL").children().toggleClass("flex");
+  })
+
+  searchStorage.length === 0;
+
+
+  });
+//*-------AJAX OBJECT---------*//
+
+//*------- START MAIN FUNCTIONALITY---------*//
+  //* TIMINGS MARKED WITH [i] !!!HEADFUNCTIONALITY!!! ///*
+  //* TIMING: [1]  
+  // Get Player Info 1
+  let handlePlayerNickToId1 = nickname => {
   let profileUrl = `${baseUrl}players?nickname=${nickname}`;
   $.ajax({
     headers: {
@@ -183,11 +374,9 @@ let handlePlayerNickToId1 = nickname => {
      </div>
      </div>`);
   });
-};
-
-//* TIMING: [2]
-// Get Player Info 2
-let handlePlayerNickToId2 = nickname => {
+  };//* TIMING: [2]
+  // Get Player Info 2
+  let handlePlayerNickToId2 = nickname => {
   let profileUrl = `${baseUrl}players?nickname=${nickname}`;
   $.ajax({
     headers: {
@@ -216,15 +405,9 @@ let handlePlayerNickToId2 = nickname => {
      </div>
      </div>`);
   });
-};
-
-//* TIMING: [4]
-//Check teammates or not
-
-
-//* TIMING: [3]
-//Get all player matches played
-let getAllPlayerMatches = (player_id, offset) => {
+  };//* TIMING: [3]
+  //Get all player matches played
+  let getAllPlayerMatches = (player_id, offset) => {
   offset = calcSearch() - 100;
   let playerUrl = `${baseUrl}players/${player_id}/history?game=csgo&from=1262304000&to=1555493746&offset=${offset}&limit=${matches_Amount}`;
   $.ajax({
@@ -268,11 +451,9 @@ let getAllPlayerMatches = (player_id, offset) => {
 
     }
   });
-};
-
-//* TIMING: [5]
-//Get matches played
-let getDetailedMatchInfo = urlsplit => {
+  };//* TIMING: [4]
+  //Get matches played
+  let getDetailedMatchInfo = urlsplit => {
   let Url = `${baseUrl}matches/${urlsplit}`;
   $.ajax({
     headers: {
@@ -292,11 +473,9 @@ let getDetailedMatchInfo = urlsplit => {
 
     
   });
-};
-
-//* TIMING: [6]
-// Get match statistics
-let getAllPlayerMatchesStats = (urlsplit, Team) => {
+  };//* TIMING: [5]
+  // Get match statistics
+  let getAllPlayerMatchesStats = (urlsplit, Team) => {
   
 
   let playerUrl = `${baseUrl}matches/${urlsplit}/stats`;
@@ -453,25 +632,11 @@ else {
     <div class='listItem'>${impactScoreFriendly}% is the overal winrate when playing together.</div>
     <div class='listItem'>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong> .</div>`);
   });
-};
-$(document).ajaxStop(function() {
-  $("#loaderWrapper").addClass("none")
-  $("#friendlyButton").click(function(e) {
-    $("#friendlyW").children().toggleClass("none");
-    $("#friendlyW").children().toggleClass("flex");
-    $("#friendlyL").children().toggleClass("none");
-    $("#friendlyL").children().toggleClass("flex");
-  })
-  $("#enemyButton").click(function(e) {
-    $("#enemyW").children().toggleClass("none");
-    $("#enemyW").children().toggleClass("flex");
-    $("#enemyL").children().toggleClass("none");
-    $("#enemyL").children().toggleClass("flex");
-  })
+  };
+//*------- END MAIN FUNCTIONALITY---------*//
 
-})
 
-//* Standalone functions
+//*------- STANDALONE FUNCTIONS---------*//
 //Handle UrlSplitting
 let convertUrl = objecturl => {
   url = objecturl;
@@ -569,3 +734,4 @@ let convertUnixTime = unixtime => {
         // console.log(convdataTime)
         return convdataTime
 };
+//*------- STANDALONE---------*//
