@@ -109,82 +109,58 @@ $(function() {
 
     //!Add Case sens search
     let caseSensA = trueTyped.replace(/a/g, 'A')
-    console.log(caseSensA)
+
     handleAjaxSearch(caseSensA);
     let caseSensB = trueTyped.replace(/b/g, 'B')
-    console.log(caseSensB)
+   
     handleAjaxSearch(caseSensB);
     let caseSensC = trueTyped.replace(/c/g, 'C')
-    console.log(caseSensC)
     handleAjaxSearch(caseSensC);
     let caseSensD = trueTyped.replace(/d/g, 'D')
-    console.log(caseSensD)
     handleAjaxSearch(caseSensD);
     let caseSensE = trueTyped.replace(/e/g, 'E')
-    console.log(caseSensE)
     handleAjaxSearch(caseSensE);
     let caseSensF = trueTyped.replace(/f/g, 'F')
-    console.log(caseSensF)
     handleAjaxSearch(caseSensF);
     let caseSensG = trueTyped.replace(/g/g, 'G')
-    console.log(caseSensG)
     handleAjaxSearch(caseSensG);
     let caseSensH = trueTyped.replace(/h/g, 'H')
-    console.log(caseSensH)
     handleAjaxSearch(caseSensH);
     let caseSensI = trueTyped.replace(/i/g, 'I')
-    console.log(caseSensI)
     handleAjaxSearch(caseSensI);
     let caseSensJ = trueTyped.replace(/j/g, 'J')
-    console.log(caseSensJ)
     handleAjaxSearch(caseSensJ);
     let caseSensK = trueTyped.replace(/k/g, 'K')
-    console.log(caseSensK)
     handleAjaxSearch(caseSensK);
     let caseSensL = trueTyped.replace(/l/g, 'L')
-    console.log(caseSensL)
     handleAjaxSearch(caseSensL);
     let caseSensM = trueTyped.replace(/m/g, 'M')
-    console.log(caseSensM)
     handleAjaxSearch(caseSensM);
     let caseSensN = trueTyped.replace(/n/g, 'N')
-    console.log(caseSensN)
     handleAjaxSearch(caseSensN);
     let caseSensO = trueTyped.replace(/o/g, 'O')
-    console.log(caseSensO)
     handleAjaxSearch(caseSensO);
     let caseSensP = trueTyped.replace(/p/g, 'P')
-    console.log(caseSensP)
     handleAjaxSearch(caseSensP);
     let caseSensQ = trueTyped.replace(/q/g, 'Q')
-    console.log(caseSensQ)
     handleAjaxSearch(caseSensQ);
     let caseSensR = trueTyped.replace(/r/g, 'R')
-    console.log(caseSensR)
     handleAjaxSearch(caseSensR);
     let caseSensS = trueTyped.replace(/s/g, 'S')
-    console.log(caseSensS)
     handleAjaxSearch(caseSensS);
     let caseSensT = trueTyped.replace(/t/g, 'T')
-    console.log(caseSensT)
     handleAjaxSearch(caseSensT);
     let caseSensU = trueTyped.replace(/u/g, 'U')
-    console.log(caseSensU)
     handleAjaxSearch(caseSensU);
     let caseSensV = trueTyped.replace(/v/g, 'V')
-    console.log(caseSensV)
     handleAjaxSearch(caseSensV);
     let caseSensW = trueTyped.replace(/w/g, 'W')
-    console.log(caseSensW)
     handleAjaxSearch(caseSensW);
     let caseSensX = trueTyped.replace(/x/g, 'X')
-    console.log(caseSensX)
     handleAjaxSearch(caseSensX);
     let caseSensY = trueTyped.replace(/y/g, 'Y')
-    console.log(caseSensY)
     handleAjaxSearch(caseSensY);
     let caseSensZ = trueTyped.replace(/z/g, 'Z')
-    console.log(caseSensZ)
     handleAjaxSearch(caseSensZ);
     
     // //* The Name typed with uppercase start
@@ -342,6 +318,27 @@ $ ("#input2").keyup(function() {
     $("#searchBox").removeClass("absolute")
     $(`#searchBox2`).empty()
   });
+
+  $("body").click(function(){
+    searchStorage = []
+    searchStorage.length == 0;
+    $(`#searchBox`).empty()
+    $(`#searchBox2`).empty()
+    $("#searchBox").addClass("none")
+    $("#searchBox").removeClass("absolute")
+    $("#searchBox2").addClass("none")
+    $("#searchBox2").removeClass("absolute")
+  })
+  $("#container").click(function(){
+    searchStorage = []
+    searchStorage.length == 0;
+    $(`#searchBox`).empty()
+    $(`#searchBox2`).empty()
+    $("#searchBox").addClass("none")
+    $("#searchBox").removeClass("absolute")
+    $("#searchBox2").addClass("none")
+    $("#searchBox2").removeClass("absolute")
+  })
 
   $("#input3").focus(function () { 
     searchStorage = []
