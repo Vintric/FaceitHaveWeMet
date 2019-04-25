@@ -48,7 +48,7 @@ let nicknameLooped;
 $(function() {
   let regExSearch = (param) => {
     trueTyped = param
-    //* Original name with minor differators
+    // //* Original name with minor differators
     handleAjaxSearch(trueTyped);
     handleAjaxSearch("-" + trueTyped);
     // //*remove first letter
@@ -56,60 +56,136 @@ $(function() {
     handleAjaxSearch(searchNoFirstLetter);
 
     //!SEARCH IN LEET 
-    //*change o to 0 as some people have o changed to 0 & viceversa
-    let replaceOwitho01 = trueTyped.replace(/o/g, '0')
-    let replaceOnewith02 = trueTyped.replace(/0/g, 'o')
-    handleAjaxSearch(replaceOwitho01);
-    handleAjaxSearch(replaceOnewith02);
+      //*change o to 0 as some people have o changed to 0 & viceversa
+      let replaceOwitho01 = trueTyped.replace(/o/g, '0')
+      let replaceOnewith02 = trueTyped.replace(/0/g, 'o')
+      handleAjaxSearch(replaceOwitho01);
+      handleAjaxSearch(replaceOnewith02);
 
-    //*change i to 1 
-    let replace1with1 = trueTyped.replace(/i/g, '1')
-    let replace1with2 = trueTyped.replace(/1/g, 'i')
-    handleAjaxSearch(replace1with1);
-    handleAjaxSearch(replace1with2);
+      //*change i to 1 
+      let replace1with1 = trueTyped.replace(/i/g, '1')
+      let replace1with2 = trueTyped.replace(/1/g, 'i')
+      handleAjaxSearch(replace1with1);
+      handleAjaxSearch(replace1with2);
 
-    //*change z to 2 
-    let replace2with1 = trueTyped.replace(/z/g, '2')
-    let replace2with2 = trueTyped.replace(/2/g, 'z')
-    handleAjaxSearch(replace2with1);
-    handleAjaxSearch(replace2with2);
+      //*change z to 2 
+      let replace2with1 = trueTyped.replace(/z/g, '2')
+      let replace2with2 = trueTyped.replace(/2/g, 'z')
+      handleAjaxSearch(replace2with1);
+      handleAjaxSearch(replace2with2);
 
-    //*change e to 3 
-    let replace3with1 = trueTyped.replace(/e/g, '3')
-    let replace3with2 = trueTyped.replace(/3/g, 'e')
-    handleAjaxSearch(replace3with1);
-    handleAjaxSearch(replace3with2);
+      //*change e to 3 
+      let replace3with1 = trueTyped.replace(/e/g, '3')
+      let replace3with2 = trueTyped.replace(/3/g, 'e')
+      handleAjaxSearch(replace3with1);
+      handleAjaxSearch(replace3with2);
 
-    //*change a to 4 
-    let replace4with1 = trueTyped.replace(/a/g, '4')
-    let replace4with2 = trueTyped.replace(/a/g, '4')
-    handleAjaxSearch(replace4with1);
-    handleAjaxSearch(replace4with2);
+      //*change a to 4 
+      let replace4with1 = trueTyped.replace(/a/g, '4')
+      let replace4with2 = trueTyped.replace(/a/g, '4')
+      handleAjaxSearch(replace4with1);
+      handleAjaxSearch(replace4with2);
 
-    //*change s to 5
-    let replace5with1 = trueTyped.replace(/s/g, '5')
-    let replace5with2 = trueTyped.replace(/5/g, 's')
-    handleAjaxSearch(replace5with1);
-    handleAjaxSearch(replace5with2);
-    //*change g to 6
-    let replace6with1 = trueTyped.replace(/g/g, '6')
-    let replace6with2 = trueTyped.replace(/6/g, 'g')
-    handleAjaxSearch(replace6with1);
-    handleAjaxSearch(replace6with2);
-    //*change t to 7
-    let replace7with1 = trueTyped.replace(/t/g, '7')
-    let replace7with2 = trueTyped.replace(/7/g, 't')
-    handleAjaxSearch(replace7with1);
-    handleAjaxSearch(replace7with2);
-    //*change b to 8
-    let replace8with1 = trueTyped.replace(/b/g, '8')
-    let replace8with2 = trueTyped.replace(/8/g, 'b')
-    handleAjaxSearch(replace8with1);
-    handleAjaxSearch(replace8with2);
+      //*change s to 5
+      let replace5with1 = trueTyped.replace(/s/g, '5')
+      let replace5with2 = trueTyped.replace(/5/g, 's')
+      handleAjaxSearch(replace5with1);
+      handleAjaxSearch(replace5with2);
+      //*change g to 6
+      let replace6with1 = trueTyped.replace(/g/g, '6')
+      let replace6with2 = trueTyped.replace(/6/g, 'g')
+      handleAjaxSearch(replace6with1);
+      handleAjaxSearch(replace6with2);
+      //*change t to 7
+      let replace7with1 = trueTyped.replace(/t/g, '7')
+      let replace7with2 = trueTyped.replace(/7/g, 't')
+      handleAjaxSearch(replace7with1);
+      handleAjaxSearch(replace7with2);
+      //*change b to 8
+      let replace8with1 = trueTyped.replace(/b/g, '8')
+      let replace8with2 = trueTyped.replace(/8/g, 'b')
+      handleAjaxSearch(replace8with1);
+      handleAjaxSearch(replace8with2);
 
-
-
-
+    //!Add Case sens search
+    let caseSensA = trueTyped.replace(/a/g, 'A')
+    console.log(caseSensA)
+    handleAjaxSearch(caseSensA);
+    let caseSensB = trueTyped.replace(/b/g, 'B')
+    console.log(caseSensB)
+    handleAjaxSearch(caseSensB);
+    let caseSensC = trueTyped.replace(/c/g, 'C')
+    console.log(caseSensC)
+    handleAjaxSearch(caseSensC);
+    let caseSensD = trueTyped.replace(/d/g, 'D')
+    console.log(caseSensD)
+    handleAjaxSearch(caseSensD);
+    let caseSensE = trueTyped.replace(/e/g, 'E')
+    console.log(caseSensE)
+    handleAjaxSearch(caseSensE);
+    let caseSensF = trueTyped.replace(/f/g, 'F')
+    console.log(caseSensF)
+    handleAjaxSearch(caseSensF);
+    let caseSensG = trueTyped.replace(/g/g, 'G')
+    console.log(caseSensG)
+    handleAjaxSearch(caseSensG);
+    let caseSensH = trueTyped.replace(/h/g, 'H')
+    console.log(caseSensH)
+    handleAjaxSearch(caseSensH);
+    let caseSensI = trueTyped.replace(/i/g, 'I')
+    console.log(caseSensI)
+    handleAjaxSearch(caseSensI);
+    let caseSensJ = trueTyped.replace(/j/g, 'J')
+    console.log(caseSensJ)
+    handleAjaxSearch(caseSensJ);
+    let caseSensK = trueTyped.replace(/k/g, 'K')
+    console.log(caseSensK)
+    handleAjaxSearch(caseSensK);
+    let caseSensL = trueTyped.replace(/l/g, 'L')
+    console.log(caseSensL)
+    handleAjaxSearch(caseSensL);
+    let caseSensM = trueTyped.replace(/m/g, 'M')
+    console.log(caseSensM)
+    handleAjaxSearch(caseSensM);
+    let caseSensN = trueTyped.replace(/n/g, 'N')
+    console.log(caseSensN)
+    handleAjaxSearch(caseSensN);
+    let caseSensO = trueTyped.replace(/o/g, 'O')
+    console.log(caseSensO)
+    handleAjaxSearch(caseSensO);
+    let caseSensP = trueTyped.replace(/p/g, 'P')
+    console.log(caseSensP)
+    handleAjaxSearch(caseSensP);
+    let caseSensQ = trueTyped.replace(/q/g, 'Q')
+    console.log(caseSensQ)
+    handleAjaxSearch(caseSensQ);
+    let caseSensR = trueTyped.replace(/r/g, 'R')
+    console.log(caseSensR)
+    handleAjaxSearch(caseSensR);
+    let caseSensS = trueTyped.replace(/s/g, 'S')
+    console.log(caseSensS)
+    handleAjaxSearch(caseSensS);
+    let caseSensT = trueTyped.replace(/t/g, 'T')
+    console.log(caseSensT)
+    handleAjaxSearch(caseSensT);
+    let caseSensU = trueTyped.replace(/u/g, 'U')
+    console.log(caseSensU)
+    handleAjaxSearch(caseSensU);
+    let caseSensV = trueTyped.replace(/v/g, 'V')
+    console.log(caseSensV)
+    handleAjaxSearch(caseSensV);
+    let caseSensW = trueTyped.replace(/w/g, 'W')
+    console.log(caseSensW)
+    handleAjaxSearch(caseSensW);
+    let caseSensX = trueTyped.replace(/x/g, 'X')
+    console.log(caseSensX)
+    handleAjaxSearch(caseSensX);
+    let caseSensY = trueTyped.replace(/y/g, 'Y')
+    console.log(caseSensY)
+    handleAjaxSearch(caseSensY);
+    let caseSensZ = trueTyped.replace(/z/g, 'Z')
+    console.log(caseSensZ)
+    handleAjaxSearch(caseSensZ);
     
     // //* The Name typed with uppercase start
     let searchFirstCapped = trueTyped.charAt(0).toUpperCase() + trueTyped.slice(1);

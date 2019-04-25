@@ -174,7 +174,6 @@ body .container .inputfieldwrapper {
 }
 
 body .container .searchBox {
-  border: 1Px solid #0e0e0e;
   list-style-type: none;
   top: 0;
   margin-top: 6.7vh;
@@ -224,7 +223,6 @@ body .container .searchBox li:hover {
 }
 
 body .container .searchBox2 {
-  border: 1Px solid #0e0e0e;
   list-style-type: none;
   top: 0;
   margin-top: 6.7vh;
