@@ -1,11 +1,10 @@
-const token = "655d9216-acc1-4fe5-bf5d-6f424b0d62c6"; //
-const baseUrl = "https://open.faceit.com/data/v4/";
+
 let player_Nick_1;
 let player_Nick_2;
 let player_id_1;
 let player_id_2;
 
-let output = $("#Profiles");
+
 let playerData;
 let urlsplit;
 let playerUrl;
@@ -23,7 +22,7 @@ let endDataPrev = 0;
 let setDate = false;
 let getTime;
 let faceiturl;
-const currentVersion= "0.45";
+const currentVersion= "0.50";
 
 let demoStorage = []
 let matchesStorage = []
@@ -37,11 +36,9 @@ let searchStorage = [];
 let nicknameLooped;
 
 //TODO Add Corresponding URL's
-//TODO Add Google adsense
-//TODO Add best map..
-
-
-//TODO Add if solo or premade
+//TODO Add Ads
+//TODO Change ajax searchbox css
+//TODO listjs
 
 
 
@@ -55,6 +52,7 @@ $(function() {
         for(i = 0; i < searchStorage.length; i++ ){
           searchTerm = searchStorage[i]
             }
+
             handleAjaxSearch(searchTerm)
         }
     };
@@ -62,28 +60,34 @@ $(function() {
 
     //!Add original string!!!
     pushAble(trueTyped);
+
     //!Add pseudo exeptions
     pushAble("-" + trueTyped);
     pushAble(trueTyped + "-");
     //*remove first letter
     let searchNoFirstLetter = trueTyped.slice(1);
     pushAble(searchNoFirstLetter);
-    //*remove last letter
-    let removeLastLetter = trueTyped.substring(0, trueTyped.length - 1);
-    pushAble(removeLastLetter);
+    
+    
     //*Last letter caps
-    let lastLetterCaps = trueTyped.toLowerCase().replace(/[a-z]\b/g, c => c.toUpperCase())
+    let lastLetterCaps = trueTyped.replace(/[a-z]\b/g, c => c.toUpperCase())
     pushAble(lastLetterCaps);
+    console.log(lastLetterCaps)
+    //*First letter caps
+    let firstLetterCaps = trueTyped.replace(/\b[a-z]/g, a => a.toUpperCase())
+    pushAble(firstLetterCaps);
+    console.log(firstLetterCaps)
+
+    //*
+
+    
     //* Full uppercase
     let searchUpperCase = trueTyped.toUpperCase();
     pushAble(searchUpperCase);  
     
-
     
     //!SEARCH IN L33T
     let searchInLeet = (str) => {
-
-     
       //*change o to 0 as some people have o changed to 0 & viceversa
       let replaceOwitho01 = str.replace(/o/g, '0')
       let replaceOnewith02 = str.replace(/0/g, 'o')
@@ -134,6 +138,8 @@ $(function() {
       let replace8with2 = str.replace(/8/g, 'b')
       pushAble(replace8with1);
       pushAble(replace8with2);
+
+      
     };searchInLeet(trueTyped)
 
     //!Add Case sens search
@@ -369,8 +375,24 @@ $(function() {
   })
   //*LIVE SEARCH PROGRESSION 
   
+  let debounce = function (func, wait, immediate) {
+    let timeout;
+    return function() {
+       let  context = this, args = arguments;
+        let later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+        };
+        let callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+  };
+
+
   $("#input1").click(function () { 
-    searchStorage = []
+
     $("#searchBox").removeClass("none")
     $("#searchBox").addClass("absolute")
     $("#searchBox2").addClass("none")
@@ -378,35 +400,36 @@ $(function() {
     $(`#searchBox`).empty()
   }); 
   $("#input1").focus(function () { 
-    searchStorage = []
+
     $("#searchBox").removeClass("none")
     $("#searchBox").addClass("absolute")
     $("#searchBox2").addClass("none")
     $("#searchBox2").removeClass("absolute")
     
   });
-  $("#input1").keyup(function() {
+
+  $("#input1").keyup(debounce(function(){
+    
+    let trueTyped = $("#input1").val();
+    regExSearch(trueTyped);
     $("#searchBox").removeClass("none")
     $("#searchBox").addClass("absolute")
     $("#searchBox2").addClass("none")
     $("#searchBox2").removeClass("absolute")
     $("#searchBox").empty();
-    let trueTyped = $("#input1").val();
-    regExSearch(trueTyped);
-    
 
-  });
+  },500));
 
  
   $("#input2").focus(function () { 
-    searchStorage = []
+
     $("#searchBox2").removeClass("none")
     $("#searchBox2").addClass("absolute")
     $("#searchBox").addClass("none")
     $("#searchBox").removeClass("absolute")
     $(`#searchBox2`).empty()
   });
-$ ("#input2").keyup(function() {
+$ ("#input2").keyup(debounce(function(){
     $("#searchBox").addClass("none")
     $("#searchBox").removeClass("absolute")
     $("#searchBox2").removeClass("none")
@@ -414,9 +437,8 @@ $ ("#input2").keyup(function() {
     $("#searchBox2").empty();
     let trueTyped = $("#input2").val();
     regExSearch(trueTyped);
-  });
+  },500));
   $("#input2").click(function () { 
-    searchStorage = []
     $("#searchBox2").removeClass("none")
     $("#searchBox2").addClass("absolute")
     $("#searchBox").addClass("none")
@@ -425,8 +447,7 @@ $ ("#input2").keyup(function() {
   });
 
   $("body").click(function(){
-    searchStorage = []
-    searchStorage.length == 0;
+    
     $(`#searchBox`).empty()
     $(`#searchBox2`).empty()
     $("#searchBox").addClass("none")
@@ -435,8 +456,7 @@ $ ("#input2").keyup(function() {
     $("#searchBox2").removeClass("absolute")
   })
   $("#container").click(function(){
-    searchStorage = []
-    searchStorage.length == 0;
+
     $(`#searchBox`).empty()
     $(`#searchBox2`).empty()
     $("#searchBox").addClass("none")
@@ -446,7 +466,7 @@ $ ("#input2").keyup(function() {
   })
 
   $("#input3").focus(function () { 
-    searchStorage = []
+
     $("#searchBox").addClass("none")
     $("#searchBox").removeClass("absolute")
     $("#searchBox2").addClass("none")
@@ -458,7 +478,8 @@ $ ("#input2").keyup(function() {
 
 });
 
-let nicknameStorge = []
+let nickname;
+
 let handleAjaxSearch = (searchParam) => {
   $.ajax({
     headers: {
@@ -467,49 +488,75 @@ let handleAjaxSearch = (searchParam) => {
 
     url: `https://open.faceit.com/data/v4/players?nickname=${searchParam}&game=csgo`,
     dataType: "json",
-    statusCode: {
-      404: function() {
+    beforeSend: function() {
+  
 
-      },
-      400: function() {
+      let checkEmpty = () => {
+        if (trueTyped == "") {
+          searchStorage = [];
+        }
+      };
 
+      setTimeout(function() {
+        checkEmpty();
+        ajaxreqeuestActive = 0;
+      }, 3000);
+      // trueTyped.length
+    },
+    success: function(data) {
+      let avatar = data.avatar;
+      let country = data.country;
+
+      if (!data.avatar) {
+        avatar = "./assets/img/profile.jpg";
+      }
+
+      {
+        if (data.nickname) {
+          nickname = data.nickname;
+          $(`#searchBox`).append(
+            `<li><span><img src='${avatar}'><span><span>${nickname}</span><span class="flag-icon flag-icon-${country}"><span></li> `
+          );
+          $("#searchBox2").append(
+            `<li><span><img src='${avatar}'><span><span>${nickname}</span><span class="flag-icon flag-icon-${country}"><span></li> `
+          );
+
+          // binding click event to li
+          $("#searchBox li").bind("click", function() {
+            let text = $(this).text();
+            $("#input1").val(text);
+            searchStorage.splice(0, searchStorage);
+            $(`#searchBox2`).empty();
+          });
+          $("#searchBox2 li").bind("click", function() {
+            let text = $(this).text();
+            $("#input2").val(text);
+            searchStorage.splice(0, searchStorage);
+            $(`#searchBox`).empty();
+          });
+        }
       }
     },
+    error: function(data) {
+      if (data.status == 404 || data.status == 400) {
+        failedsearch = searchStorage.indexOf(searchParam);
+        if (failedsearch >= 0) {
+          searchStorage.splice(failedsearch, 10);
+        }
 
-    success: function(data) {
-      let nickname = data.nickname;
-      let avatar = data.avatar;
-      let country = data.country;                 
-       $(`#searchBox`).append(
-       `<li><span><img src='${avatar}'><span><span>${nickname}</span><span class="flag-icon flag-icon-${country}"><span></li> `
-      );
-      $("#searchBox2").append(
-        `<li><span><img src='${avatar}'><span><span>${nickname}</span><span class="flag-icon flag-icon-${country}"><span></li> `
-       );
-      
-
-      // binding click event to li
-      $("#searchBox li").bind("click", function() {
-        let text = $(this).text()
-        $("#input1").val(text);
-        searchStorage.length === 0;
-        $(`#searchBox2`).empty()
-      });
-      $("#searchBox2 li").bind("click", function() {
-        let text = $(this).text()
-        $("#input2").val(text);
-        searchStorage.length === 0;
-        $(`#searchBox`).empty()
-      });
+        //
+      }
     }
   });
 }
-
+const token = "655d9216-acc1-4fe5-bf5d-6f424b0d62c6"; 
+const baseUrl = "https://open.faceit.com/data/v4/";
 
 //*-------AJAX OBJECT---------*//
   // On ajax start do the following
   $( document ).ajaxStart(function() {
     $("#loaderWrapper").removeClass("none");
+
   });
 // On error start do the following
   $( document ).ajaxError(function() {
@@ -561,7 +608,7 @@ let handleAjaxSearch = (searchParam) => {
     profileLink_1 = faceit_url.split("/").slice(-1)[0];
     console.log(player_id_1);
     //Output text
-    output.append(`<div class='profileBox'>
+    $("#Profiles").append(`<div class='profileBox'>
     <img src='${avatar_1}'>
     <div class='profileInfo'>
     <h3><a href='https://www.faceit.com/en/players/${profileLink_1}'>${nickname}</a></h3>
@@ -592,7 +639,7 @@ let handleAjaxSearch = (searchParam) => {
     steam_id_64_2 = data.steam_id_64;
     faceit_url = data.faceit_url;
     profileLink_2 = faceit_url.split("/").slice(-1)[0];
-    output.append(`<div class='profileBox'>
+    $("#Profiles").append(`<div class='profileBox'>
     <img src='${avatar_2}'>
     <div class='profileInfo'>
     <h3><a href='https://www.faceit.com/en/players/${profileLink_2}'>${nickname}</a></h3>
@@ -869,7 +916,7 @@ let setTimers = () => {
 };
 //Clear HTML
 let clearHtml = () => {
-  output.empty();
+  $("#Profiles").empty();
   $("#friendlyTeam").empty();
   $("#friendlyW").empty();
   $("#friendlyL").empty();
