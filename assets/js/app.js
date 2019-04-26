@@ -40,11 +40,43 @@ let nicknameLooped;
 //TODO Change ajax searchbox css
 //TODO listjs
 
-const token = "655d9216-acc1-4fe5-bf5d-6f424b0d62c6"; 
+let token ; 
 const baseUrl = "https://open.faceit.com/data/v4/";
 
 
+
+
+
 $(function() {
+  setInterval(function(){ loopTokens(); }, 10);
+  let loopTokens = () => {
+  let keysToken = [
+  "2ba7cdc4-3d72-41d4-8fc7-7fa5e0d3d1aa",
+  "1411eea9-891b-4972-a84e-18dc8004232c",
+  "fe0b9e1e-2d89-4cfd-8827-6be642670c78",
+  "672a34d1-b254-4a22-aa61-ecf812657dc7",
+  "49841c59-a98b-4edf-9e78-bc46eff44df1",
+  "e070b097-5998-47fe-9385-df1157ddba7f",
+  "a515a678-91fa-44b8-ad44-4214c8dd343f",
+  "e37cd1e2-664c-491c-8da1-9f24d48249de",
+  "fd6852b0-faae-4961-9eb7-a58e3b1dc75e",
+  "655d9216-acc1-4fe5-bf5d-6f424b0d62c6",
+  "2ba7cdc4-3d72-41d4-8fc7-7fa5e0d3d1aa",
+  "1411eea9-891b-4972-a84e-18dc8004232c",
+  "fe0b9e1e-2d89-4cfd-8827-6be642670c78",
+  "672a34d1-b254-4a22-aa61-ecf812657dc7",
+  "49841c59-a98b-4edf-9e78-bc46eff44df1",
+  "e070b097-5998-47fe-9385-df1157ddba7f",
+  "a515a678-91fa-44b8-ad44-4214c8dd343f",
+  "e37cd1e2-664c-491c-8da1-9f24d48249de",
+  "fd6852b0-faae-4961-9eb7-a58e3b1dc75e",
+  "655d9216-acc1-4fe5-bf5d-6f424b0d62c6",
+  ]
+  for(let i = 0; i< keysToken.length; i++){
+    token = keysToken[i]
+  }
+  return token
+}
   let regExSearch = (param) => {
     trueTyped = param
     let pushAble = (stringtopushtooarr) => {
@@ -490,6 +522,8 @@ let handleAjaxSearch = (searchParam) => {
 
     url: `https://open.faceit.com/data/v4/players?nickname=${searchParam}&game=csgo`,
     dataType: "json",
+    
+    
     beforeSend: function() {
   
 
@@ -505,6 +539,7 @@ let handleAjaxSearch = (searchParam) => {
       }, 3000);
       // trueTyped.length
     },
+    
     success: function(data) {
       let avatar = data.avatar;
       let country = data.country;
@@ -596,7 +631,8 @@ let handleAjaxSearch = (searchParam) => {
     },
     url: profileUrl,
     dataType: "json",
-    error: handleAjaxError
+    error: handleAjaxError,
+    async: false
   }).done(function(data) {
     player_id_1 = data.player_id;
     avatar_1 = data.avatar;
@@ -629,7 +665,8 @@ let handleAjaxSearch = (searchParam) => {
     },
     url: profileUrl,
     dataType: "json",
-    error: handleAjaxError
+    error: handleAjaxError,
+    async: false
   }).done(function(data) {
     player_id_2 = data.player_id;
     avatar_2 = data.avatar;
