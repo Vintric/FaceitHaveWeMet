@@ -40,16 +40,13 @@ let nicknameLooped;
 //TODO Change ajax searchbox css
 //TODO listjs
 
-let token ; 
+let css = 'color:green;font-family:system-ui;font-size:2rem;-webkit-text-stroke: 1px black;font-weight:bold;background: black;';
+let css2 = 'color:red;font-family:system-ui;font-size:2rem;-webkit-text-stroke: 1px black;font-weight:bold;background: black;';
+let css3 = 'color:blue;font-family:system-ui;font-size:2rem;-webkit-text-stroke: 1px black;font-weight:bold;background: black;';
+let token;
 const baseUrl = "https://open.faceit.com/data/v4/";
 
-
-
-
-
 $(function() {
-  setInterval(function(){ loopTokens(); }, 10);
-  let loopTokens = () => {
   let keysToken = [
   "2ba7cdc4-3d72-41d4-8fc7-7fa5e0d3d1aa",
   "1411eea9-891b-4972-a84e-18dc8004232c",
@@ -71,12 +68,10 @@ $(function() {
   "e37cd1e2-664c-491c-8da1-9f24d48249de",
   "fd6852b0-faae-4961-9eb7-a58e3b1dc75e",
   "655d9216-acc1-4fe5-bf5d-6f424b0d62c6",
-  ]
-  for(let i = 0; i< keysToken.length; i++){
-    token = keysToken[i]
-  }
-  return token
-}
+  "d5cde6c0-2c4e-41b4-bef9-53764f022500"
+  ];
+  setInterval(function(){token = rand(keysToken);console.log("%c"+token , css)},1);
+
   let regExSearch = (param) => {
     trueTyped = param
     let pushAble = (stringtopushtooarr) => {
@@ -525,12 +520,11 @@ let handleAjaxSearch = (searchParam) => {
     
     
     beforeSend: function() {
-  
-
       let checkEmpty = () => {
         if (trueTyped == "") {
           searchStorage = [];
         }
+        console.log("%c"+token , css2)
       };
 
       setTimeout(function() {
@@ -578,7 +572,7 @@ let handleAjaxSearch = (searchParam) => {
       if (data.status == 404 || data.status == 400) {
         failedsearch = searchStorage.indexOf(searchParam);
         if (failedsearch >= 0) {
-          searchStorage.splice(failedsearch, 10);
+          searchStorage.splice(failedsearch, 1);
         }
 
         //
@@ -631,9 +625,9 @@ let handleAjaxSearch = (searchParam) => {
     },
     url: profileUrl,
     dataType: "json",
-    error: handleAjaxError,
-    async: false
+    error: handleAjaxError
   }).done(function(data) {
+    console.log("%c"+token , css3)
     player_id_1 = data.player_id;
     avatar_1 = data.avatar;
     steamid_1 = data.platforms.steam;
@@ -665,9 +659,9 @@ let handleAjaxSearch = (searchParam) => {
     },
     url: profileUrl,
     dataType: "json",
-    error: handleAjaxError,
-    async: false
+    error: handleAjaxError
   }).done(function(data) {
+    console.log("%c"+token , css3)
     player_id_2 = data.player_id;
     avatar_2 = data.avatar;
     steamid_2 = data.platforms.steam;
@@ -700,6 +694,7 @@ let handleAjaxSearch = (searchParam) => {
     dataType: "json",
     error: handleAjaxError
   }).done(function(data) {
+    console.log("%c"+token , css3)
     for (let i = 0; i < data.items.length; i++) {
       matches = data.items[i];
       faceiturl = convertUrl(matches.faceit_url);
@@ -746,6 +741,7 @@ let handleAjaxSearch = (searchParam) => {
     error: handleAjaxError,
     async: false
   }).done(function(data) {
+    console.log("%c"+token , css3)
     demoUrl = data.demo_url;
     endData = data.finished_at;
     getTime = convertUnixTime(endData);
@@ -769,6 +765,7 @@ let handleAjaxSearch = (searchParam) => {
     dataType: "json",
     error: "problem get All Player Matches Stats"
   }).done(function(data) {
+    console.log("%c"+token , css3)
     //* The map played
     mapPlayed = data.rounds[0].round_stats.Map;
     //* The score of the game
@@ -1016,4 +1013,9 @@ let convertUnixTime = unixtime => {
         // console.log(convdataTime)
         return convdataTime
 };
+
+
+let rand = items => {
+  return items[~~(items.length * Math.random())];
+}; // jQuery Randomizer
 //*------- STANDALONE---------*//
