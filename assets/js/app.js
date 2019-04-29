@@ -737,6 +737,7 @@ let handleAjaxSearch = (searchParam) => {
   });
   };//* TIMING: [4]
   let timing4 = false;
+  let timing = 50000 * matches_Amount;
   //Get matches played
   let getDetailedMatchInfo = urlsplit => {
   let Url = `${baseUrl}matches/${urlsplit}`;
@@ -747,8 +748,9 @@ let handleAjaxSearch = (searchParam) => {
     url: Url,
     dataType: "json",
     error: handleAjaxError,
-
-  }).done(function(data) {
+    timeout: timing,
+    cache:false,
+  }),succes(function(data) {
     console.log("%c"+token , css3)
     demoUrl = data.demo_url;
     endData = data.finished_at;
@@ -764,7 +766,7 @@ let handleAjaxSearch = (searchParam) => {
   // Get match statistics
   let getAllPlayerMatchesStats = (urlsplit, Team) => {
   
-let timing = 50000;
+let timing = 30000;
   let playerUrl = `${baseUrl}matches/${urlsplit}/stats`;
   $.ajax({
     headers: {
