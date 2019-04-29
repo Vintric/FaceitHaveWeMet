@@ -379,42 +379,43 @@ body {
     }
   }
 }
+
 .profiles {
   display: flex;
   justify-content: center;
 
-.profileBox {
-  margin:0 auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  border-radius: 2px;
-  margin: 1px;
-  background: #181818;
-  width: 44%;
-  height: 20vh;
-  flex-wrap: wrap;
+  .profileBox {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 2px;
+    margin: 1px;
+    background: #181818;
+    width: 44%;
+    height: 20vh;
+    flex-wrap: wrap;
 
-  img {
-    width: 100px;
-    height: 100px;
-    padding: 5px;
-    margin: auto 0;
-  }
+    img {
+      width: 100px;
+      height: 100px;
+      padding: 5px;
+      margin: auto 0;
+    }
 
-  p {
-    margin: -1px;
-    font-size: 13px;
-  }
+    p {
+      margin: -1px;
+      font-size: 13px;
+    }
 
-  h3 {
-    margin: 1px auto;
-  }
+    h3 {
+      margin: 1px auto;
+    }
 
-  .profileInfo {
-    margin: auto 0;
+    .profileInfo {
+      margin: auto 0;
+    }
   }
-}
 }
 
 .flag-icon {
@@ -506,11 +507,23 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
+  .noticebar {
+    height: 100px;
+  }
+
   .profiles {
-    height:300px;
+    height: 300px;
+    margin: 0 auto;
+
     .profileBox {
-    height:50vh;
+      height: 50vh;
+      width: 100%;
+      margin-left: 2%;
+
+
+    }
   }
-  }
-  
+      .profileInfo {
+        padding: 2%;
+      }
 }

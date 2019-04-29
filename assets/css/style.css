@@ -594,11 +594,20 @@ body .faceitLogo img {
 }
 
 @media only screen and (max-width: 600px) {
+  .noticebar {
+    height: 100px;
+  }
   .profiles {
     height: 300px;
+    margin: 0 auto;
   }
   .profiles .profileBox {
     height: 50vh;
+    width: 100%;
+    margin-left: 2%;
+  }
+  .profileInfo {
+    padding: 2%;
   }
 }
 /*# sourceMappingURL=style.css.map */
