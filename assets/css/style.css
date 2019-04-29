@@ -146,6 +146,9 @@ body .logoFixed img {
 }
 
 body footer {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  height: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -168,9 +171,17 @@ body .container {
   margin-right: 4%;
 }
 
+body .container .errorbox {
+  background: #0e0e0ec5;
+  text-align: center;
+  width: 98%;
+  margin: 5px auto;
+}
+
 body .container .inputfieldwrapper {
   position: relative;
   display: inline-block;
+  height: 50px;
 }
 
 body .container .searchBox {
@@ -277,13 +288,6 @@ body .container .absolute {
   position: absolute;
 }
 
-body .container .tableHeader, body .container .matchButton, body .container .buttonHead, body .container .listItem {
-  border-top: 1px solid #ff7d00;
-  border-left: 1px solid #ff7d00;
-  border-right: 1px solid #ff7d00;
-  border-bottom: 1px solid #ff7d00;
-}
-
 body .container .tableHeader {
   border-bottom: 0;
   display: -webkit-box;
@@ -358,6 +362,14 @@ body .container .buttonHead:hover {
 }
 
 body .container .listItem {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-top: 0;
   border-bottom: 0;
   text-align: center;
@@ -395,8 +407,6 @@ body .container .profiles {
 }
 
 body .container .profiles .profileBox {
-  border-right: 2px solid #ff7d00;
-  border-left: 2px solid #ff7d00;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -408,9 +418,9 @@ body .container .profiles .profileBox {
       -ms-flex-pack: center;
           justify-content: center;
   border-radius: 2px;
-  margin: 3px;
+  margin: 1px;
   background: #181818;
-  width: 43vw;
+  width: 49%;
   height: 20vh;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;

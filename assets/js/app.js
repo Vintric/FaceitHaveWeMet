@@ -22,7 +22,7 @@ let endDataPrev = 0;
 let setDate = false;
 let getTime;
 let faceiturl;
-const currentVersion= "0.50";
+const currentVersion= "0.53";
 
 let demoStorage = []
 let matchesStorage = []
@@ -312,10 +312,10 @@ $(function() {
   }
   $("#friendlyTeam")
     .empty()
-    .append(`<div class='buttonHead'><h3>Friendly:</h3></div>`);
+    .append(`<div class='buttonHead'><h3>As friendly:</h3></div>`);
   $("#enemyTeam")
     .empty()
-    .append(`<div class='buttonHead'><h3>Enemy:</h3></div>`);
+    .append(`<div class='buttonHead'><h3>As enemy:</h3></div>`);
   $("#facts")
     .empty()
     .append(`<div class='buttonHead'><h3>Facts:</h3></div>`);
@@ -335,7 +335,7 @@ $(function() {
       if ((player_Nick_2 = $("#input2").val() != "")) {
         clearHtml();
         $("#friendlyTeam").empty().append(`
-        <div class='buttonHead'><h3>Friendly:</h3></div>
+        <div class='buttonHead'><h3>As friendly:</h3></div>
           <div class='tableHeader'>
           <div class='gameTime'>Time</div>
           <div class='scoreLine'>Score</div>
@@ -344,7 +344,7 @@ $(function() {
           <div class='demo'>Demo</div>
           <div></div>`);
         $("#enemyTeam").empty().append(`
-        <div class='buttonHead'><h3>Enemy:</h3></div>
+        <div class='buttonHead'><h3>As enemy:</h3></div>
         <div class='tableHeader'>
         <div class='gameTime'>Time</div>
         <div class='scoreLine'>Score</div>
@@ -356,6 +356,7 @@ $(function() {
 
         if ((matches_Amount = $("#input3").val() != "")) {
           if ($("#input1").val() !== $("#input2").val()) {
+            $("#errorbox").empty();
             player_Nick_1 = $("#input1").val();
             player_Nick_2 = $("#input2").val();
             matches_Amount = $("#input3").val();
@@ -371,22 +372,22 @@ $(function() {
           } else {
             $("#errorbox")
               .empty()
-              .append(`Make sure you have entered 2 unique nicknames! `);
+              .append(`error-03: Please make sure the specified usernames are not the equal!`);
           }
         } else {
           $("#errorbox")
             .empty()
-            .append(`Please fill in the amount of matches`);
+            .append(`error-03: Matches field is blank.<br> Please supply us with any amount!`);
         }
       } else {
         $("#errorbox")
           .empty()
-          .append(`Please fill in player 2`);
+          .append(`error-02: No username for player 2.<br> Please make sure you have entered a username!`);
       }
     } else {
       $("#errorbox")
         .empty()
-        .append(`Please fill in player 1`);
+        .append(`error-01: No username for player 1.<br> Please make sure you have entered a username!`);
     }
     e.preventDefault();
   });
@@ -616,16 +617,19 @@ let handleAjaxSearch = (searchParam) => {
 //*------- START MAIN FUNCTIONALITY---------*//
   //* TIMINGS MARKED WITH [i] !!!HEADFUNCTIONALITY!!! ///*
   //* TIMING: [1]  
+
   // Get Player Info 1
   let handlePlayerNickToId1 = nickname => {
   let profileUrl = `${baseUrl}players?nickname=${nickname}`;
+  
   $.ajax({
     headers: {
       Authorization: "Bearer " + token
     },
     url: profileUrl,
     dataType: "json",
-    error: handleAjaxError
+    error: handleAjaxError,
+
   }).done(function(data) {
     console.log("%c"+token , css3)
     player_id_1 = data.player_id;
@@ -650,6 +654,7 @@ let handleAjaxSearch = (searchParam) => {
      </div>`);
   });
   };//* TIMING: [2]
+
   // Get Player Info 2
   let handlePlayerNickToId2 = nickname => {
   let profileUrl = `${baseUrl}players?nickname=${nickname}`;
@@ -659,7 +664,7 @@ let handleAjaxSearch = (searchParam) => {
     },
     url: profileUrl,
     dataType: "json",
-    error: handleAjaxError
+
   }).done(function(data) {
     console.log("%c"+token , css3)
     player_id_2 = data.player_id;
@@ -682,6 +687,7 @@ let handleAjaxSearch = (searchParam) => {
      </div>`);
   });
   };//* TIMING: [3]
+
   //Get all player matches played
   let getAllPlayerMatches = (player_id, offset) => {
   offset = calcSearch() - 100;
@@ -692,7 +698,8 @@ let handleAjaxSearch = (searchParam) => {
     },
     url: playerUrl,
     dataType: "json",
-    error: handleAjaxError
+    error: handleAjaxError,
+
   }).done(function(data) {
     console.log("%c"+token , css3)
     for (let i = 0; i < data.items.length; i++) {
@@ -729,6 +736,7 @@ let handleAjaxSearch = (searchParam) => {
     }
   });
   };//* TIMING: [4]
+  let timing4 = false;
   //Get matches played
   let getDetailedMatchInfo = urlsplit => {
   let Url = `${baseUrl}matches/${urlsplit}`;
@@ -752,6 +760,7 @@ let handleAjaxSearch = (searchParam) => {
     
   });
   };//* TIMING: [5]
+  let timing5 = false;
   // Get match statistics
   let getAllPlayerMatchesStats = (urlsplit, Team) => {
   
@@ -841,7 +850,7 @@ else {
       }
       $("#friendlyTeam").empty().append(`
           <div class='buttonHead' id='friendlyButton'>
-          <i class="fas fa-minus-square" id='minusFriendly'></i><h3>Friendly: (${timesWonInTeam +
+          <i class="fas fa-minus-square" id='minusFriendly'></i><h3>As friendly: (${timesWonInTeam +
             timesLostInTeam})</h3></div>
           <div class='tableHeader'>
           <div class='gameTime'>Time</div>
@@ -884,7 +893,7 @@ else {
       }
       $("#enemyTeam").empty().append(`
           <div class='buttonHead'  id='enemyButton'>
-          <i class="fas fa-minus-square" id='minusEnemy'></i><h3>Enemy: (${timesWonVs + timesLostVs})</h3></div>
+          <i class="fas fa-minus-square" id='minusEnemy'></i><h3>As enemy: (${timesWonVs + timesLostVs})</h3></div>
           <div class='tableHeader'>
           <div class='gameTime'>Time</div>
           <div class='scoreLine'>Score</div>
@@ -909,8 +918,16 @@ else {
     <div class='listItem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</div>
     <div class='listItem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</div>
     <div class='listItem'>${impactScoreFriendly}% is the overal winrate when playing together.</div>
-    <div class='listItem'>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong> .</div>`);
+    `);
+  
+  if(impactScoreEnemy >= 0) {
+    $("#facts").append(`<div class='listItem'>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong></div>`)
+  }
+  else {
+
+  }
   });
+
   };
 //*------- END MAIN FUNCTIONALITY---------*//
 
