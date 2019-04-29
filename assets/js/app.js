@@ -600,13 +600,15 @@ let handleAjaxSearch = (searchParam) => {
     $("#friendlyW").children().toggleClass("flex");
     $("#friendlyL").children().toggleClass("none");
     $("#friendlyL").children().toggleClass("flex");
-  })
+  });
+
+  
   $("#enemyButton").click(function(e) {
     $("#enemyW").children().toggleClass("none");
     $("#enemyW").children().toggleClass("flex");
     $("#enemyL").children().toggleClass("none");
     $("#enemyL").children().toggleClass("flex");
-  })
+  });
 
 
 
@@ -850,7 +852,7 @@ else {
       }
       $("#friendlyTeam").empty().append(`
           <div class='buttonHead' id='friendlyButton'>
-          <i class="fas fa-minus-square" id='minusFriendly'></i><h3>As friendly: (${timesWonInTeam +
+          <i class="fas fa-chevron-up"></i><h3>As friendly: (${timesWonInTeam +
             timesLostInTeam})</h3></div>
           <div class='tableHeader'>
           <div class='gameTime'>Time</div>
@@ -893,7 +895,7 @@ else {
       }
       $("#enemyTeam").empty().append(`
           <div class='buttonHead'  id='enemyButton'>
-          <i class="fas fa-minus-square" id='minusEnemy'></i><h3>As enemy: (${timesWonVs + timesLostVs})</h3></div>
+          <i class="fas fa-chevron-up"></i><h3>As enemy: (${timesWonVs + timesLostVs})</h3></div>
           <div class='tableHeader'>
           <div class='gameTime'>Time</div>
           <div class='scoreLine'>Score</div>
