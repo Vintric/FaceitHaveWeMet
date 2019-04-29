@@ -8,7 +8,10 @@ body {
   font-family: "Play", sans-serif;
 }
 
-body h1, body h2, body h3, body h4 {
+body h1,
+body h2,
+body h3,
+body h4 {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -395,57 +398,6 @@ body .container .spanLOSE {
   color: #ff0000;
 }
 
-body .container .profiles {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-body .container .profiles .profileBox {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  border-radius: 2px;
-  margin: 1px;
-  background: #181818;
-  width: 49%;
-  height: 20vh;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-body .container .profiles .profileBox img {
-  width: 100px;
-  height: 100px;
-  padding: 5px;
-  margin: auto 0;
-}
-
-body .container .profiles .profileBox p {
-  margin: -1px;
-  font-size: 13px;
-}
-
-body .container .profiles .profileBox h3 {
-  margin: 1px auto;
-}
-
-body .container .profiles .profileBox .profileInfo {
-  margin: auto 0;
-}
-
 body .container .textOutput p {
   margin: 2px auto;
 }
@@ -459,6 +411,56 @@ body .faceitLogo {
 
 body .faceitLogo img {
   width: 140px;
+}
+
+.profiles {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.profiles .profileBox {
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 2px;
+  margin: 1px;
+  background: #181818;
+  width: 44%;
+  height: 20vh;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.profiles .profileBox img {
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  margin: auto 0;
+}
+
+.profiles .profileBox p {
+  margin: -1px;
+  font-size: 13px;
+}
+
+.profiles .profileBox h3 {
+  margin: 1px auto;
+}
+
+.profiles .profileBox .profileInfo {
+  margin: auto 0;
 }
 
 .flag-icon {

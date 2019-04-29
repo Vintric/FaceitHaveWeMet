@@ -324,10 +324,6 @@ $(function() {
     .append(`
     <div id='version' href='#changelogContainer'><small>current-version: ${currentVersion}</small></div>
     <div id='CC><a href='https://www.github.com/AngeloAlfanoc'><small>Copyright &#169; ${now.getFullYear()} &#8226; Alfano Angelo</a>  &#8226; Some Rights Reserved.</small></div>`);
-  $("#Profiles").append(
-    `<div class='profileBox'></div>
-    <div class='profileBox'></div>`
-  );
   $("#searchButton").click(function(e) {
 
     clearVals();
@@ -631,6 +627,7 @@ let handleAjaxSearch = (searchParam) => {
     url: profileUrl,
     dataType: "json",
     error: handleAjaxError,
+    async:false
 
   }).done(function(data) {
     console.log("%c"+token , css3)
@@ -643,8 +640,9 @@ let handleAjaxSearch = (searchParam) => {
     faceit_url = data.faceit_url;
     profileLink_1 = faceit_url.split("/").slice(-1)[0];
     console.log(player_id_1);
+
     //Output text
-    $("#Profiles").append(`<div class='profileBox'>
+    $("#profilebox1").empty().append(`
     <img src='${avatar_1}'>
     <div class='profileInfo'>
     <h3><a href='https://www.faceit.com/en/players/${profileLink_1}'>${nickname}</a></h3>
@@ -653,7 +651,7 @@ let handleAjaxSearch = (searchParam) => {
     <p>Steam-id:${steamid_1}</p>
     <p><a href='https://steamcommunity.com/profiles/${steam_id_64_1}'>Steam-profile</a></p>
      </div>
-     </div>`);
+     `);
   });
   };//* TIMING: [2]
 
@@ -666,7 +664,7 @@ let handleAjaxSearch = (searchParam) => {
     },
     url: profileUrl,
     dataType: "json",
-
+    async:false
   }).done(function(data) {
     console.log("%c"+token , css3)
     player_id_2 = data.player_id;
@@ -677,7 +675,7 @@ let handleAjaxSearch = (searchParam) => {
     steam_id_64_2 = data.steam_id_64;
     faceit_url = data.faceit_url;
     profileLink_2 = faceit_url.split("/").slice(-1)[0];
-    $("#Profiles").append(`<div class='profileBox'>
+    $("#profilebox2").empty().append(`
     <img src='${avatar_2}'>
     <div class='profileInfo'>
     <h3><a href='https://www.faceit.com/en/players/${profileLink_2}'>${nickname}</a></h3>
@@ -686,7 +684,7 @@ let handleAjaxSearch = (searchParam) => {
     <p>Steam-id:${steamid_2}</p>
     <p><a href='https://steamcommunity.com/profiles/${steam_id_64_2}'>Steam-profile</a></p>
      </div>
-     </div>`);
+     `);
   });
   };//* TIMING: [3]
 
