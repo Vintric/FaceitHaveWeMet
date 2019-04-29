@@ -592,4 +592,13 @@ body .faceitLogo img {
             transform: translate(19px, 0);
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .profiles {
+    height: 300px;
+  }
+  .profiles .profileBox {
+    height: 50vh;
+  }
+}
 /*# sourceMappingURL=style.css.map */
