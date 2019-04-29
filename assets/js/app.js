@@ -22,7 +22,7 @@ let endDataPrev = 0;
 let setDate = false;
 let getTime;
 let faceiturl;
-const currentVersion= "0.53";
+const currentVersion= "0.56";
 
 let demoStorage = []
 let matchesStorage = []
@@ -747,7 +747,7 @@ let handleAjaxSearch = (searchParam) => {
     url: Url,
     dataType: "json",
     error: handleAjaxError,
-    async: false
+
   }).done(function(data) {
     console.log("%c"+token , css3)
     demoUrl = data.demo_url;
@@ -760,7 +760,7 @@ let handleAjaxSearch = (searchParam) => {
     
   });
   };//* TIMING: [5]
-  let timing5 = false;
+
   // Get match statistics
   let getAllPlayerMatchesStats = (urlsplit, Team) => {
   
@@ -772,6 +772,7 @@ let handleAjaxSearch = (searchParam) => {
     },
     url: playerUrl,
     dataType: "json",
+    timeout: 10000,
     error: "problem get All Player Matches Stats"
   }).done(function(data) {
     console.log("%c"+token , css3)
