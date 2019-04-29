@@ -764,7 +764,7 @@ let handleAjaxSearch = (searchParam) => {
   // Get match statistics
   let getAllPlayerMatchesStats = (urlsplit, Team) => {
   
-
+let timing = 50000;
   let playerUrl = `${baseUrl}matches/${urlsplit}/stats`;
   $.ajax({
     headers: {
@@ -772,7 +772,7 @@ let handleAjaxSearch = (searchParam) => {
     },
     url: playerUrl,
     dataType: "json",
-    timeout: 10000,
+    timeout: timing,
     error: "problem get All Player Matches Stats"
   }).done(function(data) {
     console.log("%c"+token , css3)
