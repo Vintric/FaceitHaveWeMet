@@ -375,7 +375,7 @@ body .container .listItem {
   text-align: center;
   padding: 10px;
   background: #181818;
-  margin: 1px auto;
+  margin: 1px 0;
   font-size: 13px;
   width: 100%;
   height: 15px;

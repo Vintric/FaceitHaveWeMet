@@ -22,7 +22,7 @@ let endDataPrev = 0;
 let setDate = false;
 let getTime;
 let faceiturl;
-const currentVersion= "0.56";
+const currentVersion= "0.60";
 
 let demoStorage = []
 let matchesStorage = []
@@ -921,14 +921,19 @@ else {
     );
     timesMet = timesLostVs + timesWonVs + (timesWonInTeam + timesLostInTeam);
     $("#facts").empty().append(`<div class='buttonHead' id='factsButton'><h3>Facts:</h3></div>
+    <div class='factWrapper'>
     <div class='listItem'><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</div>
     <div class='listItem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</div>
-    <div class='listItem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</div>
+    
     <div class='listItem'>${impactScoreFriendly}% is the overal winrate when playing together.</div>
+    </div>
     `);
   
   if(impactScoreEnemy >= 0) {
-    $("#facts").append(`<div class='listItem'>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong></div>`)
+    $("#facts").append(`
+    <div class='listItem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</div>
+    <div class='listItem'>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong></div>
+    `)
   }
   else {
 
