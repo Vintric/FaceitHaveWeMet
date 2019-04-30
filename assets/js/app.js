@@ -763,7 +763,7 @@ let handleAjaxSearch = (searchParam) => {
   // Get match statistics
   let getAllPlayerMatchesStats = (urlsplit, Team) => {
   
-let timing= 15000 * matches_Amount;
+let timing= 35000 * matches_Amount;
   let playerUrl = `${baseUrl}matches/${urlsplit}/stats`;
   $.ajax({
     headers: {
@@ -811,9 +811,7 @@ let timing= 15000 * matches_Amount;
 
     //* Append the buttons
     
-if (getTime == undefined){
 
-}
 else {
   count++
 
