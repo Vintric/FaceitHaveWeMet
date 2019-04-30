@@ -8,3 +8,4 @@ Any input from the person reading this is appreciated.
 
 Visit here to find the app.
 https://angeloalfanoc.github.io/FaceitHaveWeMet/
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0bcec6e7-8e73-420b-b094-97bb61c0f555/deploy-status)](https://app.netlify.com/sites/faceithavewemet/deploys)
