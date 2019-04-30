@@ -324,7 +324,16 @@ $(function() {
     .append(`
     <div id='version' href='#changelogContainer'><small>current-version: ${currentVersion}</small></div>
     <div id='CC><a href='https://www.github.com/AngeloAlfanoc'><small>Copyright &#169; ${now.getFullYear()} &#8226; Alfano Angelo</a>  &#8226; Some Rights Reserved.</small></div>`);
-  $("#searchButton").click(function(e) {
+  
+    $("#formHandling").submit(function(e) {
+      e.preventDefault();
+    
+      var $form = $(this);
+      $.post($form.attr("action"), $form.serialize()).then(function() {
+
+      });
+    });
+    $("#searchButton").click(function(e) {
 
     clearVals();
     if ((player_Nick_1 = $("#input1").val() != "")) {
