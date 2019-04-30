@@ -22,7 +22,7 @@ let endDataPrev = 0;
 let setDate = false;
 let getTime;
 let faceiturl;
-const currentVersion= "0.60";
+const currentVersion= "0.61";
 
 let demoStorage = []
 let matchesStorage = []
@@ -834,7 +834,12 @@ else {
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
-            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
+            <div class='mapWrapper'>
+
+            <div class='mapName'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
+            <div class='mapImg'><img src='./assets/img/maps/${mapPlayed}.jpg'></a></div>
+
+            </div>
             <div><a href='${demoStorage[count]}'>Watch Demo <i class="fas fa-download"></i></a></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
             <i class="fas fa-chevron-right"></i></a>
@@ -848,7 +853,12 @@ else {
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
-            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
+            <div class='mapWrapper'>
+
+            <div class='mapName'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
+            <div class='mapImg'><img src='./assets/img/maps/${mapPlayed}.jpg'></a></div>
+
+            </div>
             <div><a href='${demoStorage[count]}'>Watch Demo <i class="fas fa-download"></i></a></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
             <i class="fas fa-chevron-right"></i></a>
@@ -877,7 +887,12 @@ else {
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
-            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
+            <div class='mapWrapper'>
+
+            <div class='mapName'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
+            <div class='mapImg'><img src='./assets/img/maps/${mapPlayed}.jpg'></a></div>
+
+            </div>
             <div><a href='${demoStorage[count]}'>Watch Demo <i class="fas fa-download"></i></a></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
             <i class="fas fa-chevron-right"></i></a>
@@ -891,7 +906,12 @@ else {
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
-            <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div></a>
+            <div class='mapWrapper'>
+
+            <div class='mapName'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
+            <div class='mapImg'><img src='./assets/img/maps/${mapPlayed}.jpg'></a></div>
+
+            </div>
             <div><a href='${demoStorage[count]}'>Watch Demo <i class="fas fa-download"></i></a></div>
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
             <i class="fas fa-chevron-right"></i></a>
