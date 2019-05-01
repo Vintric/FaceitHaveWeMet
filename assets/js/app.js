@@ -605,20 +605,24 @@ let handleAjaxSearch = (searchParam) => {
     $("#friendlyW").children().toggleClass("flex");
     $("#friendlyL").children().toggleClass("none");
     $("#friendlyL").children().toggleClass("flex");
+    $("i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
+
   });
 
   
-  $("#enemyButton").click(function(e) {
+  $("#enemyButton").click(function() {
     $("#enemyW").children().toggleClass("none");
     $("#enemyW").children().toggleClass("flex");
     $("#enemyL").children().toggleClass("none");
     $("#enemyL").children().toggleClass("flex");
-
-    $("#mapFilter").select(function() {
-      alert( "Handler for .select() called." );
-    });
+    $("i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
   });
 
+    $("#factsButton").click(function () { 
+      $(".listItem").toggleClass("none");
+      $(".listItem").toggleClass("flex");
+      $("i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
+    });
 
 
 
@@ -791,7 +795,7 @@ let timing= 35000 * matches_Amount;
     //* The map played
     mapPlayed = data.rounds[0].round_stats.Map;
 
-    // $("#mapFilter").removeAttr("disabled").append(`<option value="${mapPlayed}">${mapPlayed}</option>`);
+    $("#mapFilter").removeAttr("disabled");
     //* The score of the game
     scoreLine = data.rounds[0].round_stats.Score;
 
@@ -875,7 +879,7 @@ else {
           <div class='buttonHead' id='friendlyButton'>
           <i class="fas fa-chevron-up"></i><h3>As friendly: (${timesWonInTeam +
             timesLostInTeam})</h3></div>
-          <div class='tableHeader'>
+          <div class='tableHeader' id='friendlyTableHead'>
           <div class='gameTime'>Time</div>
           <div class='scoreLine'>Score</div>
           <div class='result'>Result</div>
@@ -927,7 +931,7 @@ else {
       $("#enemyTeam").empty().append(`
           <div class='buttonHead'  id='enemyButton'>
           <i class="fas fa-chevron-up"></i><h3>As enemy: (${timesWonVs + timesLostVs})</h3></div>
-          <div class='tableHeader'>
+          <div class='tableHeader' id='enemyTableHead'>
           <div class='gameTime'>Time</div>
           <div class='scoreLine'>Score</div>
           <div class='result'>Result</div>
@@ -946,7 +950,8 @@ else {
       (timesWonVs / (timesLostVs + timesWonVs)) * 100
     );
     timesMet = timesLostVs + timesWonVs + (timesWonInTeam + timesLostInTeam);
-    $("#facts").empty().append(`<div class='buttonHead' id='factsButton'><h3>Facts:</h3></div>
+    $("#facts").empty().append(`
+    <div class='buttonHead' id='factsButton'><i class="fas fa-chevron-up"></i><h3>Facts:</h3></div>
     <div class='factWrapper'>
     <div class='listItem'><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</div>
     <div class='listItem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</div>
