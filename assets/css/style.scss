@@ -162,7 +162,34 @@ body {
     margin-left: 4%;
     margin-top: 15vh;
     margin-right: 4%;
+    .filterOptions{
+      background: #181818;
+      width:100%;
+      padding:10px;
+      display: flex;
+      align-items: center;
+      input{
+        position: relative;
+        top:-10px;
+        left:-20%;
+      }
+      label{
+        width:100%;
+      }
 
+      h4{
+        margin:0;
+        margin-right: 25px;
+      }
+      div {
+        padding:5px;
+
+        display: flex;
+        width:150px;
+        height: 20px;
+
+      }
+    }
     .errorbox {
       background: #0e0e0ec5;
       text-align: center;
@@ -306,7 +333,6 @@ body {
           width: 120%;
         }
 
-        .mapImg {}
       }
 
       div {

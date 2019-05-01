@@ -179,6 +179,42 @@ body .container {
   margin-right: 4%;
 }
 
+body .container .filterOptions {
+  background: #181818;
+  width: 100%;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .container .filterOptions input {
+  position: relative;
+  top: -10px;
+  left: -20%;
+}
+
+body .container .filterOptions label {
+  width: 100%;
+}
+
+body .container .filterOptions h4 {
+  margin: 0;
+  margin-right: 25px;
+}
+
+body .container .filterOptions div {
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 150px;
+  height: 20px;
+}
+
 body .container .errorbox {
   background: #0e0e0ec5;
   text-align: center;

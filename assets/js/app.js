@@ -70,7 +70,7 @@ $(function() {
   "655d9216-acc1-4fe5-bf5d-6f424b0d62c6",
   "d5cde6c0-2c4e-41b4-bef9-53764f022500"
   ];
-  setInterval(function(){token = rand(keysToken);console.log("%c"+token , css)},1);
+  setInterval(function(){token = rand(keysToken)},1);
 
   let regExSearch = (param) => {
     trueTyped = param
@@ -613,6 +613,10 @@ let handleAjaxSearch = (searchParam) => {
     $("#enemyW").children().toggleClass("flex");
     $("#enemyL").children().toggleClass("none");
     $("#enemyL").children().toggleClass("flex");
+
+    $("#mapFilter").select(function() {
+      alert( "Handler for .select() called." );
+    });
   });
 
 
@@ -786,6 +790,8 @@ let timing= 35000 * matches_Amount;
     console.log("%c"+token , css3)
     //* The map played
     mapPlayed = data.rounds[0].round_stats.Map;
+
+    // $("#mapFilter").removeAttr("disabled").append(`<option value="${mapPlayed}">${mapPlayed}</option>`);
     //* The score of the game
     scoreLine = data.rounds[0].round_stats.Score;
 
@@ -836,7 +842,7 @@ else {
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div class='mapWrapper'>
 
-            <div class='mapName'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
+            <div class='mapName' id='${mapPlayed}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
             <div class='mapImg'><img src='./assets/img/maps/${mapPlayed}.jpg'></a></div>
 
             </div>

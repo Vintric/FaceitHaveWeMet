@@ -133,11 +133,31 @@
       
     </form>
     <div class='errorbox' id='errorbox'></div>
-<div class='profiles'>
+    <div id='filterOptions' class='filterOptions'><h4>Filter on</h4>
+      <div id='onlyWins'>
+        <label><small>Games won</small></label> 
+        <input type="checkbox" checked disabled / ></div>
+      <div id='onlyLost'>
+        <label><small>Games lost</small></label> 
+        <input type="checkbox" checked disabled/></div>
+      <div id='asFriendly'>
+        <label><small>As friendly</small></label> 
+        <input type="checkbox" checked disabled/></div>
+      <div id='asEnemy'>
+        <label><small>As enemy</small></label> 
+        <input type="checkbox" checked disabled/></div>
+      <div id='map'>
+        <label><small>map</small></label>
+        <select id='mapFilter' name="maps" disabled>
+          <option value="de_all">de_all</option>
+        </select></div>
+    </div>
+     <div class='profiles'>
       <div class='profileBox' id='profilebox1'></div>
       <div class='profileBox' id='profilebox2'></div>
-</div>
+    </div>
     <!-- Grouped Matches -->
+    
     <div id="facts"></div>
     <div id='friendlyTeam'>
     </div>
