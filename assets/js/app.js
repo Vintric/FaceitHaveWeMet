@@ -22,7 +22,7 @@ let endDataPrev = 0;
 let setDate = false;
 let getTime;
 let faceiturl;
-const currentVersion= "0.61";
+const currentVersion= "0.63";
 
 let demoStorage = []
 let matchesStorage = []
@@ -322,8 +322,35 @@ $(function() {
   $("footer")
     .empty()
     .append(`
-    <div id='version' href='#changelogContainer'><small>current-version: ${currentVersion}</small></div>
-    <div id='CC><a href='https://www.github.com/AngeloAlfanoc'><small>Copyright &#169; ${now.getFullYear()} &#8226; Alfano Angelo</a>  &#8226; Some Rights Reserved.</small></div>`);
+    <div id='footersubmenu'><h4>SITE LINKS</h4>
+    <ul>
+    <li><small><a href='https://www.faceithavewemet.com/'>Have We met?</a></small></li>
+    <li id='faq'><a href="#faqContainer"><small>FAQ</small></a></li>
+    <li id='Changelog'><a href="#changelogContainer"><small>Changelog</small></a></li>
+    <li><small><a href='https://www.paypal.me/anch126'>Donate?</a></small></li>
+    
+    </ul>
+    </div>
+    <div><h4>Dev LINKS</h4>
+    <ul>
+    <li><small><a href='https://twitter.com/AngeloAlfanoCal'>Twitter</a></small></li>
+    <li><small><a href='https://github.com/AngeloAlfanoc'>Github</a></small></li>
+    <li><small><a href='https://steamcommunity.com/id/methodsCSGO/'>Steam</a></small></li>
+    <li><small><a href='methoDs#7444'>Discord</a></small></li>
+    </ul>
+    </div>
+    <div><h4>OTHER LINKS</h4>
+    <ul>
+    <li><small><a href='https://www.faceit.com/'>Faceit</a></small></li>
+    <li><small><a href='https://developers.faceit.com'>Faceit Api</a></small></li>
+    </ul>
+    </div>
+    <div class='footerPartTwo' id='ccAndVers'>
+    <div id='version' href='#changelogContainer'><small>current-version: ${currentVersion}</small>
+    <div id='CC><a href='https://www.github.com/AngeloAlfanoc'><small>Copyright &#169; ${now.getFullYear()} &#8226; Alfano Angelo</a><br>Some Rights Reserved.</small></div>
+    </div></div>
+
+    `);
   
     $("#formHandling").submit(function(e) {
       e.preventDefault();
@@ -586,11 +613,86 @@ let handleAjaxSearch = (searchParam) => {
     }
   });
 }
-
+let activeAjax = 0;
 //*-------AJAX OBJECT---------*//
   // On ajax start do the following
   $( document ).ajaxStart(function() {
+    activeAjax++
+    console.log(activeAjax)
     $("#loaderWrapper").removeClass("none");
+    $('#onlyWins input[type="checkbox"]').click(function(){
+
+      if($(this).prop("checked") == true){
+        $("#friendlyL").children().toggleClass("none");
+        $("#friendlyL").children().toggleClass("flex");
+        $("#enemyL").children().toggleClass("none");
+        $("#enemyL").children().toggleClass("flex");
+      }
+      else if($(this).prop("checked") == false){
+        $("#friendlyL").children().toggleClass("none");
+        $("#friendlyL").children().toggleClass("flex");
+        $("#enemyL").children().toggleClass("none");
+        $("#enemyL").children().toggleClass("flex");
+      }})
+    $('#onlyLost input[type="checkbox"]').click(function(){
+
+        if($(this).prop("checked") == true){
+          $("#friendlyW").children().toggleClass("none");
+          $("#friendlyW").children().toggleClass("flex");
+          $("#enemyW").children().toggleClass("none");
+          $("#enemyW").children().toggleClass("flex");
+        }
+        else if($(this).prop("checked") == false){
+          $("#friendlyW").children().toggleClass("none");
+          $("#friendlyW").children().toggleClass("flex");
+          $("#enemyW").children().toggleClass("none");
+          $("#enemyW").children().toggleClass("flex");
+      }})
+    $('#asEnemy input[type="checkbox"]').click(function(){
+
+        if($(this).prop("checked") == true){
+          $("#friendlyW").children().toggleClass("none");
+          $("#friendlyW").children().toggleClass("flex");
+          $("#friendlyL").children().toggleClass("none");
+          $("#friendlyL").children().toggleClass("flex");
+          $("#friendlyButton i", this).toggleClass("fas fa-chevron-down fas fa-chevron-up");
+        }
+        else if($(this).prop("checked") == false){
+          $("#friendlyW").children().toggleClass("none");
+          $("#friendlyW").children().toggleClass("flex");
+          $("#friendlyL").children().toggleClass("none");
+          $("#friendlyL").children().toggleClass("flex");
+          $("#friendlyButton i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
+      }})
+    $('#asFriendly input[type="checkbox"]').click(function(){
+
+        if($(this).prop("checked") == true){
+
+          $("#enemyW").children().toggleClass("none");
+          $("#enemyW").children().toggleClass("flex");
+          $("#enemyL").children().toggleClass("none");
+          $("#enemyL").children().toggleClass("flex");
+          $("enemyButton i").toggleClass("fas fa-chevron-up fas fa-chevron-down");
+      
+        }
+        else if($(this).prop("checked") == false){
+
+          $("#enemyW").children().toggleClass("none");
+          $("#enemyW").children().toggleClass("flex");
+          $("#enemyL").children().toggleClass("none");
+          $("#enemyL").children().toggleClass("flex");
+          $("#enemyButton i").toggleClass("fas fa-chevron-up fas fa-chevron-down");
+      
+      }})
+      $('#mapFilter').click(function(e){
+        let selectedMap = $(":selected").text().toString()
+        console.log(selectedMap)
+        if (selectedMap) {
+          $(".matchButton").removeClass("none");
+          $(".matchButton").addClass("none");
+          $(`[data-map="${selectedMap}"]`).removeClass('none');
+        }   
+      })
 
   });
 // On error start do the following
@@ -599,6 +701,8 @@ let handleAjaxSearch = (searchParam) => {
   });
   // As soon as all ajax loading stops end do the following 
   $(document).ajaxStop(function() {
+    activeAjax--
+    console.log(activeAjax)
   $("#loaderWrapper").addClass("none")
   $("#friendlyButton").click(function(e) {
     $("#friendlyW").children().toggleClass("none");
@@ -618,14 +722,76 @@ let handleAjaxSearch = (searchParam) => {
     $("i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
   });
 
-    $("#factsButton").click(function () { 
+  $("#factsButton").click(function () { 
       $(".listItem").toggleClass("none");
       $(".listItem").toggleClass("flex");
       $("i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
-    });
+  });
 
+  $('#onlyWins input[type="checkbox"]').click(function(){
 
+    if($(this).prop("checked") == true){
+      $("#friendlyL").children().toggleClass("none");
+      $("#friendlyL").children().toggleClass("flex");
+      $("#enemyL").children().toggleClass("none");
+      $("#enemyL").children().toggleClass("flex");
+    }
+    else if($(this).prop("checked") == false){
+      $("#friendlyL").children().toggleClass("none");
+      $("#friendlyL").children().toggleClass("flex");
+      $("#enemyL").children().toggleClass("none");
+      $("#enemyL").children().toggleClass("flex");
+  }})
+  $('#onlyLost input[type="checkbox"]').click(function(){
 
+      if($(this).prop("checked") == true){
+        $("#friendlyW").children().toggleClass("none");
+        $("#friendlyW").children().toggleClass("flex");
+        $("#enemyW").children().toggleClass("none");
+        $("#enemyW").children().toggleClass("flex");
+      }
+      else if($(this).prop("checked") == false){
+        $("#friendlyW").children().toggleClass("none");
+        $("#friendlyW").children().toggleClass("flex");
+        $("#enemyW").children().toggleClass("none");
+        $("#enemyW").children().toggleClass("flex");
+  }})
+  $('#asEnemy input[type="checkbox"]').click(function(){
+
+      if($(this).prop("checked") == true){
+        $("#friendlyW").children().toggleClass("none");
+        $("#friendlyW").children().toggleClass("flex");
+        $("#friendlyL").children().toggleClass("none");
+        $("#friendlyL").children().toggleClass("flex");
+        $("#friendlyButton i", this).toggleClass("fas fa-chevron-down fas fa-chevron-up");
+      }
+      else if($(this).prop("checked") == false){
+        $("#friendlyW").children().toggleClass("none");
+        $("#friendlyW").children().toggleClass("flex");
+        $("#friendlyL").children().toggleClass("none");
+        $("#friendlyL").children().toggleClass("flex");
+        $("#friendlyButton i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
+  }})
+  $('#asFriendly input[type="checkbox"]').click(function(){
+
+      if($(this).prop("checked") == true){
+
+        $("#enemyW").children().toggleClass("none");
+        $("#enemyW").children().toggleClass("flex");
+        $("#enemyL").children().toggleClass("none");
+        $("#enemyL").children().toggleClass("flex");
+        $("enemyButton i").toggleClass("fas fa-chevron-up fas fa-chevron-down");
+    
+      }
+      else if($(this).prop("checked") == false){
+
+        $("#enemyW").children().toggleClass("none");
+        $("#enemyW").children().toggleClass("flex");
+        $("#enemyL").children().toggleClass("none");
+        $("#enemyL").children().toggleClass("flex");
+        $("#enemyButton i").toggleClass("fas fa-chevron-up fas fa-chevron-down");
+    
+  }}) 
   });
 //*-------AJAX OBJECT---------*//
 
@@ -834,19 +1000,19 @@ let timing= 35000 * matches_Amount;
 else {
   count++
 
-  
     if (Team == "Friendly") {
       if (condition == "WIN") {
         timesWonInTeam++;
-
+        $("#onlyWins input").removeAttr("disabled");
+        $("#asEnemy input").removeAttr("disabled");
         $("#friendlyW").append(
-          `<div class='matchButton flex'>
+          `<div data-map='${mapPlayed}' class='matchButton flex'>
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div class='mapWrapper'>
 
-            <div class='mapName' id='${mapPlayed}'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
+            <div class='mapName' '><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
             <div class='mapImg'><img src='./assets/img/maps/${mapPlayed}.jpg'></a></div>
 
             </div>
@@ -857,15 +1023,18 @@ else {
         );
       }
       if (condition == "LOSE") {
+        $("#onlyLost input").removeAttr("disabled");
+        $("#asEnemy input").removeAttr("disabled");
+
         timesLostInTeam++;
         $("#friendlyL").append(
-          `<div class='matchButton flex'>
+          `<div data-map='${mapPlayed}' class='matchButton flex'>
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div class='mapWrapper'>
 
-            <div class='mapName'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
+            <div class='mapName' '><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
             <div class='mapImg'><img src='./assets/img/maps/${mapPlayed}.jpg'></a></div>
 
             </div>
@@ -874,6 +1043,7 @@ else {
             <i class="fas fa-chevron-right"></i></a>
             </div>`
         );
+        
       }
       $("#friendlyTeam").empty().append(`
           <div class='buttonHead' id='friendlyButton'>
@@ -891,15 +1061,17 @@ else {
   
     if (Team == "Enemy") {
       if (condition == "WIN") {
+        $("#onlyWins input").removeAttr("disabled");
+        $("#asFriendly input").removeAttr("disabled");
         timesWonVs++;
         $("#enemyW").append(
-          `<div class='matchButton flex'>
+          `<div data-map='${mapPlayed}' class='matchButton flex'>
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div class='mapWrapper'>
 
-            <div class='mapName'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
+            <div class='mapName' '><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
             <div class='mapImg'><img src='./assets/img/maps/${mapPlayed}.jpg'></a></div>
 
             </div>
@@ -910,15 +1082,17 @@ else {
         );
       }
       if (condition == "LOSE") {
+        $("#onlyLost input").removeAttr("disabled");
+        $("#asFriendly input").removeAttr("disabled");
         timesLostVs++;
         $("#enemyL").append(
-          `<div class='matchButton flex'>
+          `<div data-map='${mapPlayed}' class='matchButton flex'>
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
             <div class='mapWrapper'>
 
-            <div class='mapName'><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
+            <div class='mapName' '><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>${mapPlayed}</div>
             <div class='mapImg'><img src='./assets/img/maps/${mapPlayed}.jpg'></a></div>
 
             </div>

@@ -36,9 +36,9 @@
 
   <nav>
     <ul>
-      <li><a href="https://www.paypal.me/anch126">Donate?</a></li>
-      <li id='faq'><a href="#faqContainer">FAQ</a></li>
-      <li id='Changelog'><a href="#changelogContainer">Changelog</a></li>
+      <li><a href="https://www.paypal.me/anch126"><small>Donate</small></a></li>
+      <li id='faq'><a href="#faqContainer"><small>Faq</small></a></li>
+      <li id='Changelog'><a href="#changelogContainer"><small>Changelog</small></a></li>
     </ul>
   </nav>
   <div class='noticebar'>
@@ -50,8 +50,80 @@
   </div>
   <div class="container">
 
+
+    <div class="faceitLogo">
+      <img src='./assets/img/logo.png'><br />
+    </div>
+
+    <form id='formHandling' autocomplete="off"  data-netlify="true">
+      <h1>Faceit: Have we met?</h1>
+      
+      <div class='inputfieldwrapper' id='inputfieldwrapper'>
+      <input autocomplete="off" class='inputField' id="input1" type="text" placeholder="Player 1"/>
+      <div class='searchBox none' id='searchBox'></div>
+      </div>
+
+
+      <div class='inputfieldwrapper' id='inputfieldwrapper2'>
+      <input autocomplete="off" id="input2" type="text" placeholder="Player 2"/>
+      <div class='searchBox2 none' id='searchBox2'></div>
+      </div>
+      
+      <input autocomplete="off" id="input3" type="number" placeholder="Search in x matches.." step="100" max="5000" value="100"/>
+      <button aria-label="Submit" id="searchButton"><i class="fas fa-search"></i></button>
+      
+    </form>
+    <div class='errorbox' id='errorbox'></div>
+    <div id='filterOptions' class='filterOptions'><h4>Filter on</h4>
+      <div id='onlyWins'>
+        <label><small>Games won</small></label> 
+        <input type="checkbox"  disabled / ></div>
+      <div id='onlyLost'>
+        <label><small>Games lost</small></label> 
+        <input type="checkbox"  disabled/></div>
+      <div id='asFriendly'>
+        <label><small>As friendly</small></label> 
+        <input type="checkbox"  disabled/></div>
+      <div id='asEnemy'>
+        <label><small>As enemy</small></label> 
+        <input type="checkbox"  disabled/></div>
+      <div id='map'>
+        <label><small>map</small></label>
+        <select id='mapFilter' name="maps" disabled>
+          <option value="All maps">All maps</option>
+          <option value="de_dust2">de_dust2</option>
+          <option value="de_mirage">de_mirage</option>
+          <option value="de_cache">de_cache</option>
+          <option value="de_inferno">de_inferno</option>
+          <option value="de_nuke">de_nuke</option>
+          <option value="de_cbble">de_cbble</option>
+          <option value="de_vertigo">de_vertigo</option>
+          <option value="de_train">de_train</option>
+        </select>
+      </div>
+    </div> 
+     <div class='profiles'>
+      <div class='profileBox' id='profilebox1'></div>
+      <div class='profileBox' id='profilebox2'></div>
+    </div>
+    <!-- Grouped Matches -->
+    
+    <div id="facts"></div>
+
+    <div id='friendlyTeam'></div>
+    <div id='friendlyW'></div>
+    <div id='friendlyL'></div>
+    <div id='enemyTeam'></div>
+    <div id='enemyW'></div>
+    <div id='enemyL'></div>
+
+
+    
     <div class='changelogContainer' id='changelogContainer'>
       <pre><h3>Changelog:</h3></pre>
+      <pre>version. 0.63</pre>
+      <pre>&#8226 Added footer info</pre>
+      <pre>&#8226 Added filter options</pre>
       <pre>version. 0.61</pre>
       <pre>&#8226 Added map images to matches</pre>
       <pre>version. 0.60</pre>
@@ -110,74 +182,6 @@
         <p>Q. Questions? add me on <a href='https://steamcommunity.com/id/methodsCSGO'>steam</a> </p>
         <p>A. Add me on <a href='https://steamcommunity.com/id/methodsCSGO'>steam</a>, i'm also active on <a href='https://twitter.com/methoDsCS'>twitter</a> & discord: methoDs#7444 </p>
     </div>
-    <div class="faceitLogo">
-      <img src='./assets/img/logo.png'><br />
-    </div>
-
-    <form id='formHandling' autocomplete="off"  data-netlify="true">
-      <h1>Faceit: Have we met?</h1>
-      
-      <div class='inputfieldwrapper' id='inputfieldwrapper'>
-      <input autocomplete="off" class='inputField' id="input1" type="text" placeholder="Player 1"/>
-      <div class='searchBox none' id='searchBox'></div>
-      </div>
-
-
-      <div class='inputfieldwrapper' id='inputfieldwrapper2'>
-      <input autocomplete="off" id="input2" type="text" placeholder="Player 2"/>
-      <div class='searchBox2 none' id='searchBox2'></div>
-      </div>
-      
-      <input autocomplete="off" id="input3" type="number" placeholder="Search in x matches.." step="100" max="5000" value="100"/>
-      <button aria-label="Submit" id="searchButton"><i class="fas fa-search"></i></button>
-      
-    </form>
-    <div class='errorbox' id='errorbox'></div>
-    <!-- <div id='filterOptions' class='filterOptions'><h4>Filter on</h4>
-      <div id='onlyWins'>
-        <label><small>Games won</small></label> 
-        <input type="checkbox" checked disabled / ></div>
-      <div id='onlyLost'>
-        <label><small>Games lost</small></label> 
-        <input type="checkbox" checked disabled/></div>
-      <div id='asFriendly'>
-        <label><small>As friendly</small></label> 
-        <input type="checkbox" checked disabled/></div>
-      <div id='asEnemy'>
-        <label><small>As enemy</small></label> 
-        <input type="checkbox" checked disabled/></div>
-      <div id='map'>
-        <label><small>map</small></label>
-        <select id='mapFilter' name="maps" disabled>
-          <option value="All maps">All maps</option>
-          <option value="de_dust2">de_dust2</option>
-          <option value="de_mirage">de_mirage</option>
-          <option value="de_cache">de_cache</option>
-          <option value="de_inferno">de_inferno</option>
-          <option value="de_nuke">de_nuke</option>
-          <option value="de_cbble">de_cbble</option>
-          <option value="de_vertigo">de_vertigo</option>
-          <option value="de_train">de_train</option>
-        </select>
-      </div>
-    </div> -->
-     <div class='profiles'>
-      <div class='profileBox' id='profilebox1'></div>
-      <div class='profileBox' id='profilebox2'></div>
-    </div>
-    <!-- Grouped Matches -->
-    
-    <div id="facts"></div>
-    <div id='friendlyTeam'>
-    </div>
-    <div id='friendlyW'></div>
-    <div id='friendlyL'></div>
-    <div id='enemyTeam'></div>
-    <div id='enemyW'></div>
-    <div id='enemyL'></div>
-    
-    
-
   </div>    
   <footer></footer>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"
