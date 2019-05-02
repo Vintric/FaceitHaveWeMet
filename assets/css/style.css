@@ -711,6 +711,9 @@ body .faceitLogo img {
 }
 
 @media only screen and (max-width: 600px) {
+  #filterOptions {
+    display: none;
+  }
   .noticebar {
     height: 100px;
   }
