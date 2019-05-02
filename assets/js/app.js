@@ -1,4 +1,3 @@
-
 let player_Nick_1;
 let player_Nick_2;
 let player_id_1;
@@ -22,7 +21,7 @@ let endDataPrev = 0;
 let setDate = false;
 let getTime;
 let faceiturl;
-const currentVersion= "0.63";
+const currentVersion = "0.63";
 
 let demoStorage = []
 let matchesStorage = []
@@ -46,31 +45,33 @@ let css3 = 'color:blue;font-family:system-ui;font-size:2rem;-webkit-text-stroke:
 let token;
 const baseUrl = "https://open.faceit.com/data/v4/";
 
-$(function() {
+$(function () {
   let keysToken = [
-  "2ba7cdc4-3d72-41d4-8fc7-7fa5e0d3d1aa",
-  "1411eea9-891b-4972-a84e-18dc8004232c",
-  "fe0b9e1e-2d89-4cfd-8827-6be642670c78",
-  "672a34d1-b254-4a22-aa61-ecf812657dc7",
-  "49841c59-a98b-4edf-9e78-bc46eff44df1",
-  "e070b097-5998-47fe-9385-df1157ddba7f",
-  "a515a678-91fa-44b8-ad44-4214c8dd343f",
-  "e37cd1e2-664c-491c-8da1-9f24d48249de",
-  "fd6852b0-faae-4961-9eb7-a58e3b1dc75e",
-  "655d9216-acc1-4fe5-bf5d-6f424b0d62c6",
-  "2ba7cdc4-3d72-41d4-8fc7-7fa5e0d3d1aa",
-  "1411eea9-891b-4972-a84e-18dc8004232c",
-  "fe0b9e1e-2d89-4cfd-8827-6be642670c78",
-  "672a34d1-b254-4a22-aa61-ecf812657dc7",
-  "49841c59-a98b-4edf-9e78-bc46eff44df1",
-  "e070b097-5998-47fe-9385-df1157ddba7f",
-  "a515a678-91fa-44b8-ad44-4214c8dd343f",
-  "e37cd1e2-664c-491c-8da1-9f24d48249de",
-  "fd6852b0-faae-4961-9eb7-a58e3b1dc75e",
-  "655d9216-acc1-4fe5-bf5d-6f424b0d62c6",
-  "d5cde6c0-2c4e-41b4-bef9-53764f022500"
+    "2ba7cdc4-3d72-41d4-8fc7-7fa5e0d3d1aa",
+    "1411eea9-891b-4972-a84e-18dc8004232c",
+    "fe0b9e1e-2d89-4cfd-8827-6be642670c78",
+    "672a34d1-b254-4a22-aa61-ecf812657dc7",
+    "49841c59-a98b-4edf-9e78-bc46eff44df1",
+    "e070b097-5998-47fe-9385-df1157ddba7f",
+    "a515a678-91fa-44b8-ad44-4214c8dd343f",
+    "e37cd1e2-664c-491c-8da1-9f24d48249de",
+    "fd6852b0-faae-4961-9eb7-a58e3b1dc75e",
+    "655d9216-acc1-4fe5-bf5d-6f424b0d62c6",
+    "2ba7cdc4-3d72-41d4-8fc7-7fa5e0d3d1aa",
+    "1411eea9-891b-4972-a84e-18dc8004232c",
+    "fe0b9e1e-2d89-4cfd-8827-6be642670c78",
+    "672a34d1-b254-4a22-aa61-ecf812657dc7",
+    "49841c59-a98b-4edf-9e78-bc46eff44df1",
+    "e070b097-5998-47fe-9385-df1157ddba7f",
+    "a515a678-91fa-44b8-ad44-4214c8dd343f",
+    "e37cd1e2-664c-491c-8da1-9f24d48249de",
+    "fd6852b0-faae-4961-9eb7-a58e3b1dc75e",
+    "655d9216-acc1-4fe5-bf5d-6f424b0d62c6",
+    "d5cde6c0-2c4e-41b4-bef9-53764f022500"
   ];
-  setInterval(function(){token = rand(keysToken)},1);
+  setInterval(function () {
+    token = rand(keysToken)
+  }, 1);
 
   let regExSearch = (param) => {
     trueTyped = param
@@ -78,12 +79,12 @@ $(function() {
       let position = searchStorage.indexOf(stringtopushtooarr)
       if (position === -1) {
         searchStorage.push(stringtopushtooarr)
-        for(i = 0; i < searchStorage.length; i++ ){
+        for (i = 0; i < searchStorage.length; i++) {
           searchTerm = searchStorage[i]
-            }
-
-            handleAjaxSearch(searchTerm)
         }
+
+        handleAjaxSearch(searchTerm)
+      }
     };
 
 
@@ -96,8 +97,8 @@ $(function() {
     //*remove first letter
     let searchNoFirstLetter = trueTyped.slice(1);
     pushAble(searchNoFirstLetter);
-    
-    
+
+
     //*Last letter caps
     let lastLetterCaps = trueTyped.replace(/[a-z]\b/g, c => c.toUpperCase())
     pushAble(lastLetterCaps);
@@ -109,12 +110,12 @@ $(function() {
 
     //*
 
-    
+
     //* Full uppercase
     let searchUpperCase = trueTyped.toUpperCase();
-    pushAble(searchUpperCase);  
-    
-    
+    pushAble(searchUpperCase);
+
+
     //!SEARCH IN L33T
     let searchInLeet = (str) => {
       //*change o to 0 as some people have o changed to 0 & viceversa
@@ -168,8 +169,9 @@ $(function() {
       pushAble(replace8with1);
       pushAble(replace8with2);
 
-      
-    };searchInLeet(trueTyped)
+
+    };
+    searchInLeet(trueTyped)
 
     //!Add Case sens search
     let CaseSensSearch = (str) => {
@@ -179,12 +181,12 @@ $(function() {
       let caseSensA2 = str.replace(/A/g, 'a')
       pushAble(caseSensA);
       pushAble(caseSensA2);
-      
+
       let caseSensB = str.replace(/b/g, 'B')
       let caseSensB2 = str.replace(/B/g, 'b')
       pushAble(caseSensB);
       pushAble(caseSensB2);
-      
+
 
       let caseSensC = str.replace(/c/g, 'C')
       let caseSensC2 = str.replace(/C/g, 'c')
@@ -306,9 +308,10 @@ $(function() {
       pushAble(caseSensZ);
       pushAble(caseSensZ2);
 
-    };CaseSensSearch(trueTyped)
+    };
+    CaseSensSearch(trueTyped)
 
- 
+
   }
   $("#friendlyTeam")
     .empty()
@@ -351,16 +354,16 @@ $(function() {
     </div></div>
 
     `);
-  
-    $("#formHandling").submit(function(e) {
-      e.preventDefault();
-    
-      var $form = $(this);
-      $.post($form.attr("action"), $form.serialize()).then(function() {
-        alert('test')
-      });
+
+  $("#formHandling").submit(function (e) {
+    e.preventDefault();
+
+    var $form = $(this);
+    $.post($form.attr("action"), $form.serialize()).then(function () {
+      alert('test')
     });
-    $("#searchButton").click(function(e) {
+  });
+  $("#searchButton").click(function (e) {
 
     clearVals();
     if ((player_Nick_1 = $("#input1").val() != "")) {
@@ -392,15 +395,17 @@ $(function() {
             player_Nick_1 = $("#input1").val();
             player_Nick_2 = $("#input2").val();
             matches_Amount = $("#input3").val();
-            
+
             setTimers();
             handlePlayerNickToId1(player_Nick_1);
             handlePlayerNickToId2(player_Nick_2);
-            
+
             // repeat with the interval of .1 seconds
             let matches_output = setInterval(() => timedEvents(), 100);
-            setTimeout(() => {clearInterval(matches_output);}, matches_Amount);
-  
+            setTimeout(() => {
+              clearInterval(matches_output);
+            }, matches_Amount);
+
           } else {
             $("#errorbox")
               .empty()
@@ -421,57 +426,59 @@ $(function() {
         .empty()
         .append(`error-01: No username for player 1.<br> Please make sure you have entered a username!`);
     }
+
     e.preventDefault();
   });
-  $("#Changelog").click(function(e) {
+  $("#Changelog").click(function (e) {
     $("#changelogContainer").fadeToggle("hidden");
     $("#faqContainer").removeClass("hidden");
   });
-  $("#faq").click(function(e) {
+  $("#faq").click(function (e) {
     $("#faqContainer").fadeToggle("hidden");
     $("#changelogContainer").removeClass("hidden");
   });
-  $("#version").click(function(e) {
+  $("#version").click(function (e) {
     $("#changelogContainer").fadeToggle("hidden");
     $("#faqContainer").removeClass("hidden");
   })
   //*LIVE SEARCH PROGRESSION 
-  
+
   let debounce = function (func, wait, immediate) {
     let timeout;
-    return function() {
-       let  context = this, args = arguments;
-        let later = function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-        };
-        let callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
+    return function () {
+      let context = this,
+        args = arguments;
+      let later = function () {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      let callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
     };
   };
 
 
-  $("#input1").click(function () { 
+  $("#input1").click(function () {
 
     $("#searchBox").removeClass("none")
     $("#searchBox").addClass("absolute")
     $("#searchBox2").addClass("none")
     $("#searchBox2").removeClass("absolute")
     $(`#searchBox`).empty()
-  }); 
-  $("#input1").focus(function () { 
+  });
+  $("#input1").focus(function () {
 
     $("#searchBox").removeClass("none")
     $("#searchBox").addClass("absolute")
     $("#searchBox2").addClass("none")
     $("#searchBox2").removeClass("absolute")
-    
+
   });
 
-  $("#input1").keyup(debounce(function(){
-    
+  $("#input1").keyup(debounce(function () {
+
     let trueTyped = $("#input1").val();
     regExSearch(trueTyped);
     $("#searchBox").removeClass("none")
@@ -480,10 +487,10 @@ $(function() {
     $("#searchBox2").removeClass("absolute")
     $("#searchBox").empty();
 
-  },500));
+  }, 500));
 
- 
-  $("#input2").focus(function () { 
+
+  $("#input2").focus(function () {
 
     $("#searchBox2").removeClass("none")
     $("#searchBox2").addClass("absolute")
@@ -491,7 +498,7 @@ $(function() {
     $("#searchBox").removeClass("absolute")
     $(`#searchBox2`).empty()
   });
-$ ("#input2").keyup(debounce(function(){
+  $("#input2").keyup(debounce(function () {
     $("#searchBox").addClass("none")
     $("#searchBox").removeClass("absolute")
     $("#searchBox2").removeClass("none")
@@ -499,8 +506,8 @@ $ ("#input2").keyup(debounce(function(){
     $("#searchBox2").empty();
     let trueTyped = $("#input2").val();
     regExSearch(trueTyped);
-  },500));
-  $("#input2").click(function () { 
+  }, 500));
+  $("#input2").click(function () {
     $("#searchBox2").removeClass("none")
     $("#searchBox2").addClass("absolute")
     $("#searchBox").addClass("none")
@@ -508,8 +515,8 @@ $ ("#input2").keyup(debounce(function(){
     $(`#searchBox2`).empty()
   });
 
-  $("body").click(function(){
-    
+  $("body").click(function () {
+
     $(`#searchBox`).empty()
     $(`#searchBox2`).empty()
     $("#searchBox").addClass("none")
@@ -517,7 +524,7 @@ $ ("#input2").keyup(debounce(function(){
     $("#searchBox2").addClass("none")
     $("#searchBox2").removeClass("absolute")
   })
-  $("#container").click(function(){
+  $("#container").click(function () {
 
     $(`#searchBox`).empty()
     $(`#searchBox2`).empty()
@@ -527,7 +534,7 @@ $ ("#input2").keyup(debounce(function(){
     $("#searchBox2").removeClass("absolute")
   })
 
-  $("#input3").focus(function () { 
+  $("#input3").focus(function () {
 
     $("#searchBox").addClass("none")
     $("#searchBox").removeClass("absolute")
@@ -536,7 +543,7 @@ $ ("#input2").keyup(debounce(function(){
     $(`#searchBox2`).empty()
     $(`#searchBox1`).empty()
   });
-  
+
 
 });
 
@@ -550,24 +557,24 @@ let handleAjaxSearch = (searchParam) => {
 
     url: `https://open.faceit.com/data/v4/players?nickname=${searchParam}&game=csgo`,
     dataType: "json",
-    
-    
-    beforeSend: function() {
+
+
+    beforeSend: function () {
       let checkEmpty = () => {
         if (trueTyped == "") {
           searchStorage = [];
         }
-        console.log("%c"+token , css2)
+        console.log("%c" + token, css2)
       };
 
-      setTimeout(function() {
+      setTimeout(function () {
         checkEmpty();
         ajaxreqeuestActive = 0;
       }, 3000);
       // trueTyped.length
     },
-    
-    success: function(data) {
+
+    success: function (data) {
       let avatar = data.avatar;
       let country = data.country;
 
@@ -586,13 +593,13 @@ let handleAjaxSearch = (searchParam) => {
           );
 
           // binding click event to li
-          $("#searchBox li").bind("click", function() {
+          $("#searchBox li").bind("click", function () {
             let text = $(this).text();
             $("#input1").val(text);
             searchStorage.splice(0, searchStorage);
             $(`#searchBox2`).empty();
           });
-          $("#searchBox2 li").bind("click", function() {
+          $("#searchBox2 li").bind("click", function () {
             let text = $(this).text();
             $("#input2").val(text);
             searchStorage.splice(0, searchStorage);
@@ -601,7 +608,7 @@ let handleAjaxSearch = (searchParam) => {
         }
       }
     },
-    error: function(data) {
+    error: function (data) {
       if (data.status == 404 || data.status == 400) {
         failedsearch = searchStorage.indexOf(searchParam);
         if (failedsearch >= 0) {
@@ -615,198 +622,91 @@ let handleAjaxSearch = (searchParam) => {
 }
 let activeAjax = 0;
 //*-------AJAX OBJECT---------*//
-  // On ajax start do the following
-  $( document ).ajaxStart(function() {
-    activeAjax++
-    console.log(activeAjax)
-    $("#loaderWrapper").removeClass("none");
-    $('#onlyWins input[type="checkbox"]').click(function(){
+// On ajax start do the following
+$(document).ajaxStart(function () {
 
-      if($(this).prop("checked") == true){
-        $("#friendlyL").children().toggleClass("none");
-        $("#friendlyL").children().toggleClass("flex");
-        $("#enemyL").children().toggleClass("none");
-        $("#enemyL").children().toggleClass("flex");
-      }
-      else if($(this).prop("checked") == false){
-        $("#friendlyL").children().toggleClass("none");
-        $("#friendlyL").children().toggleClass("flex");
-        $("#enemyL").children().toggleClass("none");
-        $("#enemyL").children().toggleClass("flex");
-      }})
-    $('#onlyLost input[type="checkbox"]').click(function(){
+  $("#loaderWrapper").removeClass("none");
 
-        if($(this).prop("checked") == true){
-          $("#friendlyW").children().toggleClass("none");
-          $("#friendlyW").children().toggleClass("flex");
-          $("#enemyW").children().toggleClass("none");
-          $("#enemyW").children().toggleClass("flex");
-        }
-        else if($(this).prop("checked") == false){
-          $("#friendlyW").children().toggleClass("none");
-          $("#friendlyW").children().toggleClass("flex");
-          $("#enemyW").children().toggleClass("none");
-          $("#enemyW").children().toggleClass("flex");
-      }})
-    $('#asEnemy input[type="checkbox"]').click(function(){
-
-        if($(this).prop("checked") == true){
-          $("#friendlyW").children().toggleClass("none");
-          $("#friendlyW").children().toggleClass("flex");
-          $("#friendlyL").children().toggleClass("none");
-          $("#friendlyL").children().toggleClass("flex");
-          $("#friendlyButton i", this).toggleClass("fas fa-chevron-down fas fa-chevron-up");
-        }
-        else if($(this).prop("checked") == false){
-          $("#friendlyW").children().toggleClass("none");
-          $("#friendlyW").children().toggleClass("flex");
-          $("#friendlyL").children().toggleClass("none");
-          $("#friendlyL").children().toggleClass("flex");
-          $("#friendlyButton i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
-      }})
-    $('#asFriendly input[type="checkbox"]').click(function(){
-
-        if($(this).prop("checked") == true){
-
-          $("#enemyW").children().toggleClass("none");
-          $("#enemyW").children().toggleClass("flex");
-          $("#enemyL").children().toggleClass("none");
-          $("#enemyL").children().toggleClass("flex");
-          $("enemyButton i").toggleClass("fas fa-chevron-up fas fa-chevron-down");
-      
-        }
-        else if($(this).prop("checked") == false){
-
-          $("#enemyW").children().toggleClass("none");
-          $("#enemyW").children().toggleClass("flex");
-          $("#enemyL").children().toggleClass("none");
-          $("#enemyL").children().toggleClass("flex");
-          $("#enemyButton i").toggleClass("fas fa-chevron-up fas fa-chevron-down");
-      
-      }})
-      $('#mapFilter').click(function(e){
-        let selectedMap = $(":selected").text().toString()
-        console.log(selectedMap)
-        if (selectedMap) {
-          $(".matchButton").removeClass("none");
-          $(".matchButton").addClass("none");
-          $(`[data-map="${selectedMap}"]`).removeClass('none');
-        }   
-        if (selectedMap === "all_maps"){
-          console.log('test');
-          $(".matchButton").removeClass("none");
-        }
-      })
-
-  });
-// On error start do the following
-  $( document ).ajaxError(function() {
-    
-  });
-  // As soon as all ajax loading stops end do the following 
-  $(document).ajaxStop(function() {
-    activeAjax--
-    console.log(activeAjax)
-  $("#loaderWrapper").addClass("none")
-  $("#friendlyButton").click(function(e) {
-    $("#friendlyW").children().toggleClass("none");
-    $("#friendlyW").children().toggleClass("flex");
-    $("#friendlyL").children().toggleClass("none");
-    $("#friendlyL").children().toggleClass("flex");
-    $("i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
-
-  });
-
-  
-  $("#enemyButton").click(function() {
-    $("#enemyW").children().toggleClass("none");
-    $("#enemyW").children().toggleClass("flex");
-    $("#enemyL").children().toggleClass("none");
-    $("#enemyL").children().toggleClass("flex");
-    $("i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
-  });
-
-  $("#factsButton").click(function () { 
-      $(".listItem").toggleClass("none");
-      $(".listItem").toggleClass("flex");
-      $("i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
-  });
-
-  $('#onlyWins input[type="checkbox"]').click(function(){
-
-    if($(this).prop("checked") == true){
-      $("#friendlyL").children().toggleClass("none");
-      $("#friendlyL").children().toggleClass("flex");
-      $("#enemyL").children().toggleClass("none");
-      $("#enemyL").children().toggleClass("flex");
+  $('#mapFilter').click(function (e) {
+    let selectedMap = $(":selected").text().toString()
+    console.log(selectedMap)
+    if (selectedMap) {
+      $(".matchButton").removeClass("none");
+      $(".matchButton").addClass("none");
+      $(`[data-map="${selectedMap}"]`).removeClass('none');
+      $('#onlyLost input[type="checkbox"]').attr("disabled", true);
+      $('#onlyWins input[type="checkbox"]').attr("disabled", true);
     }
-    else if($(this).prop("checked") == false){
-      $("#friendlyL").children().toggleClass("none");
-      $("#friendlyL").children().toggleClass("flex");
-      $("#enemyL").children().toggleClass("none");
-      $("#enemyL").children().toggleClass("flex");
-  }})
-  $('#onlyLost input[type="checkbox"]').click(function(){
-
-      if($(this).prop("checked") == true){
-        $("#friendlyW").children().toggleClass("none");
-        $("#friendlyW").children().toggleClass("flex");
-        $("#enemyW").children().toggleClass("none");
-        $("#enemyW").children().toggleClass("flex");
-      }
-      else if($(this).prop("checked") == false){
-        $("#friendlyW").children().toggleClass("none");
-        $("#friendlyW").children().toggleClass("flex");
-        $("#enemyW").children().toggleClass("none");
-        $("#enemyW").children().toggleClass("flex");
-  }})
-  $('#asEnemy input[type="checkbox"]').click(function(){
-
-      if($(this).prop("checked") == true){
-        $("#friendlyW").children().toggleClass("none");
-        $("#friendlyW").children().toggleClass("flex");
-        $("#friendlyL").children().toggleClass("none");
-        $("#friendlyL").children().toggleClass("flex");
-        $("#friendlyButton i", this).toggleClass("fas fa-chevron-down fas fa-chevron-up");
-      }
-      else if($(this).prop("checked") == false){
-        $("#friendlyW").children().toggleClass("none");
-        $("#friendlyW").children().toggleClass("flex");
-        $("#friendlyL").children().toggleClass("none");
-        $("#friendlyL").children().toggleClass("flex");
-        $("#friendlyButton i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
-  }})
-  $('#asFriendly input[type="checkbox"]').click(function(){
-
-      if($(this).prop("checked") == true){
-
-        $("#enemyW").children().toggleClass("none");
-        $("#enemyW").children().toggleClass("flex");
-        $("#enemyL").children().toggleClass("none");
-        $("#enemyL").children().toggleClass("flex");
-        $("enemyButton i").toggleClass("fas fa-chevron-up fas fa-chevron-down");
-    
-      }
-      else if($(this).prop("checked") == false){
-
-        $("#enemyW").children().toggleClass("none");
-        $("#enemyW").children().toggleClass("flex");
-        $("#enemyL").children().toggleClass("none");
-        $("#enemyL").children().toggleClass("flex");
-        $("#enemyButton i").toggleClass("fas fa-chevron-up fas fa-chevron-down");
-    
-  }}) 
+    if (selectedMap === "all_maps") {
+      $(".matchButton").removeClass("none");
+      $('#onlyWins input[type="checkbox"]').attr("disabled", true);
+      $('#onlyLost input[type="checkbox"]').removeAttr("disabled");
+    }
   });
+  $('#onlyWins input[type="checkbox"]').click(function () {
+    if ($(this).prop("checked") == true) {
+      $(".matchButton").removeClass("none");
+      $(".matchButton").addClass("none");
+      $(`[data-result="WIN"]`).removeClass('none');
+      $('#onlyLost input[type="checkbox"]').attr("disabled", true);
+      $('#mapFilter').attr("disabled", true);
+    } else if ($(this).prop("checked") == false) {
+      $(".matchButton").removeClass("none");
+      $('#onlyLost input[type="checkbox"]').removeAttr("disabled");
+      $('#mapFilter').removeAttr("disabled");
+    }
+  });
+  $('#onlyLost input[type="checkbox"]').click(function () {
+    if ($(this).prop("checked") == true) {
+      $(".matchButton").removeClass("none");
+      $(".matchButton").addClass("none");
+      $('[data-result="LOSE"]').removeClass('none');
+      $('#onlyWins input[type="checkbox"]').attr("disabled", true);
+      $('#mapFilter').attr("disabled", true);
+    } else if ($(this).prop("checked") == false) {
+      $(".matchButton").removeClass("none");
+      $('#onlyWins input[type="checkbox"]').attr("disabled", true);
+      $('#mapFilter').removeAttr("disabled");
+    }
+  });
+
+
+
+});
+// On error start do the following
+$(document).ajaxError(function () {
+
+});
+// As soon as all ajax loading stops end do the following 
+$(document).ajaxStop(function () {
+  $("#loaderWrapper").addClass("none")
+  $("#friendlyButton").click(function (e) {
+    $("#friendlyW").children().toggleClass("none");
+    $("#friendlyL").children().toggleClass("none");
+    $("i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
+
+  });
+  $("#factsButton").click(function () {
+    $(".listItem").toggleClass("none");
+    $("i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
+  });
+  $("#enemyButton").click(function () {
+    $("#enemyW").children().toggleClass("none");
+    $("#enemyL").children().toggleClass("none");
+    $("i", this).toggleClass("fas fa-chevron-up fas fa-chevron-down");
+  });
+
+});
 //*-------AJAX OBJECT---------*//
 
 //*------- START MAIN FUNCTIONALITY---------*//
-  //* TIMINGS MARKED WITH [i] !!!HEADFUNCTIONALITY!!! ///*
-  //* TIMING: [1]  
+//* TIMINGS MARKED WITH [i] !!!HEADFUNCTIONALITY!!! ///*
+//* TIMING: [1]  
 
-  // Get Player Info 1
-  let handlePlayerNickToId1 = nickname => {
+// Get Player Info 1
+let handlePlayerNickToId1 = nickname => {
   let profileUrl = `${baseUrl}players?nickname=${nickname}`;
-  
+
   $.ajax({
     headers: {
       Authorization: "Bearer " + token
@@ -814,10 +714,10 @@ let activeAjax = 0;
     url: profileUrl,
     dataType: "json",
     error: handleAjaxError,
-    async:false
+    async: false
 
-  }).done(function(data) {
-    console.log("%c"+token , css3)
+  }).done(function (data) {
+    console.log("%c" + token, css3)
     player_id_1 = data.player_id;
     avatar_1 = data.avatar;
     steamid_1 = data.platforms.steam;
@@ -840,10 +740,10 @@ let activeAjax = 0;
      </div>
      `);
   });
-  };//* TIMING: [2]
+}; //* TIMING: [2]
 
-  // Get Player Info 2
-  let handlePlayerNickToId2 = nickname => {
+// Get Player Info 2
+let handlePlayerNickToId2 = nickname => {
   let profileUrl = `${baseUrl}players?nickname=${nickname}`;
   $.ajax({
     headers: {
@@ -851,9 +751,9 @@ let activeAjax = 0;
     },
     url: profileUrl,
     dataType: "json",
-    async:false
-  }).done(function(data) {
-    console.log("%c"+token , css3)
+    async: false
+  }).done(function (data) {
+    console.log("%c" + token, css3)
     player_id_2 = data.player_id;
     avatar_2 = data.avatar;
     steamid_2 = data.platforms.steam;
@@ -873,10 +773,10 @@ let activeAjax = 0;
      </div>
      `);
   });
-  };//* TIMING: [3]
+}; //* TIMING: [3]
 
-  //Get all player matches played
-  let getAllPlayerMatches = (player_id, offset) => {
+//Get all player matches played
+let getAllPlayerMatches = (player_id, offset) => {
   offset = calcSearch() - 100;
   let playerUrl = `${baseUrl}players/${player_id}/history?game=csgo&from=1262304000&to=1555493746&offset=${offset}&limit=${matches_Amount}`;
   $.ajax({
@@ -887,18 +787,18 @@ let activeAjax = 0;
     dataType: "json",
     error: handleAjaxError,
 
-  }).done(function(data) {
-    console.log("%c"+token , css3)
+  }).done(function (data) {
+    console.log("%c" + token, css3)
     for (let i = 0; i < data.items.length; i++) {
       matches = data.items[i];
       faceiturl = convertUrl(matches.faceit_url);
-      
+
       players = matches.playing_players;
       //Get posi of player1
       posiOne = players.indexOf(player_id_1);
       //Get posi of player2
       posiTwo = players.indexOf(player_id_2);
-      
+
       //Check all games you played together
       if (posiTwo == -1) {
         continue;
@@ -922,10 +822,10 @@ let activeAjax = 0;
 
     }
   });
-  };//* TIMING: [4]
-  let timing4 = false;
-  //Get matches played
-  let getDetailedMatchInfo = urlsplit => {
+}; //* TIMING: [4]
+let timing4 = false;
+//Get matches played
+let getDetailedMatchInfo = urlsplit => {
   let Url = `${baseUrl}matches/${urlsplit}`;
   $.ajax({
     headers: {
@@ -934,8 +834,8 @@ let activeAjax = 0;
     url: Url,
     dataType: "json",
     error: handleAjaxError,
-  }).done(function(data) {
-    console.log("%c"+token , css3)
+  }).done(function (data) {
+    console.log("%c" + token, css3)
     demoUrl = data.demo_url;
     endData = data.finished_at;
     getTime = convertUnixTime(endData);
@@ -943,14 +843,14 @@ let activeAjax = 0;
     demoStorage.push(demoUrl);
     // console.log(matchesStorage)
 
-    
-  });
-  };//* TIMING: [5]
 
-  // Get match statistics
-  let getAllPlayerMatchesStats = (urlsplit, Team) => {
-  
-let timing= 35000 * matches_Amount;
+  });
+}; //* TIMING: [5]
+
+// Get match statistics
+let getAllPlayerMatchesStats = (urlsplit, Team) => {
+
+  let timing = 35000 * matches_Amount;
   let playerUrl = `${baseUrl}matches/${urlsplit}/stats`;
   $.ajax({
     headers: {
@@ -958,10 +858,10 @@ let timing= 35000 * matches_Amount;
     },
     url: playerUrl,
     dataType: "json",
-    timeout:timing,
+    timeout: timing,
     error: "problem get All Player Matches Stats"
-  }).done(function(data) {
-    console.log("%c"+token , css3)
+  }).done(function (data) {
+    console.log("%c" + token, css3)
     //* The map played
     mapPlayed = data.rounds[0].round_stats.Map;
 
@@ -972,7 +872,7 @@ let timing= 35000 * matches_Amount;
     //* Adds win or loss to the games and colors them
     if (data.rounds[0].round_stats.Winner == data.rounds[0].teams[0].team_id) {
       if (
-        player_id_1 == data.rounds[0].teams[0].players[0].player_id||
+        player_id_1 == data.rounds[0].teams[0].players[0].player_id ||
         player_id_1 == data.rounds[0].teams[0].players[1].player_id ||
         player_id_1 == data.rounds[0].teams[0].players[2].player_id ||
         player_id_1 == data.rounds[0].teams[0].players[3].player_id ||
@@ -983,7 +883,7 @@ let timing= 35000 * matches_Amount;
         condition = "LOSE";
       }
     }
-    
+
     if (data.rounds[0].round_stats.Winner == data.rounds[0].teams[1].team_id) {
       if (
         player_id_1 == data.rounds[0].teams[1].players[0].player_id ||
@@ -999,18 +899,15 @@ let timing= 35000 * matches_Amount;
     }
 
     //* Append the buttons
-    
+    else {
+      count++
 
-else {
-  count++
-
-    if (Team == "Friendly") {
-      if (condition == "WIN") {
-        timesWonInTeam++;
-        $("#onlyWins input").removeAttr("disabled");
-        $("#asEnemy input").removeAttr("disabled");
-        $("#friendlyW").append(
-          `<div data-map='${mapPlayed}' class='matchButton flex'>
+      if (Team == "Friendly") {
+        if (condition == "WIN") {
+          timesWonInTeam++;
+          $('#onlyWins input[type="checkbox"]').removeAttr("disabled");
+          $("#friendlyW").append(
+            `<div data-map='${mapPlayed}' data-result='${condition}' data-team='${Team}' class='matchButton flex'>
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
@@ -1024,15 +921,14 @@ else {
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
             <i class="fas fa-chevron-right"></i></a>
             </div>`
-        );
-      }
-      if (condition == "LOSE") {
-        $("#onlyLost input").removeAttr("disabled");
-        $("#asEnemy input").removeAttr("disabled");
+          );
+        }
+        if (condition == "LOSE") {
+          $('#onlyLost input[type="checkbox"]').removeAttr("disabled");
 
-        timesLostInTeam++;
-        $("#friendlyL").append(
-          `<div data-map='${mapPlayed}' class='matchButton flex'>
+          timesLostInTeam++;
+          $("#friendlyL").append(
+            `<div data-map='${mapPlayed}' data-result='${condition}' data-team='${Team}' class='matchButton flex'>
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
@@ -1046,10 +942,10 @@ else {
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
             <i class="fas fa-chevron-right"></i></a>
             </div>`
-        );
-        
-      }
-      $("#friendlyTeam").empty().append(`
+          );
+
+        }
+        $("#friendlyTeam").empty().append(`
           <div class='buttonHead' id='friendlyButton'>
           <i class="fas fa-chevron-up"></i><h3>As friendly: (${timesWonInTeam +
             timesLostInTeam})</h3></div>
@@ -1061,15 +957,14 @@ else {
           <div class='demo'>Demo</div>
           <div></div>
        `);
-    }
-  
-    if (Team == "Enemy") {
-      if (condition == "WIN") {
-        $("#onlyWins input").removeAttr("disabled");
-        $("#asFriendly input").removeAttr("disabled");
-        timesWonVs++;
-        $("#enemyW").append(
-          `<div data-map='${mapPlayed}' class='matchButton flex'>
+      }
+
+      if (Team == "Enemy") {
+        if (condition == "WIN") {
+          $('#onlyWins input[type="checkbox"]').removeAttr("disabled");
+          timesWonVs++;
+          $("#enemyW").append(
+            `<div data-map='${mapPlayed}' data-result='${condition}' data-team='${Team}' class='matchButton flex'>
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
@@ -1083,14 +978,14 @@ else {
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
             <i class="fas fa-chevron-right"></i></a>
             </div>`
-        );
-      }
-      if (condition == "LOSE") {
-        $("#onlyLost input").removeAttr("disabled");
-        $("#asFriendly input").removeAttr("disabled");
-        timesLostVs++;
-        $("#enemyL").append(
-          `<div data-map='${mapPlayed}' class='matchButton flex'>
+          );
+        }
+        if (condition == "LOSE") {
+          $('#onlyLost input[type="checkbox"]').removeAttr("disabled");
+
+          timesLostVs++;
+          $("#enemyL").append(
+            `<div data-map='${mapPlayed}' data-result='${condition}' data-team='${Team}' class='matchButton flex'>
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
@@ -1104,9 +999,9 @@ else {
             <div><a href='https://www.faceit.com/en/csgo/room/${urlsplit}/scoreboard'>
             <i class="fas fa-chevron-right"></i></a>
             </div>`
-        );
-      }
-      $("#enemyTeam").empty().append(`
+          );
+        }
+        $("#enemyTeam").empty().append(`
           <div class='buttonHead'  id='enemyButton'>
           <i class="fas fa-chevron-up"></i><h3>As enemy: (${timesWonVs + timesLostVs})</h3></div>
           <div class='tableHeader' id='enemyTableHead'>
@@ -1117,9 +1012,9 @@ else {
           <div class='demo'>Demo</div>
           <div></div>
        `);
-    
-}
-}
+
+      }
+    }
     //Calculate winrates
     impactScoreFriendly = Math.round(
       (timesWonInTeam / (timesWonInTeam + timesLostInTeam)) * 100
@@ -1137,19 +1032,25 @@ else {
     <div class='listItem'>${impactScoreFriendly}% is the overal winrate when playing together.</div>
     </div>
     `);
-  
-  if(impactScoreEnemy >= 0) {
-    $("#facts").append(`
+
+    if (impactScoreEnemy >= 0) {
+      $("#facts").append(`
     <div class='listItem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</div>
     <div class='listItem'>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong></div>
     `)
-  }
-  else {
+    } else {
 
-  }
+    }
+
+
+
+
+
+
+
   });
 
-  };
+};
 //*------- END MAIN FUNCTIONALITY---------*//
 
 
@@ -1171,7 +1072,7 @@ let calcSearch = () => {
 };
 //Timout events
 let timedEvents = () => {
-  setTimeout(function() {
+  setTimeout(function () {
     getAllPlayerMatches(player_id_1, searchOffset);
   }, 1100);
 };
@@ -1207,49 +1108,49 @@ let handleAjaxError = () => {
 };
 //Convert Timestamp to date
 let convertUnixTime = unixtime => {
-      // Unixtimestamp
-      let unixtimestamp = unixtime;
-      // Months array
-      let months_arr = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec"
-      ];
+  // Unixtimestamp
+  let unixtimestamp = unixtime;
+  // Months array
+  let months_arr = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
 
-      // Convert timestamp to milliseconds
-      let date = new Date(unixtimestamp * 1000);
-      // Year
-      let year = date.getFullYear();
-      // Month
-      let month = months_arr[date.getMonth()];
-      // Day
-      let day = date.getDate();
-      // Hours
-      let hours = date.getHours();
-      // Minutes
-      let minutes = "0" + date.getMinutes();
+  // Convert timestamp to milliseconds
+  let date = new Date(unixtimestamp * 1000);
+  // Year
+  let year = date.getFullYear();
+  // Month
+  let month = months_arr[date.getMonth()];
+  // Day
+  let day = date.getDate();
+  // Hours
+  let hours = date.getHours();
+  // Minutes
+  let minutes = "0" + date.getMinutes();
 
-      let convdataTime =
-        day +
-        " " +
-        month +
-        " " +
-        year +
-        " - " +
-        hours +
-        ":" +
-        minutes.substr(-2);
-        // console.log(convdataTime)
-        return convdataTime
+  let convdataTime =
+    day +
+    " " +
+    month +
+    " " +
+    year +
+    " - " +
+    hours +
+    ":" +
+    minutes.substr(-2);
+  // console.log(convdataTime)
+  return convdataTime
 };
 
 

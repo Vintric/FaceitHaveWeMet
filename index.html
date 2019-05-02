@@ -5,20 +5,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <meta name="description" content="A faceit plugin, to get statistics out of the faceit platform. Primarily developed to find games played together." />
-  <meta name="keywords" content="faceit, stats, comparison, elo, played, csgo, games, demo, winrate, playing, have, we , met, ?">
-  </head>
- 
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-  <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-  <link href='./assets/plugins/flag-icon-css/css/flag-icon.css' rel='stylesheet'> 
-  <link href="./assets/css/style.css" rel="stylesheet" />
-  <title>Faceit: Have we met?</title>
+  <meta name="description"
+    content="A faceit plugin, to get statistics out of the faceit platform. Primarily developed to find games played together." />
+  <meta name="keywords"
+    content="faceit, stats, comparison, elo, played, csgo, games, demo, winrate, playing, have, we , met, ?">
+</head>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+<link rel="icon" href="./favicon.ico" type="image/x-icon" />
+<link href='./assets/plugins/flag-icon-css/css/flag-icon.css' rel='stylesheet'>
+<link href="./assets/css/style.css" rel="stylesheet" />
+<title>Faceit: Have we met?</title>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138681838-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
   gtag('js', new Date());
 
   gtag('config', 'UA-138681838-1');
@@ -40,7 +45,12 @@
   </div>
   <div class='logoFixed'><a href='./index.html'><img src='./assets/img/logohwm.png'></a></div>
   <div class='loaderWrapper none' id='loaderWrapper'>
-    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    <div class="lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </div>
   <div class="container">
 
@@ -49,38 +59,34 @@
       <img src='./assets/img/logo.png'><br />
     </div>
 
-    <form id='formHandling' autocomplete="off"  data-netlify="true">
+    <form id='formHandling' autocomplete="off" data-netlify="true">
       <h1>Faceit: Have we met?</h1>
-      
+
       <div class='inputfieldwrapper' id='inputfieldwrapper'>
-      <input autocomplete="off" class='inputField' id="input1" type="text" placeholder="Player 1"/>
-      <div class='searchBox none' id='searchBox'></div>
+        <input autocomplete="off" class='inputField' id="input1" type="text" placeholder="Player 1" />
+        <div class='searchBox none' id='searchBox'></div>
       </div>
 
 
       <div class='inputfieldwrapper' id='inputfieldwrapper2'>
-      <input autocomplete="off" id="input2" type="text" placeholder="Player 2"/>
-      <div class='searchBox2 none' id='searchBox2'></div>
+        <input autocomplete="off" id="input2" type="text" placeholder="Player 2" />
+        <div class='searchBox2 none' id='searchBox2'></div>
       </div>
-      
-      <input autocomplete="off" id="input3" type="number" placeholder="Search in x matches.." step="100" max="5000" value="100"/>
+
+      <input autocomplete="off" id="input3" type="number" placeholder="Search in x matches.." step="100" max="5000"
+        value="100" />
       <button aria-label="Submit" id="searchButton"><i class="fas fa-search"></i></button>
-      
+
     </form>
     <div class='errorbox' id='errorbox'></div>
-    <div id='filterOptions' class='filterOptions'><h4>Filter on</h4>
+    <div id='filterOptions' class='filterOptions'>
+      <h4>Filter on</h4>
       <div id='onlyWins'>
-        <label><small>Games won</small></label> 
-        <input type="checkbox"  disabled / ></div>
+        <label><small>Games won</small></label>
+        <input type="checkbox" disabled /></div>
       <div id='onlyLost'>
-        <label><small>Games lost</small></label> 
-        <input type="checkbox"  disabled/></div>
-      <div id='asFriendly'>
-        <label><small>As friendly</small></label> 
-        <input type="checkbox"  disabled/></div>
-      <div id='asEnemy'>
-        <label><small>As enemy</small></label> 
-        <input type="checkbox"  disabled/></div>
+        <label><small>Games lost</small></label>
+        <input type="checkbox" disabled /></div>
       <div id='map'>
         <label><small>map</small></label>
         <select id='mapFilter' name="maps" disabled>
@@ -96,13 +102,13 @@
           <option value="de_overpass">de_overpass</option>
         </select>
       </div>
-    </div> 
-     <div class='profiles'>
+    </div>
+    <div class='profiles'>
       <div class='profileBox' id='profilebox1'></div>
       <div class='profileBox' id='profilebox2'></div>
     </div>
     <!-- Grouped Matches -->
-    
+
     <div id="facts"></div>
 
     <div id='friendlyTeam'></div>
@@ -113,7 +119,7 @@
     <div id='enemyL'></div>
 
 
-    
+
     <div class='changelogContainer' id='changelogContainer'>
       <pre><h3>Changelog:</h3></pre>
       <pre>version. 0.63</pre>
@@ -167,17 +173,18 @@
       <pre>&#8226 Added Functionality for more than 100 matches.</pre>
     </div>
     <div class='faqContainer' id='faqContainer'>
-        <h3>FAQ</h3>
-        <p>Q.What does this 'tool' do?</p>
-        <p>A.It provides a insight on games you played together with someone.</p>
+      <h3>FAQ</h3>
+      <p>Q.What does this 'tool' do?</p>
+      <p>A.It provides a insight on games you played together with someone.</p>
 
-        <p>Q.When searching it shows two profile boxes?</p>
-        <p>A.This is the info of the two players being searched for, it show their elo country & steam profile.</p>
+      <p>Q.When searching it shows two profile boxes?</p>
+      <p>A.This is the info of the two players being searched for, it show their elo country & steam profile.</p>
 
-        <p>Q. Questions? add me on <a href='https://steamcommunity.com/id/methodsCSGO'>steam</a> </p>
-        <p>A. Add me on <a href='https://steamcommunity.com/id/methodsCSGO'>steam</a>, i'm also active on <a href='https://twitter.com/methoDsCS'>twitter</a> & discord: methoDs#7444 </p>
+      <p>Q. Questions? add me on <a href='https://steamcommunity.com/id/methodsCSGO'>steam</a> </p>
+      <p>A. Add me on <a href='https://steamcommunity.com/id/methodsCSGO'>steam</a>, i'm also active on <a
+          href='https://twitter.com/methoDsCS'>twitter</a> & discord: methoDs#7444 </p>
     </div>
-  </div>    
+  </div>
   <footer></footer>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"
     integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
