@@ -692,6 +692,10 @@ let activeAjax = 0;
           $(".matchButton").addClass("none");
           $(`[data-map="${selectedMap}"]`).removeClass('none');
         }   
+        if (selectedMap === "all_maps"){
+          console.log('test');
+          $(".matchButton").removeClass("none");
+        }
       })
 
   });
