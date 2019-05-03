@@ -260,10 +260,18 @@ body .container .filterOptions div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 150px;
+  width: 190px;
   height: 20px;
 }
-
+#competitionFilter {
+  position: relative;
+  left: 20%;
+  max-width:70%;
+}
+#map {
+  position: relative;
+  left: 3%;
+}
 body .container .errorbox {
   background: #0e0e0ec5;
   text-align: center;

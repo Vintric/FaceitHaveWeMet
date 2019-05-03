@@ -12,6 +12,7 @@ let searchOffset = 0;
 let matchOutTimer = 0;
 let condition;
 let demoUrl;
+let competition;
 
 let impactScore = 0;
 let impactScoreEnemy = 0;
@@ -24,6 +25,8 @@ let faceiturl;
 const currentVersion = "0.63";
 
 let demoStorage = []
+let competitionStorage = []
+
 let matchesStorage = []
 let count = -1;
 
@@ -628,21 +631,42 @@ $(document).ajaxStart(function () {
   $("#loaderWrapper").removeClass("none");
 
   $('#mapFilter').click(function (e) {
-    let selectedMap = $(":selected").text().toString()
+    let selectedMap = $(this).children("option:selected").text().toString()
     console.log(selectedMap)
     if (selectedMap) {
       $(".matchButton").removeClass("none");
       $(".matchButton").addClass("none");
       $(`[data-map="${selectedMap}"]`).removeClass('none');
-      $('#onlyLost input[type="checkbox"]').attr("disabled", true);
-      $('#onlyWins input[type="checkbox"]').attr("disabled", true);
+      $('#onlyLost input[type="checkbox"]').attr("disabled", !timesLostInTeam > 0);
+      $('#onlyWins input[type="checkbox"]').attr("disabled", !timesWonInTeam > 0);
+      $('#competitionFilter').attr("disabled", true);
     }
     if (selectedMap === "all_maps") {
       $(".matchButton").removeClass("none");
-      $('#onlyWins input[type="checkbox"]').attr("disabled", true);
-      $('#onlyLost input[type="checkbox"]').removeAttr("disabled");
+      $('#onlyWins input[type="checkbox"]').attr("disabled", !timesWonInTeam > 0);
+      $('#onlyLost input[type="checkbox"]').attr("disabled", !timesLostInTeam > 0);
+      $('#competitionFilter').removeAttr("disabled");
     }
   });
+  $('#competitionFilter').click(function (e) {
+    let selectedCompetition = $(this).children("option:selected").val().toString()
+    console.log(selectedCompetition)
+    if (selectedCompetition) {
+      $(".matchButton").removeClass("none");
+      $(".matchButton").addClass("none");
+      $(`[data-competitionid="${selectedCompetition}"]`).removeClass('none');
+      $('#onlyLost input[type="checkbox"]').attr("disabled", !timesLostInTeam > 0);
+      $('#onlyWins input[type="checkbox"]').attr("disabled", !timesWonInTeam > 0);
+      $('#mapFilter').attr("disabled", true);
+    }
+    if (selectedCompetition === "all_competitions") {
+      $(".matchButton").removeClass("none");
+      $('#onlyLost input[type="checkbox"]').attr("disabled", !timesLostInTeam > 0);
+      $('#onlyWins input[type="checkbox"]').attr("disabled", !timesWonInTeam > 0);
+      $('#mapFilter').removeAttr("disabled");
+    }
+  });
+
   $('#onlyWins input[type="checkbox"]').click(function () {
     if ($(this).prop("checked") == true) {
       $(".matchButton").removeClass("none");
@@ -650,10 +674,14 @@ $(document).ajaxStart(function () {
       $(`[data-result="WIN"]`).removeClass('none');
       $('#onlyLost input[type="checkbox"]').attr("disabled", true);
       $('#mapFilter').attr("disabled", true);
+      $('#competitionFilter').attr("disabled", true);
+
     } else if ($(this).prop("checked") == false) {
       $(".matchButton").removeClass("none");
-      $('#onlyLost input[type="checkbox"]').removeAttr("disabled");
+      $('#onlyLost input[type="checkbox"]').attr("disabled", !timesLostInTeam > 0);
       $('#mapFilter').removeAttr("disabled");
+      $('#competitionFilter').removeAttr("disabled");
+
     }
   });
   $('#onlyLost input[type="checkbox"]').click(function () {
@@ -663,10 +691,12 @@ $(document).ajaxStart(function () {
       $('[data-result="LOSE"]').removeClass('none');
       $('#onlyWins input[type="checkbox"]').attr("disabled", true);
       $('#mapFilter').attr("disabled", true);
+      $('#competitionFilter').attr("disabled", true);
     } else if ($(this).prop("checked") == false) {
       $(".matchButton").removeClass("none");
-      $('#onlyWins input[type="checkbox"]').attr("disabled", true);
+      $('#onlyWins input[type="checkbox"]').attr("disabled", !timesWonInTeam > 0);
       $('#mapFilter').removeAttr("disabled");
+      $('#competitionFilter').removeAttr("disabled");
     }
   });
 
@@ -835,13 +865,18 @@ let getDetailedMatchInfo = urlsplit => {
     dataType: "json",
     error: handleAjaxError,
   }).done(function (data) {
-    console.log("%c" + token, css3)
+    console.log(data)
+    // console.log("%c" + token, css3)
+    competition = { name: data.competition_name, id: data.competition_id };
+    if (!$(`#competitionFilter option[value='${data.competition_id}']`).length)
+      $("#competitionFilter").append(new Option(data.competition_name, data.competition_id));
     demoUrl = data.demo_url;
     endData = data.finished_at;
     getTime = convertUnixTime(endData);
+    competitionStorage.push(competition);
     matchesStorage.push(getTime);
     demoStorage.push(demoUrl);
-    // console.log(matchesStorage)
+    console.log(data)
 
 
   });
@@ -864,6 +899,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     console.log("%c" + token, css3)
     //* The map played
     mapPlayed = data.rounds[0].round_stats.Map;
+    $("#competitionFilter").removeAttr("disabled");
 
     $("#mapFilter").removeAttr("disabled");
     //* The score of the game
@@ -907,7 +943,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
           timesWonInTeam++;
           $('#onlyWins input[type="checkbox"]').removeAttr("disabled");
           $("#friendlyW").append(
-            `<div data-map='${mapPlayed}' data-result='${condition}' data-team='${Team}' class='matchButton flex'>
+            `<div data-map='${mapPlayed}' data-result='${condition}' data-team='${Team}' data-competitionId='${competitionStorage[count].id}' class='matchButton flex'>
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
@@ -928,7 +964,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
 
           timesLostInTeam++;
           $("#friendlyL").append(
-            `<div data-map='${mapPlayed}' data-result='${condition}' data-team='${Team}' class='matchButton flex'>
+            `<div data-map='${mapPlayed}' data-result='${condition}' data-team='${Team}' data-competitionId='${competitionStorage[count].id}' class='matchButton flex'>
             <div id='gameTime'>${matchesStorage[count]}</div>
             <div id='scoreLine'>${scoreLine}</div>
             <div class='span${condition}'><strong>${condition}</strong></div>
@@ -948,7 +984,7 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
         $("#friendlyTeam").empty().append(`
           <div class='buttonHead' id='friendlyButton'>
           <i class="fas fa-chevron-up"></i><h3>As friendly: (${timesWonInTeam +
-            timesLostInTeam})</h3></div>
+          timesLostInTeam})</h3></div>
           <div class='tableHeader' id='friendlyTableHead'>
           <div class='gameTime'>Time</div>
           <div class='scoreLine'>Score</div>
@@ -1029,14 +1065,14 @@ let getAllPlayerMatchesStats = (urlsplit, Team) => {
     <div class='listItem'><strong>${player_Nick_1}</strong> has met <strong>${player_Nick_2}</strong> <strong>${timesMet}</strong> times in ${matches_Amount} matches.</div>
     <div class='listItem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played together they won ${timesWonInTeam} games and lost ${timesLostInTeam} games.</div>
     
-    <div class='listItem'>${impactScoreFriendly}% is the overal winrate when playing together.</div>
+    <div class='listItem'>${impactScoreFriendly}% is the overall winrate when playing together.</div>
     </div>
     `);
 
     if (impactScoreEnemy >= 0) {
       $("#facts").append(`
     <div class='listItem'>When <strong>${player_Nick_1}</strong> and <strong>${player_Nick_2}</strong> played on opposites <strong>${player_Nick_1}</strong> won ${timesWonVs} games and lost ${timesLostVs} games.</div>
-    <div class='listItem'>${impactScoreEnemy}% is the overal winrate when playing against <strong>${player_Nick_2}</strong></div>
+    <div class='listItem'>${impactScoreEnemy}% is the overall winrate when playing against <strong>${player_Nick_2}</strong></div>
     `)
     } else {
 
